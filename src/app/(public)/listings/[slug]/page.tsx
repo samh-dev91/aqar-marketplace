@@ -5,11 +5,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
   Bed, Bath, Maximize2, Car, Layers, Sofa, MapPin,
-  TrendingUp, Eye, MessageCircle, Share2, AlertCircle,
+  Eye, MessageCircle, Share2, AlertCircle,
 } from 'lucide-react';
 import { VerificationBadge } from '@/components/trust/verification-badge';
 import { LiveBadge } from '@/components/trust/live-badge';
 import { ListingCard } from '@/components/listing/listing-card';
+import { AqarScoreBadge } from '@/components/trust/aqar-score-badge';
+import { DistrictStatsCard } from '@/components/listing/district-stats-card';
+import { PriceHistoryChart } from '@/components/listing/price-history-chart';
+import { InstallmentCalculator } from '@/components/listing/installment-calculator';
 import { InquiryButton } from './inquiry-button';
 import { formatPrice, formatArea } from '@/lib/format';
 import type { ListingDetail, ListingCard as ListingCardType } from '@/types/listing';
@@ -264,10 +268,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
                     : listing.propertyType}
                 </span>
                 {listing.aqarScore != null && (
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-primary-700 text-white flex items-center gap-1">
-                    <TrendingUp size={12} />
-                    درجة عقار: {listing.aqarScore}
-                  </span>
+                  <AqarScoreBadge score={listing.aqarScore} size="md" showLabel />
                 )}
               </div>
 
@@ -310,25 +311,24 @@ export default async function ListingDetailPage({ params }: PageProps) {
 
             {/* District stats */}
             {districtStats && (
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-5">
-                <h2 className="font-bold text-gray-900 mb-4">
-                  إحصائيات {listing.district ?? listing.city}
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <div className="bg-white rounded-lg p-3 text-center shadow-sm">
-                    <p className="text-xs text-gray-500 mb-0.5">متوسط السعر / م²</p>
-                    <p className="font-bold text-primary-700 text-sm">{formatPrice(districtStats.avgPricePerSqm)} جنيه</p>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 text-center shadow-sm">
-                    <p className="text-xs text-gray-500 mb-0.5">السعر الوسيط</p>
-                    <p className="font-bold text-primary-700 text-sm">{formatPrice(districtStats.medianPrice)} جنيه</p>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 text-center shadow-sm">
-                    <p className="text-xs text-gray-500 mb-0.5">عدد العقارات</p>
-                    <p className="font-bold text-gray-900 text-sm">{districtStats.listingCount.toLocaleString('ar-EG')}</p>
-                  </div>
-                </div>
-              </div>
+              <DistrictStatsCard
+                stats={{
+                  city: listing.city,
+                  district: listing.district ?? listing.city,
+                  listingCount: districtStats.listingCount,
+                  avgPricePerSqm: districtStats.avgPricePerSqm,
+                  medianPrice: districtStats.medianPrice,
+                  priceChangePercent: districtStats.priceChange6m ?? null,
+                  avgDaysOnMarket: null,
+                }}
+                listingPrice={listing.askingPrice}
+                listingArea={listing.area != null ? String(listing.area) : null}
+              />
+            )}
+
+            {/* Price history chart */}
+            {listing.priceHistory && listing.priceHistory.length > 0 && (
+              <PriceHistoryChart history={listing.priceHistory} />
             )}
 
             {/* Mobile CTA (sticky) */}
@@ -385,6 +385,15 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 listingSlug={listing.slug}
                 listingTitle={listing.titleAr}
               />
+
+              {/* Installment calculator */}
+              {!listing.priceIsHidden && (
+                <InstallmentCalculator
+                  askingPrice={listing.askingPrice}
+                  hasFinancing={listing.hasFinancing}
+                  financing={listing.financing}
+                />
+              )}
             </div>
           </div>
         </div>

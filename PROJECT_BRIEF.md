@@ -32,11 +32,11 @@
 | Phase | Name | Status | Notes |
 |---|---|---|---|
 | A | Foundation & Core Search | ✅ Complete | All tasks done: foundation, lib, API routes, components, pages |
-| B | Trust Layer | 🔄 In Progress | Aqar Score, Mapbox maps, installment calculator, district intelligence |
+| B | Trust Layer | ✅ Complete | Aqar Score service, district/firm pages, installment calculator, price history chart |
 | C | Lead Intelligence | 🔜 Not started | Inquiry Shield WhatsApp flow, consumer accounts, favorites, alerts |
 | D | Mobile Native | 🔜 Not started | Capacitor iOS/Android, geolocation, push notifications |
 
-**Current status:** Phase A complete. All consumer-facing pages, API routes, components, and CRM sync built and committed. Phase B starting.
+**Current status:** Phase A + B complete. Phase C (Lead Intelligence) is next.
 
 ### Completed Work (Phase A — Full)
 
@@ -155,8 +155,9 @@ These additions to the CRM (`C:/firm/`) are required for full end-to-end operati
 
 - `tsc --noEmit` not yet verified against live DB (pending PostgreSQL + Redis setup on server)
 - `Button asChild` prop not wired to Radix Slot — add `@radix-ui/react-slot` if `<Button asChild><Link>` needed
-- CRM `documents.ts` verification tier trigger deferred to Phase B
-- Phase B (Trust Layer) not yet started: Aqar Score service, Mapbox maps, district pages, firm profile pages, installment calculator
+- CRM `documents.ts` verification tier trigger deferred (Phase B item, still pending)
+- Mapbox GL JS map component not yet built (deferred — not blocking for Phase B core)
+- `avgDaysOnMarket` set to `0` as "unavailable" marker in `updateDistrictStats()` — marketplace doesn't track days-on-market directly; this field improves with CRM deal data integration
 
 ---
 
