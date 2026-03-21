@@ -13,7 +13,7 @@
 
 | Item | Value |
 |---|---|
-| Project root | `C:/firm/B2C/` (planning only — full project will be at `C:/aqar-marketplace/` or similar when initialized) |
+| Project root | `C:/firm/B2C/` |
 | Spec | `CLAUDE.md` |
 | Phase task list | `IMPLEMENTATION_PLAN.md` |
 | GitHub repo | `https://github.com/samh-dev91/aqar-marketplace` |
@@ -31,30 +31,49 @@
 
 | Phase | Name | Status | Notes |
 |---|---|---|---|
-| A | Foundation & Core Search | 🔄 In Progress | A1–A2 complete (foundation + lib). A3–A5 complete (API routes). A6 (UI pages) pending. |
-| B | Trust Layer | 🔜 Not started | Aqar Score, Mapbox maps, installment calculator, district intelligence |
+| A | Foundation & Core Search | ✅ Complete | All tasks done: foundation, lib, API routes, components, pages |
+| B | Trust Layer | 🔄 In Progress | Aqar Score, Mapbox maps, installment calculator, district intelligence |
 | C | Lead Intelligence | 🔜 Not started | Inquiry Shield WhatsApp flow, consumer accounts, favorites, alerts |
 | D | Mobile Native | 🔜 Not started | Capacitor iOS/Android, geolocation, push notifications |
 
-**Current status:** Phase A3–A5 complete. API routes, webhook handler, and listing sync service built and committed.
+**Current status:** Phase A complete. All consumer-facing pages, API routes, components, and CRM sync built and committed. Phase B starting.
 
-### Completed Work (Phase A3–A5)
+### Completed Work (Phase A — Full)
 
-#### API Routes Built
-- `src/app/api/webhook/crm/route.ts` — HMAC-SHA256 verified CRM webhook receiver. Logs to `SyncLog`, delegates to `processWebhook` async (returns 200 immediately).
-- `src/app/api/search/route.ts` — Full search with filters (city, district, propertyType, transactionType, price range, area range, bedrooms, verificationTier, monthlyBudget), pagination (max 24/page), 5 sort modes.
-- `src/app/api/listings/[slug]/route.ts` — Listing detail with similar listings (4 items), district stats, price history (24 entries), fire-and-forget view count increment.
-- `src/app/api/inquire/route.ts` — Rate-limited (5/phone/hr via Redis), phone normalization (+20 Egypt), phone hashing (SHA-256), creates `Inquiry` record, fires CRM lead creation async.
-- `src/app/api/autocomplete/route.ts` — Redis-cached (5 min) city + district typeahead, min 2 chars.
+#### Foundation (A1–A2)
+- `prisma/schema.prisma` — 15 models: Listing, ListingFinancing, PriceHistory, Consumer, ConsumerSession, Inquiry, Favorite, PriceAlert, SavedSearch, Comparison, ComparisonItem, ViewHistory, DistrictStats, MarketReport, SyncLog, OtpCode
+- `src/lib/db.ts`, `src/lib/redis.ts`, `src/lib/format.ts`, `src/lib/crm-api.ts`, `src/lib/utils.ts`
+- `src/i18n/request.ts`, `src/i18n/messages/ar.json`, `src/i18n/messages/en.json`
+- `src/types/listing.ts`, `src/types/crm-webhook.ts`
+- `src/app/layout.tsx`, `src/app/globals.css`
+- `next.config.ts`, `tailwind.config.ts`, `tsconfig.json`
 
-#### Services Built
-- `src/services/listing-sync.ts` — `processWebhook` handles LISTING_PUBLISHED / LISTING_UPDATED / LISTING_REMOVED / STATUS_CHANGED. Price history tracked on price changes. Slug generation with nanoid(8). Upsert pattern for idempotency.
+#### API Routes (A3–A5)
+- `src/app/api/webhook/crm/route.ts` — HMAC-SHA256 verified CRM webhook receiver. Logs to `SyncLog`, delegates to `processWebhook` async.
+- `src/app/api/search/route.ts` — Full search with all filters, pagination (max 24/page), 5 sort modes.
+- `src/app/api/listings/[slug]/route.ts` — Detail with similar listings (4), district stats, price history (24), fire-and-forget view count.
+- `src/app/api/inquire/route.ts` — Rate-limited (5/phone/hr Redis), phone normalization (+20), SHA-256 hashing, creates Inquiry + CRM lead async.
+- `src/app/api/autocomplete/route.ts` — Redis-cached (5 min) typeahead, min 2 chars.
+- `src/services/listing-sync.ts` — processWebhook: LISTING_PUBLISHED/UPDATED/REMOVED/STATUS_CHANGED. Upsert + price history + nanoid slugs.
+- `src/scripts/initial-sync.ts` — Bulk sync from CRM bridge API (paginated 50/page).
 
-#### Scripts Built
-- `src/scripts/initial-sync.ts` — Bulk sync all CRM listings (paginated, 50/page). Also syncs district stats. Run once: `npx tsx src/scripts/initial-sync.ts`
+#### Components (A6)
+- `src/components/ui/button.tsx`, `badge.tsx`
+- `src/components/trust/verification-badge.tsx` (LISTED/VERIFIED/GOLD shields), `live-badge.tsx` (pulse sync indicator)
+- `src/components/listing/listing-card.tsx`
+- `src/components/layout/marketplace-header.tsx`, `mobile-bottom-nav.tsx`, `marketplace-footer.tsx`
+- `src/components/inquiry/inquiry-modal.tsx` (Inquiry Shield modal)
+- `src/components/search/search-filters.tsx` (with monthly budget toggle)
 
-#### Dependencies Added
-- `nanoid` — slug generation in listing-sync service
+#### Pages (A7)
+- `src/app/(public)/layout.tsx` — Route group layout with header/footer/mobile nav
+- `src/app/(public)/page.tsx` — Home: hero search, stats bar, featured listings (ISR 60s), districts, how-it-works, trust signals. WebSite + SearchAction JSON-LD.
+- `src/app/(public)/search/page.tsx` — Server Component search results: filter sidebar, responsive grid, sort, pagination, empty state.
+- `src/app/(public)/search/search-filters-panel.tsx` — Client filter wrapper with mobile bottom sheet + URL navigation.
+- `src/app/(public)/listings/[slug]/page.tsx` — ISR listing detail: image gallery, specs, district stats, similar listings, RealEstateListing JSON-LD.
+- `src/app/(public)/listings/[slug]/inquiry-button.tsx` — Client InquiryModal trigger (sticky mobile / desktop card).
+- `src/app/sitemap.ts` — Dynamic sitemap from Prisma (50k limit).
+- `src/app/robots.ts` — Standard robots with sitemap URL.
 
 ---
 
@@ -107,15 +126,15 @@ aqar-marketplace/
 
 ## CRM Dependencies
 
-These additions to the CRM (`C:/firm/`) are required before Phase A can complete:
+These additions to the CRM (`C:/firm/`) are required for full end-to-end operation:
 
 | File | Change | Status |
 |---|---|---|
-| `server/src/routes/marketplace-bridge.ts` | NEW — 5 HMAC-authenticated endpoints | 🔜 Not started |
-| `server/src/services/marketplaceSyncService.ts` | NEW — outbound webhook fires on publish/update/status change | 🔜 Not started |
-| `server/src/routes/properties.ts` | MODIFY — add webhook trigger after property status/price/image changes | 🔜 Not started |
-| `server/src/routes/listings.ts` | MODIFY — add webhook trigger on `isPublished` toggle | 🔜 Not started |
-| `server/src/routes/documents.ts` | MODIFY — add verification tier recompute trigger on document approval | 🔜 Not started |
+| `server/src/routes/marketplace-bridge.ts` | NEW — 5 HMAC-authenticated endpoints | ✅ Complete |
+| `server/src/services/marketplaceSyncService.ts` | NEW — outbound webhook fires on publish/update/status change | ✅ Complete |
+| `server/src/routes/properties.ts` | MODIFY — webhook trigger on status/price/image changes | ✅ Complete |
+| `server/src/routes/listings.ts` | MODIFY — webhook trigger on `isPublished` toggle | ✅ Complete |
+| `server/src/routes/documents.ts` | MODIFY — verification tier recompute trigger on document approval | 🔜 Phase B |
 
 ---
 
@@ -134,10 +153,10 @@ These additions to the CRM (`C:/firm/`) are required before Phase A can complete
 
 ## Known Issues / Deferred Items
 
-- CRM bridge endpoints (`server/src/routes/marketplace-bridge.ts`) not yet built — required before webhook + initial-sync work end-to-end
-- `tsc --noEmit` not yet verified (pending generated Prisma types + DB connection)
-- GitHub repo `samh-dev91/aqar-marketplace` — exists, main branch in use
-- Phase A6 (UI pages: home, search results, listing detail) not yet built
+- `tsc --noEmit` not yet verified against live DB (pending PostgreSQL + Redis setup on server)
+- `Button asChild` prop not wired to Radix Slot — add `@radix-ui/react-slot` if `<Button asChild><Link>` needed
+- CRM `documents.ts` verification tier trigger deferred to Phase B
+- Phase B (Trust Layer) not yet started: Aqar Score service, Mapbox maps, district pages, firm profile pages, installment calculator
 
 ---
 
