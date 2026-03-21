@@ -31,12 +31,30 @@
 
 | Phase | Name | Status | Notes |
 |---|---|---|---|
-| A | Foundation & Core Search | 🔜 Not started | Next.js setup, CRM Bridge API, search engine, core pages |
+| A | Foundation & Core Search | 🔄 In Progress | A1–A2 complete (foundation + lib). A3–A5 complete (API routes). A6 (UI pages) pending. |
 | B | Trust Layer | 🔜 Not started | Aqar Score, Mapbox maps, installment calculator, district intelligence |
 | C | Lead Intelligence | 🔜 Not started | Inquiry Shield WhatsApp flow, consumer accounts, favorites, alerts |
 | D | Mobile Native | 🔜 Not started | Capacitor iOS/Android, geolocation, push notifications |
 
-**Current status:** Planning complete. Implementation has NOT started. Awaiting build approval.
+**Current status:** Phase A3–A5 complete. API routes, webhook handler, and listing sync service built and committed.
+
+### Completed Work (Phase A3–A5)
+
+#### API Routes Built
+- `src/app/api/webhook/crm/route.ts` — HMAC-SHA256 verified CRM webhook receiver. Logs to `SyncLog`, delegates to `processWebhook` async (returns 200 immediately).
+- `src/app/api/search/route.ts` — Full search with filters (city, district, propertyType, transactionType, price range, area range, bedrooms, verificationTier, monthlyBudget), pagination (max 24/page), 5 sort modes.
+- `src/app/api/listings/[slug]/route.ts` — Listing detail with similar listings (4 items), district stats, price history (24 entries), fire-and-forget view count increment.
+- `src/app/api/inquire/route.ts` — Rate-limited (5/phone/hr via Redis), phone normalization (+20 Egypt), phone hashing (SHA-256), creates `Inquiry` record, fires CRM lead creation async.
+- `src/app/api/autocomplete/route.ts` — Redis-cached (5 min) city + district typeahead, min 2 chars.
+
+#### Services Built
+- `src/services/listing-sync.ts` — `processWebhook` handles LISTING_PUBLISHED / LISTING_UPDATED / LISTING_REMOVED / STATUS_CHANGED. Price history tracked on price changes. Slug generation with nanoid(8). Upsert pattern for idempotency.
+
+#### Scripts Built
+- `src/scripts/initial-sync.ts` — Bulk sync all CRM listings (paginated, 50/page). Also syncs district stats. Run once: `npx tsx src/scripts/initial-sync.ts`
+
+#### Dependencies Added
+- `nanoid` — slug generation in listing-sync service
 
 ---
 
@@ -116,9 +134,10 @@ These additions to the CRM (`C:/firm/`) are required before Phase A can complete
 
 ## Known Issues / Deferred Items
 
-- GitHub repo `samh-dev91/aqar-marketplace` — to be created when Phase A starts
-- Next.js project initialization pending build approval
-- CRM bridge endpoints not yet built
+- CRM bridge endpoints (`server/src/routes/marketplace-bridge.ts`) not yet built — required before webhook + initial-sync work end-to-end
+- `tsc --noEmit` not yet verified (pending generated Prisma types + DB connection)
+- GitHub repo `samh-dev91/aqar-marketplace` — exists, main branch in use
+- Phase A6 (UI pages: home, search results, listing detail) not yet built
 
 ---
 
