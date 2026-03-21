@@ -1,0 +1,343 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("MARKETPLACE_DATABASE_URL")
+}
+
+model Listing {
+  id                 String    @id @default(cuid())
+  crmFirmId          String
+  crmPropertyId      String
+  slug               String    @unique
+  crmFirmSlug        String
+  titleAr            String
+  titleEn            String?
+  descriptionAr      String?
+  descriptionEn      String?
+  propertyType       String
+  transactionType    String
+  address            String
+  district           String?
+  city               String    @default("Cairo")
+  latitude           Decimal?  @db.Decimal(10, 7)
+  longitude          Decimal?  @db.Decimal(10, 7)
+  googleMapsUrl      String?
+  area               Decimal?  @db.Decimal(10, 2)
+  bedrooms           Int?
+  bathrooms          Int?
+  floor              Int?
+  totalFloors        Int?
+  parkingSpaces      Int?
+  isFurnished        Boolean?
+  askingPrice        Decimal   @db.Decimal(15, 2)
+  pricePerSqm        Decimal?  @db.Decimal(10, 2)
+  priceIsHidden      Boolean   @default(false)
+  images             String[]
+  videoUrl           String?
+  virtualTourUrl     String?
+  floorPlanUrl       String?
+  verificationTier   String    @default("LISTED")
+  isStale            Boolean   @default(false)
+  staleSince         DateTime?
+  lastSyncAt         DateTime  @default(now())
+  aqarScore          Int?
+  aqarScoreAt        DateTime?
+  brokerDisplayName  String?
+  brokerResponseTime Int?
+  brokerDealCount    Int?
+  firmNameAr         String
+  firmNameEn         String?
+  firmLogoUrl        String?
+  hasFinancing       Boolean   @default(false)
+  monthlyFrom        Decimal?  @db.Decimal(15, 2)
+  downPaymentFrom    Decimal?  @db.Decimal(15, 2)
+  installmentMonths  Int?
+  viewCount          Int       @default(0)
+  inquiryCount       Int       @default(0)
+  favoriteCount      Int       @default(0)
+  shareCount         Int       @default(0)
+  isActive           Boolean   @default(true)
+  publishedAt        DateTime  @default(now())
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  financing    ListingFinancing?
+  priceHistory PriceHistory[]
+  inquiries    Inquiry[]
+  favorites    Favorite[]
+  alerts       PriceAlert[]
+  comparisons  ComparisonItem[]
+  viewHistory  ViewHistory[]
+
+  @@unique([crmFirmId, crmPropertyId])
+  @@index([isActive, city, district])
+  @@index([isActive, propertyType, transactionType])
+  @@index([isActive, askingPrice])
+  @@index([isActive, verificationTier])
+  @@index([isActive, aqarScore])
+  @@index([isActive, bedrooms])
+  @@index([slug])
+  @@index([crmFirmSlug])
+  @@index([latitude, longitude])
+}
+
+model ListingFinancing {
+  id                String   @id @default(cuid())
+  listingId         String   @unique
+  listing           Listing  @relation(fields: [listingId], references: [id])
+  downPaymentMin    Decimal  @db.Decimal(15, 2)
+  downPaymentMax    Decimal? @db.Decimal(15, 2)
+  installmentMonths Int
+  frequency         String   @default("MONTHLY")
+  monthlyMin        Decimal  @db.Decimal(15, 2)
+  monthlyMax        Decimal? @db.Decimal(15, 2)
+  developerName     String?
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model PriceHistory {
+  id         String   @id @default(cuid())
+  listingId  String
+  listing    Listing  @relation(fields: [listingId], references: [id])
+  price      Decimal  @db.Decimal(15, 2)
+  changeType String   @default("SYNC")
+  recordedAt DateTime @default(now())
+
+  @@index([listingId, recordedAt])
+}
+
+model Consumer {
+  id                 String    @id @default(cuid())
+  phone              String?   @unique
+  phoneHash          String?   @unique
+  email              String?   @unique
+  nameAr             String?
+  nameEn             String?
+  avatarUrl          String?
+  preferredCity      String?
+  preferredDistricts String[]
+  budgetMin          Decimal?  @db.Decimal(15, 2)
+  budgetMax          Decimal?  @db.Decimal(15, 2)
+  monthlyBudget      Decimal?  @db.Decimal(15, 2)
+  preferredTypes     String[]
+  searchPreferences  Json?
+  googleId           String?   @unique
+  appleId            String?   @unique
+  pushSubscriptions  Json?
+  lastActiveAt       DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  sessions      ConsumerSession[]
+  favorites     Favorite[]
+  inquiries     Inquiry[]
+  alerts        PriceAlert[]
+  comparisons   Comparison[]
+  viewHistory   ViewHistory[]
+  savedSearches SavedSearch[]
+}
+
+model ConsumerSession {
+  id         String   @id @default(cuid())
+  consumerId String
+  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  token      String   @unique @default(cuid())
+  provider   String   @default("OTP")
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+
+  @@index([consumerId])
+}
+
+model Inquiry {
+  id                String    @id @default(cuid())
+  listingId         String
+  listing           Listing   @relation(fields: [listingId], references: [id])
+  consumerId        String?
+  consumer          Consumer? @relation(fields: [consumerId], references: [id])
+  crmFirmId         String
+  crmPropertyId     String
+  consumerName      String
+  consumerPhone     String
+  consumerPhoneHash String
+  consumerEmail     String?
+  message           String?
+  budgetStated      Decimal?  @db.Decimal(15, 2)
+  preferredViewing  DateTime?
+  status            String    @default("PENDING")
+  crmLeadId         String?
+  optInMethod       String?
+  whatsappSentAt    DateTime?
+  brokerNotifiedAt  DateTime?
+  consumerOptedInAt DateTime?
+  expiresAt         DateTime?
+  createdAt         DateTime  @default(now())
+
+  @@index([listingId])
+  @@index([crmFirmId])
+  @@index([consumerId])
+  @@index([status])
+  @@index([consumerPhoneHash])
+  @@index([createdAt])
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  consumerId String
+  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  listingId  String
+  listing    Listing  @relation(fields: [listingId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([consumerId, listingId])
+  @@index([consumerId])
+}
+
+model PriceAlert {
+  id              String       @id @default(cuid())
+  consumerId      String
+  consumer        Consumer     @relation(fields: [consumerId], references: [id])
+  listingId       String?
+  listing         Listing?     @relation(fields: [listingId], references: [id])
+  savedSearchId   String?
+  savedSearch     SavedSearch? @relation(fields: [savedSearchId], references: [id])
+  alertType       String
+  priceThreshold  Decimal?     @db.Decimal(15, 2)
+  dropPercent     Decimal?     @db.Decimal(5, 2)
+  isActive        Boolean      @default(true)
+  lastTriggeredAt DateTime?
+  triggerCount    Int          @default(0)
+  createdAt       DateTime     @default(now())
+
+  @@index([consumerId, isActive])
+  @@index([listingId])
+  @@index([savedSearchId])
+}
+
+model SavedSearch {
+  id          String    @id @default(cuid())
+  consumerId  String
+  consumer    Consumer  @relation(fields: [consumerId], references: [id])
+  nameAr      String?
+  filters     Json
+  lastRunAt   DateTime?
+  resultCount Int?
+  createdAt   DateTime  @default(now())
+
+  alerts PriceAlert[]
+
+  @@index([consumerId])
+}
+
+model Comparison {
+  id         String   @id @default(cuid())
+  consumerId String
+  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  name       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  items ComparisonItem[]
+
+  @@index([consumerId])
+}
+
+model ComparisonItem {
+  id           String     @id @default(cuid())
+  comparisonId String
+  comparison   Comparison @relation(fields: [comparisonId], references: [id])
+  listingId    String
+  listing      Listing    @relation(fields: [listingId], references: [id])
+  addedAt      DateTime   @default(now())
+  position     Int        @default(0)
+
+  @@unique([comparisonId, listingId])
+  @@index([comparisonId])
+}
+
+model ViewHistory {
+  id         String   @id @default(cuid())
+  consumerId String
+  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  listingId  String
+  listing    Listing  @relation(fields: [listingId], references: [id])
+  viewedAt   DateTime @default(now())
+
+  @@index([consumerId, viewedAt])
+}
+
+model DistrictStats {
+  id              String   @id @default(cuid())
+  city            String
+  district        String
+  propertyType    String
+  transactionType String
+  avgPricePerSqm  Decimal  @db.Decimal(10, 2)
+  medianPrice     Decimal  @db.Decimal(15, 2)
+  avgDaysOnMarket Int
+  dealVelocity    Int
+  priceChange6m   Decimal  @db.Decimal(5, 2)
+  priceChange12m  Decimal  @db.Decimal(5, 2)
+  listingCount    Int
+  soldCount30d    Int      @default(0)
+  computedAt      DateTime @default(now())
+
+  @@unique([city, district, propertyType, transactionType])
+  @@index([city, district])
+}
+
+model MarketReport {
+  id            String    @id @default(cuid())
+  titleAr       String
+  titleEn       String?
+  period        String
+  periodType    String
+  city          String?
+  bodyAr        String
+  bodyEn        String?
+  pdfUrl        String?
+  coverImageUrl String?
+  isPublished   Boolean   @default(false)
+  publishedAt   DateTime?
+  viewCount     Int       @default(0)
+  createdAt     DateTime  @default(now())
+
+  @@index([periodType, isPublished])
+  @@index([city])
+}
+
+model SyncLog {
+  id            String    @id @default(cuid())
+  eventType     String
+  crmFirmId     String
+  crmPropertyId String
+  listingSlug   String?
+  payload       Json?
+  status        String    @default("PENDING")
+  errorMessage  String?
+  processedAt   DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@index([status, createdAt])
+  @@index([crmFirmId])
+}
+
+model OtpCode {
+  id        String    @id @default(cuid())
+  phone     String
+  code      String
+  attempts  Int       @default(0)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([phone, createdAt])
+}

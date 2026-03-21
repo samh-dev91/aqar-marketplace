@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 214 36% 96%;
+    --foreground: 215 25% 17%;
+    --primary: 208 62% 28%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 214 20% 90%;
+    --muted-foreground: 215 15% 45%;
+    --border: 214 20% 86%;
+    --ring: 208 62% 28%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* RTL helpers */
+  [dir="rtl"] .flip-x {
+    transform: scaleX(-1);
+  }
+}
+
+@layer utilities {
+  .font-cairo {
+    font-family: var(--font-cairo), var(--font-tajawal), sans-serif;
+  }
+
+  .font-inter {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  /* Mapbox CSS will be imported in the map component */
+}
