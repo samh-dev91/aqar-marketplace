@@ -33,10 +33,10 @@
 |---|---|---|---|
 | A | Foundation & Core Search | ✅ Complete | All tasks done: foundation, lib, API routes, components, pages |
 | B | Trust Layer | ✅ Complete | Aqar Score service, district/firm pages, installment calculator, price history chart |
-| C | Lead Intelligence | 🔜 Not started | Inquiry Shield WhatsApp flow, consumer accounts, favorites, alerts |
+| C | Lead Intelligence | ✅ Complete | OTP auth, consumer sessions, favorites, price alerts, profile — WhatsApp OTP deferred to Phase D |
 | D | Mobile Native | 🔜 Not started | Capacitor iOS/Android, geolocation, push notifications |
 
-**Current status:** Phase A + B complete. Phase C (Lead Intelligence) is next.
+**Current status:** Phase A + B + C complete. Phase D (Mobile Native) is next.
 
 ### Completed Work (Phase A — Full)
 
@@ -158,6 +158,9 @@ These additions to the CRM (`C:/firm/`) are required for full end-to-end operati
 - CRM `documents.ts` verification tier trigger deferred (Phase B item, still pending)
 - Mapbox GL JS map component not yet built (deferred — not blocking for Phase B core)
 - `avgDaysOnMarket` set to `0` as "unavailable" marker in `updateDistrictStats()` — marketplace doesn't track days-on-market directly; this field improves with CRM deal data integration
+- `Consumer` schema uses `nameAr`/`nameEn` (not `name`) — profile UI uses `nameAr` for display; `ConsumerSession` has no `isRevoked` field (session invalidation uses `expiresAt` only)
+- `PriceAlert` has no `searchQuery` field — alerts are listing-specific only (not saved search alerts); `priceThreshold` is correct field name
+- WhatsApp OTP delivery not wired — OTP code is logged to console; integrate via `ULTRAMSG_TOKEN` in Phase D
 
 ---
 
