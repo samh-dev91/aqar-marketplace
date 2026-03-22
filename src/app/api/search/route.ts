@@ -53,6 +53,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     where.monthlyFrom = { lte: new Decimal(monthlyBudget) };
   }
 
+  // Bounding box filter for map view
+  const bbox = searchParams.get('bbox'); // "lng1,lat1,lng2,lat2"
+  if (bbox) {
+    const [lng1, lat1, lng2, lat2] = bbox.split(',').map(Number);
+    if (!isNaN(lng1) && !isNaN(lat1) && !isNaN(lng2) && !isNaN(lat2)) {
+      where.latitude = { gte: new Decimal(Math.min(lat1, lat2)), lte: new Decimal(Math.max(lat1, lat2)) };
+      where.longitude = { gte: new Decimal(Math.min(lng1, lng2)), lte: new Decimal(Math.max(lng1, lng2)) };
+    }
+  }
+
   // Full-text search across title, address, district, city
   if (q) {
     where.OR = [
@@ -88,6 +98,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         brokerDisplayName: true,
         firmNameAr: true, firmNameEn: true, firmLogoUrl: true,
         hasFinancing: true, monthlyFrom: true,
+        latitude: true, longitude: true,
         viewCount: true, favoriteCount: true,
         isActive: true, publishedAt: true,
       },
@@ -102,6 +113,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     pricePerSqm: l.pricePerSqm?.toString() ?? null,
     area: l.area?.toString() ?? null,
     monthlyFrom: l.monthlyFrom?.toString() ?? null,
+    latitude: l.latitude?.toString() ?? null,
+    longitude: l.longitude?.toString() ?? null,
     lastSyncAt: l.lastSyncAt.toISOString(),
     publishedAt: l.publishedAt.toISOString(),
   }));

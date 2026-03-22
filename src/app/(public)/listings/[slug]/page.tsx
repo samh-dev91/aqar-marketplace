@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import {
   Bed, Bath, Maximize2, Car, Layers, Sofa, MapPin,
   Eye, MessageCircle, Share2, AlertCircle,
@@ -17,6 +18,11 @@ import { InstallmentCalculator } from '@/components/listing/installment-calculat
 import { InquiryButton } from './inquiry-button';
 import { formatPrice, formatArea } from '@/lib/format';
 import type { ListingDetail, ListingCard as ListingCardType } from '@/types/listing';
+
+const ListingMap = dynamic(
+  () => import('@/components/map/listing-map').then(m => m.ListingMap),
+  { ssr: false }
+);
 
 export const revalidate = 60;
 
@@ -36,6 +42,7 @@ interface ApiResponse {
     createdAt: string;
     latitude?: string | null;
     longitude?: string | null;
+    googleMapsUrl?: string | null;
   };
   similarListings: ListingCardType[];
   districtStats: {
@@ -117,7 +124,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
       labelAr: 'التأثيث',
       value: listing.isFurnished != null ? (listing.isFurnished ? 'مفروش' : 'غير مفروش') : null,
     },
-  ].filter((s) => s.value !== null);
+  ].filter((s) => s.value !== null) as { icon: keyof typeof SPEC_ICON_MAP; labelAr: string; value: string | null }[];
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -307,6 +314,17 @@ export default async function ListingDetailPage({ params }: PageProps) {
                   {listing.descriptionAr}
                 </p>
               </div>
+            )}
+
+            {/* Map */}
+            {listing.latitude && listing.longitude && (
+              <ListingMap
+                latitude={Number(listing.latitude)}
+                longitude={Number(listing.longitude)}
+                title={listing.titleAr}
+                price={formatPrice(listing.askingPrice)}
+                googleMapsUrl={listing.googleMapsUrl}
+              />
             )}
 
             {/* District stats */}

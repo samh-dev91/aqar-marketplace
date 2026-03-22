@@ -15,14 +15,14 @@ function computeVerificationTier(data: CrmWebhookPayload['data']): 'LISTED' | 'V
 }
 
 export async function processWebhook(payload: CrmWebhookPayload): Promise<void> {
-  const { event, firmId, propertyId, data } = payload;
+  const { event, firmId, firmSlug, propertyId, data } = payload;
 
   switch (event) {
     case 'LISTING_PUBLISHED':
-      await processPublish(firmId, propertyId, data);
+      await processPublish(firmId, firmSlug, propertyId, data);
       break;
     case 'LISTING_UPDATED':
-      await processUpdate(firmId, propertyId, data);
+      await processUpdate(firmId, firmSlug, propertyId, data);
       break;
     case 'LISTING_REMOVED':
       await processRemove(firmId, propertyId);
@@ -40,6 +40,7 @@ export async function processWebhook(payload: CrmWebhookPayload): Promise<void> 
 
 async function processPublish(
   firmId: string,
+  firmSlug: string,
   propertyId: string,
   data: CrmWebhookPayload['data']
 ): Promise<void> {
@@ -65,7 +66,7 @@ async function processPublish(
 
   const upsertData = {
     slug,
-    crmFirmSlug: data.firmSlug ?? '',
+    crmFirmSlug: firmSlug,
     titleAr: data.titleAr,
     titleEn: data.titleEn ?? null,
     propertyType: data.propertyType,
@@ -108,6 +109,7 @@ async function processPublish(
 
 async function processUpdate(
   firmId: string,
+  firmSlug: string,
   propertyId: string,
   data: CrmWebhookPayload['data']
 ): Promise<void> {
@@ -117,7 +119,7 @@ async function processUpdate(
 
   if (!existing) {
     // Not in marketplace yet — publish it now
-    await processPublish(firmId, propertyId, data);
+    await processPublish(firmId, firmSlug, propertyId, data);
     return;
   }
 

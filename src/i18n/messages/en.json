@@ -187,5 +187,14 @@
     "NorthCoast": "North Coast",
     "Hurghada": "Hurghada",
     "Sharm": "Sharm El Sheikh"
+  },
+  "map": {
+    "title": "Property Price Map",
+    "openGoogleMaps": "Open in Google Maps",
+    "viewOnMap": "View on Map",
+    "searchNearWork": "Search Near Work",
+    "travelTime": "Travel Time",
+    "commuteSearch": "Commute Search",
+    "noLocation": "Location not available"
   }
 }

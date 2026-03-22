@@ -187,5 +187,14 @@
     "NorthCoast": "الساحل الشمالي",
     "Hurghada": "الغردقة",
     "Sharm": "شرم الشيخ"
+  },
+  "map": {
+    "title": "خريطة أسعار العقارات",
+    "openGoogleMaps": "فتح في خرائط جوجل",
+    "viewOnMap": "عرض على الخريطة",
+    "searchNearWork": "ابحث قريباً من العمل",
+    "travelTime": "وقت التنقل",
+    "commuteSearch": "بحث بوقت التنقل",
+    "noLocation": "الموقع غير متاح"
   }
 }

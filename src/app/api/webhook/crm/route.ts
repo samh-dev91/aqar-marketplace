@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { db } from '@/lib/db';
+import type { Prisma } from '@/generated/prisma';
 import type { CrmWebhookPayload } from '@/types/crm-webhook';
 import { processWebhook } from '@/services/listing-sync';
 
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       eventType: payload.event,
       crmFirmId: payload.firmId,
       crmPropertyId: payload.propertyId,
-      payload: payload as Record<string, unknown>,
+      payload: JSON.parse(JSON.stringify(payload)) as Prisma.InputJsonValue,
       status: 'PENDING',
     },
   });
