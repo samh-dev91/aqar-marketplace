@@ -3,7 +3,7 @@
 
 > **For any AI reading this:** Start here. This file tracks the live build state.
 > - `CLAUDE.md` — specification, tech stack, non-negotiable rules, GitHub workflow
-> - `IMPLEMENTATION_PLAN.md` — complete phase-by-phase task list with exit criteria
+> - `master_plan.md` — complete phase-by-phase task list with exit criteria (Phases 1–17)
 >
 > **MANDATORY UPDATE RULE:** Every session that modifies any file MUST update this brief AND push to GitHub before the session ends.
 

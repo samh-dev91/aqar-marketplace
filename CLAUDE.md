@@ -3,7 +3,7 @@
 
 > **Instructions for Claude Code:** This is the authoritative specification for the Aqar Trust Platform marketplace. **Read this file and `PROJECT_BRIEF.md` completely before writing a single line of code.**
 >
-> `PROJECT_BRIEF.md` tracks the live build state. `IMPLEMENTATION_PLAN.md` has the complete phase-by-phase task list with exit criteria. This file (`CLAUDE.md`) is the specification and workflow rules.
+> `PROJECT_BRIEF.md` tracks the live build state. `master_plan.md` has the complete phase-by-phase task list with exit criteria. This file (`CLAUDE.md`) is the specification and workflow rules.
 
 ---
 
@@ -38,7 +38,7 @@ A **consumer-facing property marketplace** at `aqar.[domain].com` that aggregate
 - Broker full names, phone, email → NEVER leave the CRM database
 - The marketplace database contains ONLY what a stranger can safely see
 
-Full architecture diagram and all technical decisions: see `IMPLEMENTATION_PLAN.md`.
+Full architecture diagram and all technical decisions: see `master_plan.md`.
 
 ---
 
