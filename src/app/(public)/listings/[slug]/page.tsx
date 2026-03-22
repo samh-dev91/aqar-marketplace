@@ -13,6 +13,7 @@ import { VerificationBadge } from '@/components/trust/verification-badge';
 import { LiveBadge } from '@/components/trust/live-badge';
 import { ListingCard } from '@/components/listing/listing-card';
 import { AqarScoreBadge } from '@/components/trust/aqar-score-badge';
+import { EstimateBadge } from '@/components/trust/estimate-badge';
 import { DistrictStatsCard } from '@/components/listing/district-stats-card';
 import { PriceHistoryChart } from '@/components/listing/price-history-chart';
 import { InstallmentCalculator } from '@/components/listing/installment-calculator';
@@ -279,6 +280,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 {listing.aqarScore != null && (
                   <AqarScoreBadge score={listing.aqarScore} size="md" showLabel />
                 )}
+                <EstimateBadge slug={listing.slug} />
               </div>
 
               {/* Stats row */}
