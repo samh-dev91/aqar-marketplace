@@ -196,5 +196,28 @@
     "travelTime": "Travel Time",
     "commuteSearch": "Commute Search",
     "noLocation": "Location not available"
+  },
+  "inquiries": {
+    "title": "My Inquiries",
+    "empty": "No inquiries yet",
+    "status": {
+      "PENDING": "Pending",
+      "WHATSAPP_SENT": "WhatsApp Sent",
+      "OPTED_IN": "Opted In",
+      "DECLINED": "Declined",
+      "EXPIRED": "Expired"
+    }
+  },
+  "savedSearches": {
+    "title": "Saved Searches",
+    "empty": "No saved searches",
+    "newResults": "new results",
+    "saveSearch": "Save Search"
+  },
+  "viewing": {
+    "schedule": "Schedule Viewing",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time",
+    "confirm": "Confirm Appointment"
   }
 }

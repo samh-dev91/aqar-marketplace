@@ -196,5 +196,28 @@
     "travelTime": "وقت التنقل",
     "commuteSearch": "بحث بوقت التنقل",
     "noLocation": "الموقع غير متاح"
+  },
+  "inquiries": {
+    "title": "استفساراتي",
+    "empty": "لا توجد استفسارات بعد",
+    "status": {
+      "PENDING": "في الانتظار",
+      "WHATSAPP_SENT": "تم إرسال WhatsApp",
+      "OPTED_IN": "تمت الموافقة",
+      "DECLINED": "تم الرفض",
+      "EXPIRED": "انتهت الصلاحية"
+    }
+  },
+  "savedSearches": {
+    "title": "بحثاتي المحفوظة",
+    "empty": "لا توجد بحثات محفوظة",
+    "newResults": "نتيجة جديدة",
+    "saveSearch": "حفظ البحث"
+  },
+  "viewing": {
+    "schedule": "حجز معاينة",
+    "selectDate": "اختر يوم المعاينة",
+    "selectTime": "اختر الوقت",
+    "confirm": "تأكيد الموعد"
   }
 }

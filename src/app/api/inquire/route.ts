@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { crmBridgeApi } from '@/lib/crm-api';
 import Decimal from 'decimal.js';
+import { sendWhatsApp } from '@/lib/whatsapp';
 
 const inquirySchema = z.object({
   listingSlug: z.string().min(1),
@@ -64,7 +65,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // Find the listing
   const listing = await db.listing.findUnique({
     where: { slug: listingSlug },
-    select: { id: true, crmFirmId: true, crmPropertyId: true, isActive: true },
+    select: { id: true, crmFirmId: true, crmPropertyId: true, isActive: true, titleAr: true, slug: true },
   });
 
   if (!listing || !listing.isActive) {
@@ -88,6 +89,21 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000), // 48h
     },
   });
+
+  // Send WhatsApp Inquiry Shield message to consumer
+  const normalizedConsumerPhone = normalizePhone(consumerPhone);
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? '';
+  const listingUrl = `${appUrl}/listings/${listing.slug}`;
+  sendWhatsApp(
+    normalizedConsumerPhone,
+    `مرحباً ${consumerName}،\n\nتم استلام استفساركم عن العقار: ${listing.titleAr}\n\nللموافقة على مشاركة رقم هاتفك مع الوسيط العقاري، رد على هذه الرسالة بـ: *نعم*\nللإلغاء: *لا*\n\nرابط العقار: ${listingUrl}\n\nينتهي هذا الطلب خلال 48 ساعة.`
+  ).then(() => {
+    // Update status to WHATSAPP_SENT and record timestamp
+    db.inquiry.update({
+      where: { id: inquiry.id },
+      data: { status: 'WHATSAPP_SENT', whatsappSentAt: new Date() },
+    }).catch(() => {});
+  }).catch(() => {});
 
   // Increment inquiry count fire-and-forget
   db.listing.update({

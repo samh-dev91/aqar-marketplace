@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { db } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { normalizePhone } from '@/lib/utils';
+import { sendWhatsApp } from '@/lib/whatsapp';
 
 const sendSchema = z.object({
   phone: z.string().min(10).max(20),
@@ -57,8 +58,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     },
   });
 
-  // In production: send via WhatsApp/SMS (Phase D)
-  console.log(`[OTP] Phone: ${phone} | Code: ${code} | Expires: ${expiresAt.toISOString()}`);
+  // Send OTP via WhatsApp
+  await sendWhatsApp(phone, `رمز التحقق الخاص بك في عقار ثرست: *${code}*\n\nهذا الرمز صالح لمدة 10 دقائق.`);
 
   return NextResponse.json(
     { success: true, message: 'تم إرسال رمز التحقق' },

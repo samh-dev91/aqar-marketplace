@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { MessageCircle, Search, Bell, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getConsumerToken, clearConsumerToken, fetchWithAuth } from '@/lib/consumer-auth';
 
@@ -274,6 +276,43 @@ export default function ProfilePage() {
             {saveMessage && (
               <span className="text-sm text-green-600 font-medium">{saveMessage}</span>
             )}
+          </div>
+
+          {/* Quick nav links */}
+          <div className="pt-4 border-t border-gray-100 space-y-2">
+            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
+              روابط سريعة
+            </p>
+            <Link
+              href="/profile/inquiries"
+              className="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors group"
+            >
+              <span className="flex items-center gap-2.5 text-sm font-medium text-gray-700">
+                <MessageCircle size={16} className="text-primary-700" />
+                استفساراتي
+              </span>
+              <ChevronLeft size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
+            </Link>
+            <Link
+              href="/profile/searches"
+              className="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors group"
+            >
+              <span className="flex items-center gap-2.5 text-sm font-medium text-gray-700">
+                <Search size={16} className="text-primary-700" />
+                بحثاتي المحفوظة
+              </span>
+              <ChevronLeft size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
+            </Link>
+            <Link
+              href="/profile/alerts"
+              className="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors group"
+            >
+              <span className="flex items-center gap-2.5 text-sm font-medium text-gray-700">
+                <Bell size={16} className="text-primary-700" />
+                تنبيهاتي
+              </span>
+              <ChevronLeft size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
+            </Link>
           </div>
 
           {/* Logout */}
