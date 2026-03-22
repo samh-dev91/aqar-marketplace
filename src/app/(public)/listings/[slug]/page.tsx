@@ -16,6 +16,7 @@ import { DistrictStatsCard } from '@/components/listing/district-stats-card';
 import { PriceHistoryChart } from '@/components/listing/price-history-chart';
 import { InstallmentCalculator } from '@/components/listing/installment-calculator';
 import { InquiryButton } from './inquiry-button';
+import { ShareButton } from '@/components/listing/share-button';
 import { formatPrice, formatArea } from '@/lib/format';
 import type { ListingDetail, ListingCard as ListingCardType } from '@/types/listing';
 
@@ -284,6 +285,13 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 <span className="flex items-center gap-1"><Eye size={12} /> {listing.viewCount.toLocaleString('ar-EG')} مشاهدة</span>
                 <span className="flex items-center gap-1"><MessageCircle size={12} /> {listing.inquiryCount.toLocaleString('ar-EG')} استفسار</span>
                 <span className="flex items-center gap-1"><Share2 size={12} /> {listing.shareCount.toLocaleString('ar-EG')} مشاركة</span>
+                <div className="ms-auto">
+                  <ShareButton
+                    title={listing.titleAr}
+                    url={`${process.env.NEXT_PUBLIC_APP_URL ?? ''}/listings/${listing.slug}`}
+                    price={formatPrice(listing.askingPrice)}
+                  />
+                </div>
               </div>
             </div>
 

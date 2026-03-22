@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { redis } from '@/lib/redis';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // 1 hour cache
@@ -29,7 +30,18 @@ const DISTRICT_BOUNDARIES: Record<string, number[][][]> = {
   'الأميرية': [[[31.28, 30.04], [31.33, 30.04], [31.33, 30.08], [31.28, 30.08], [31.28, 30.04]]],
 };
 
-export async function GET(): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  // Sliding window rate limit: 30 req/min per IP
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  try {
+    const rateLimitKey = `rl:map:${ip}`;
+    const count = await redis.incr(rateLimitKey);
+    if (count === 1) await redis.expire(rateLimitKey, 60);
+    if (count > 30) {
+      return NextResponse.json({ type: 'FeatureCollection', features: [] }, { status: 429 });
+    }
+  } catch { /* Redis unavailable — allow request */ }
+
   try {
     const stats = await db.districtStats.findMany({
       select: {

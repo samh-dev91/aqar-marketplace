@@ -219,5 +219,14 @@
     "selectDate": "Select Date",
     "selectTime": "Select Time",
     "confirm": "Confirm Appointment"
+  },
+  "performance": {
+    "offline": "No internet connection — showing cached data",
+    "reconnected": "Connection restored",
+    "loading": "Loading...",
+    "share": "Share",
+    "copied": "Copied",
+    "pullToRefresh": "Pull to refresh",
+    "refreshing": "Refreshing..."
   }
 }

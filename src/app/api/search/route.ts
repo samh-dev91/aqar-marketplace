@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { redis } from '@/lib/redis';
 import Decimal from 'decimal.js';
 import type { Prisma } from '@/generated/prisma';
 
@@ -25,6 +26,25 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const verificationTier = searchParams.get('verificationTier') ?? '';
   const sortBy = searchParams.get('sortBy') ?? 'newest';
   const monthlyBudget = searchParams.get('monthlyBudget');
+
+  // Build deterministic cache key from sorted query params
+  const cacheParams = new URLSearchParams();
+  const sortedEntries = [...req.nextUrl.searchParams.entries()].sort(([a], [b]) => a.localeCompare(b));
+  for (const [k, v] of sortedEntries) cacheParams.set(k, v);
+  const cacheKey = `search:${cacheParams.toString()}`;
+
+  // Try cache first
+  try {
+    const cached = await redis.get(cacheKey);
+    if (cached) {
+      return NextResponse.json(JSON.parse(cached) as object, {
+        headers: {
+          'X-Cache': 'HIT',
+          'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=300',
+        },
+      });
+    }
+  } catch { /* Redis unavailable — continue to DB */ }
 
   const where: Prisma.ListingWhereInput = { isActive: true };
 
@@ -119,7 +139,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     publishedAt: l.publishedAt.toISOString(),
   }));
 
-  return NextResponse.json({
+  const response = {
     success: true,
     data: serialized,
     pagination: {
@@ -128,5 +148,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       total,
       totalPages: Math.ceil(total / limit),
     },
-  });
+  };
+
+  // Cache for 2 minutes (120s)
+  try {
+    void redis.setex(cacheKey, 120, JSON.stringify(response));
+  } catch { /* Redis unavailable — skip caching */ }
+
+  return NextResponse.json(response);
 }

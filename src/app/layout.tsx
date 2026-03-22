@@ -3,6 +3,7 @@ import { Cairo, Tajawal, Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { ServiceWorkerRegistrar } from '@/components/sw-registrar';
+import { OfflineBanner } from '@/components/layout/offline-banner';
 import './globals.css';
 
 const cairo = Cairo({
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         } bg-background text-gray-900 antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
+          <OfflineBanner />
           <ServiceWorkerRegistrar />
           {children}
         </NextIntlClientProvider>
