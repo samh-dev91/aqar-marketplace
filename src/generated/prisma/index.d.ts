@@ -93,6 +93,11 @@ export type SyncLog = $Result.DefaultSelection<Prisma.$SyncLogPayload>
  * 
  */
 export type OtpCode = $Result.DefaultSelection<Prisma.$OtpCodePayload>
+/**
+ * Model Project
+ * 
+ */
+export type Project = $Result.DefaultSelection<Prisma.$ProjectPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -376,6 +381,16 @@ export class PrismaClient<
     * ```
     */
   get otpCode(): Prisma.OtpCodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.project`: Exposes CRUD operations for the **Project** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Projects
+    * const projects = await prisma.project.findMany()
+    * ```
+    */
+  get project(): Prisma.ProjectDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -832,7 +847,8 @@ export namespace Prisma {
     DistrictStats: 'DistrictStats',
     MarketReport: 'MarketReport',
     SyncLog: 'SyncLog',
-    OtpCode: 'OtpCode'
+    OtpCode: 'OtpCode',
+    Project: 'Project'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -848,7 +864,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "listing" | "listingFinancing" | "priceHistory" | "consumer" | "consumerSession" | "inquiry" | "favorite" | "priceAlert" | "savedSearch" | "comparison" | "comparisonItem" | "viewHistory" | "districtStats" | "marketReport" | "syncLog" | "otpCode"
+      modelProps: "listing" | "listingFinancing" | "priceHistory" | "consumer" | "consumerSession" | "inquiry" | "favorite" | "priceAlert" | "savedSearch" | "comparison" | "comparisonItem" | "viewHistory" | "districtStats" | "marketReport" | "syncLog" | "otpCode" | "project"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1972,6 +1988,76 @@ export namespace Prisma {
           }
         }
       }
+      Project: {
+        payload: Prisma.$ProjectPayload<ExtArgs>
+        fields: Prisma.ProjectFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          findMany: {
+            args: Prisma.ProjectFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>[]
+          }
+          create: {
+            args: Prisma.ProjectCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          createMany: {
+            args: Prisma.ProjectCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProjectCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>[]
+          }
+          delete: {
+            args: Prisma.ProjectDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          update: {
+            args: Prisma.ProjectUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ProjectUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProject>
+          }
+          groupBy: {
+            args: Prisma.ProjectGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProjectGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectCountArgs<ExtArgs>
+            result: $Utils.Optional<ProjectCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2352,6 +2438,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ProjectCountOutputType
+   */
+
+  export type ProjectCountOutputType = {
+    listings: number
+  }
+
+  export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    listings?: boolean | ProjectCountOutputTypeCountListingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectCountOutputType
+     */
+    select?: ProjectCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountListingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListingWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2419,6 +2536,7 @@ export namespace Prisma {
     crmPropertyId: string | null
     slug: string | null
     crmFirmSlug: string | null
+    projectId: string | null
     titleAr: string | null
     titleEn: string | null
     descriptionAr: string | null
@@ -2476,6 +2594,7 @@ export namespace Prisma {
     crmPropertyId: string | null
     slug: string | null
     crmFirmSlug: string | null
+    projectId: string | null
     titleAr: string | null
     titleEn: string | null
     descriptionAr: string | null
@@ -2533,6 +2652,7 @@ export namespace Prisma {
     crmPropertyId: number
     slug: number
     crmFirmSlug: number
+    projectId: number
     titleAr: number
     titleEn: number
     descriptionAr: number
@@ -2639,6 +2759,7 @@ export namespace Prisma {
     crmPropertyId?: true
     slug?: true
     crmFirmSlug?: true
+    projectId?: true
     titleAr?: true
     titleEn?: true
     descriptionAr?: true
@@ -2696,6 +2817,7 @@ export namespace Prisma {
     crmPropertyId?: true
     slug?: true
     crmFirmSlug?: true
+    projectId?: true
     titleAr?: true
     titleEn?: true
     descriptionAr?: true
@@ -2753,6 +2875,7 @@ export namespace Prisma {
     crmPropertyId?: true
     slug?: true
     crmFirmSlug?: true
+    projectId?: true
     titleAr?: true
     titleEn?: true
     descriptionAr?: true
@@ -2898,6 +3021,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId: string | null
     titleAr: string
     titleEn: string | null
     descriptionAr: string | null
@@ -2975,6 +3099,7 @@ export namespace Prisma {
     crmPropertyId?: boolean
     slug?: boolean
     crmFirmSlug?: boolean
+    projectId?: boolean
     titleAr?: boolean
     titleEn?: boolean
     descriptionAr?: boolean
@@ -3025,6 +3150,7 @@ export namespace Prisma {
     publishedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    project?: boolean | Listing$projectArgs<ExtArgs>
     financing?: boolean | Listing$financingArgs<ExtArgs>
     priceHistory?: boolean | Listing$priceHistoryArgs<ExtArgs>
     inquiries?: boolean | Listing$inquiriesArgs<ExtArgs>
@@ -3041,6 +3167,7 @@ export namespace Prisma {
     crmPropertyId?: boolean
     slug?: boolean
     crmFirmSlug?: boolean
+    projectId?: boolean
     titleAr?: boolean
     titleEn?: boolean
     descriptionAr?: boolean
@@ -3091,6 +3218,7 @@ export namespace Prisma {
     publishedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    project?: boolean | Listing$projectArgs<ExtArgs>
   }, ExtArgs["result"]["listing"]>
 
   export type ListingSelectScalar = {
@@ -3099,6 +3227,7 @@ export namespace Prisma {
     crmPropertyId?: boolean
     slug?: boolean
     crmFirmSlug?: boolean
+    projectId?: boolean
     titleAr?: boolean
     titleEn?: boolean
     descriptionAr?: boolean
@@ -3152,6 +3281,7 @@ export namespace Prisma {
   }
 
   export type ListingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | Listing$projectArgs<ExtArgs>
     financing?: boolean | Listing$financingArgs<ExtArgs>
     priceHistory?: boolean | Listing$priceHistoryArgs<ExtArgs>
     inquiries?: boolean | Listing$inquiriesArgs<ExtArgs>
@@ -3161,11 +3291,14 @@ export namespace Prisma {
     viewHistory?: boolean | Listing$viewHistoryArgs<ExtArgs>
     _count?: boolean | ListingCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ListingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ListingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | Listing$projectArgs<ExtArgs>
+  }
 
   export type $ListingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Listing"
     objects: {
+      project: Prisma.$ProjectPayload<ExtArgs> | null
       financing: Prisma.$ListingFinancingPayload<ExtArgs> | null
       priceHistory: Prisma.$PriceHistoryPayload<ExtArgs>[]
       inquiries: Prisma.$InquiryPayload<ExtArgs>[]
@@ -3180,6 +3313,7 @@ export namespace Prisma {
       crmPropertyId: string
       slug: string
       crmFirmSlug: string
+      projectId: string | null
       titleAr: string
       titleEn: string | null
       descriptionAr: string | null
@@ -3594,6 +3728,7 @@ export namespace Prisma {
    */
   export interface Prisma__ListingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends Listing$projectArgs<ExtArgs> = {}>(args?: Subset<T, Listing$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     financing<T extends Listing$financingArgs<ExtArgs> = {}>(args?: Subset<T, Listing$financingArgs<ExtArgs>>): Prisma__ListingFinancingClient<$Result.GetResult<Prisma.$ListingFinancingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     priceHistory<T extends Listing$priceHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Listing$priceHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findMany"> | Null>
     inquiries<T extends Listing$inquiriesArgs<ExtArgs> = {}>(args?: Subset<T, Listing$inquiriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InquiryPayload<ExtArgs>, T, "findMany"> | Null>
@@ -3635,6 +3770,7 @@ export namespace Prisma {
     readonly crmPropertyId: FieldRef<"Listing", 'String'>
     readonly slug: FieldRef<"Listing", 'String'>
     readonly crmFirmSlug: FieldRef<"Listing", 'String'>
+    readonly projectId: FieldRef<"Listing", 'String'>
     readonly titleAr: FieldRef<"Listing", 'String'>
     readonly titleEn: FieldRef<"Listing", 'String'>
     readonly descriptionAr: FieldRef<"Listing", 'String'>
@@ -3906,6 +4042,10 @@ export namespace Prisma {
      */
     data: ListingCreateManyInput | ListingCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListingIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3996,6 +4136,21 @@ export namespace Prisma {
      * Filter which Listings to delete
      */
     where?: ListingWhereInput
+  }
+
+  /**
+   * Listing.project
+   */
+  export type Listing$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
   }
 
   /**
@@ -19444,6 +19599,1288 @@ export namespace Prisma {
 
 
   /**
+   * Model Project
+   */
+
+  export type AggregateProject = {
+    _count: ProjectCountAggregateOutputType | null
+    _avg: ProjectAvgAggregateOutputType | null
+    _sum: ProjectSumAggregateOutputType | null
+    _min: ProjectMinAggregateOutputType | null
+    _max: ProjectMaxAggregateOutputType | null
+  }
+
+  export type ProjectAvgAggregateOutputType = {
+    latitude: Decimal | null
+    longitude: Decimal | null
+    deliveryYear: number | null
+    totalUnits: number | null
+    availableUnits: number | null
+    minPrice: Decimal | null
+    maxPrice: Decimal | null
+    minDownPayment: number | null
+    maxYears: number | null
+  }
+
+  export type ProjectSumAggregateOutputType = {
+    latitude: Decimal | null
+    longitude: Decimal | null
+    deliveryYear: number | null
+    totalUnits: number | null
+    availableUnits: number | null
+    minPrice: Decimal | null
+    maxPrice: Decimal | null
+    minDownPayment: number | null
+    maxYears: number | null
+  }
+
+  export type ProjectMinAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    nameAr: string | null
+    nameEn: string | null
+    developerNameAr: string | null
+    developerNameEn: string | null
+    coverImageUrl: string | null
+    videoUrl: string | null
+    virtualTourUrl: string | null
+    district: string | null
+    city: string | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    deliveryYear: number | null
+    totalUnits: number | null
+    availableUnits: number | null
+    minPrice: Decimal | null
+    maxPrice: Decimal | null
+    hasFinancing: boolean | null
+    minDownPayment: number | null
+    maxYears: number | null
+    descriptionAr: string | null
+    descriptionEn: string | null
+    isActive: boolean | null
+    publishedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectMaxAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    nameAr: string | null
+    nameEn: string | null
+    developerNameAr: string | null
+    developerNameEn: string | null
+    coverImageUrl: string | null
+    videoUrl: string | null
+    virtualTourUrl: string | null
+    district: string | null
+    city: string | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    deliveryYear: number | null
+    totalUnits: number | null
+    availableUnits: number | null
+    minPrice: Decimal | null
+    maxPrice: Decimal | null
+    hasFinancing: boolean | null
+    minDownPayment: number | null
+    maxYears: number | null
+    descriptionAr: string | null
+    descriptionEn: string | null
+    isActive: boolean | null
+    publishedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectCountAggregateOutputType = {
+    id: number
+    slug: number
+    nameAr: number
+    nameEn: number
+    developerNameAr: number
+    developerNameEn: number
+    coverImageUrl: number
+    galleryImages: number
+    videoUrl: number
+    virtualTourUrl: number
+    district: number
+    city: number
+    latitude: number
+    longitude: number
+    deliveryYear: number
+    totalUnits: number
+    availableUnits: number
+    minPrice: number
+    maxPrice: number
+    hasFinancing: number
+    minDownPayment: number
+    maxYears: number
+    amenities: number
+    descriptionAr: number
+    descriptionEn: number
+    isActive: number
+    publishedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProjectAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    deliveryYear?: true
+    totalUnits?: true
+    availableUnits?: true
+    minPrice?: true
+    maxPrice?: true
+    minDownPayment?: true
+    maxYears?: true
+  }
+
+  export type ProjectSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    deliveryYear?: true
+    totalUnits?: true
+    availableUnits?: true
+    minPrice?: true
+    maxPrice?: true
+    minDownPayment?: true
+    maxYears?: true
+  }
+
+  export type ProjectMinAggregateInputType = {
+    id?: true
+    slug?: true
+    nameAr?: true
+    nameEn?: true
+    developerNameAr?: true
+    developerNameEn?: true
+    coverImageUrl?: true
+    videoUrl?: true
+    virtualTourUrl?: true
+    district?: true
+    city?: true
+    latitude?: true
+    longitude?: true
+    deliveryYear?: true
+    totalUnits?: true
+    availableUnits?: true
+    minPrice?: true
+    maxPrice?: true
+    hasFinancing?: true
+    minDownPayment?: true
+    maxYears?: true
+    descriptionAr?: true
+    descriptionEn?: true
+    isActive?: true
+    publishedAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectMaxAggregateInputType = {
+    id?: true
+    slug?: true
+    nameAr?: true
+    nameEn?: true
+    developerNameAr?: true
+    developerNameEn?: true
+    coverImageUrl?: true
+    videoUrl?: true
+    virtualTourUrl?: true
+    district?: true
+    city?: true
+    latitude?: true
+    longitude?: true
+    deliveryYear?: true
+    totalUnits?: true
+    availableUnits?: true
+    minPrice?: true
+    maxPrice?: true
+    hasFinancing?: true
+    minDownPayment?: true
+    maxYears?: true
+    descriptionAr?: true
+    descriptionEn?: true
+    isActive?: true
+    publishedAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectCountAggregateInputType = {
+    id?: true
+    slug?: true
+    nameAr?: true
+    nameEn?: true
+    developerNameAr?: true
+    developerNameEn?: true
+    coverImageUrl?: true
+    galleryImages?: true
+    videoUrl?: true
+    virtualTourUrl?: true
+    district?: true
+    city?: true
+    latitude?: true
+    longitude?: true
+    deliveryYear?: true
+    totalUnits?: true
+    availableUnits?: true
+    minPrice?: true
+    maxPrice?: true
+    hasFinancing?: true
+    minDownPayment?: true
+    maxYears?: true
+    amenities?: true
+    descriptionAr?: true
+    descriptionEn?: true
+    isActive?: true
+    publishedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProjectAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Project to aggregate.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Projects
+    **/
+    _count?: true | ProjectCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProjectAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProjectSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectMaxAggregateInputType
+  }
+
+  export type GetProjectAggregateType<T extends ProjectAggregateArgs> = {
+        [P in keyof T & keyof AggregateProject]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProject[P]>
+      : GetScalarType<T[P], AggregateProject[P]>
+  }
+
+
+
+
+  export type ProjectGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectWhereInput
+    orderBy?: ProjectOrderByWithAggregationInput | ProjectOrderByWithAggregationInput[]
+    by: ProjectScalarFieldEnum[] | ProjectScalarFieldEnum
+    having?: ProjectScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectCountAggregateInputType | true
+    _avg?: ProjectAvgAggregateInputType
+    _sum?: ProjectSumAggregateInputType
+    _min?: ProjectMinAggregateInputType
+    _max?: ProjectMaxAggregateInputType
+  }
+
+  export type ProjectGroupByOutputType = {
+    id: string
+    slug: string
+    nameAr: string
+    nameEn: string | null
+    developerNameAr: string
+    developerNameEn: string | null
+    coverImageUrl: string | null
+    galleryImages: string[]
+    videoUrl: string | null
+    virtualTourUrl: string | null
+    district: string
+    city: string
+    latitude: Decimal | null
+    longitude: Decimal | null
+    deliveryYear: number | null
+    totalUnits: number | null
+    availableUnits: number | null
+    minPrice: Decimal
+    maxPrice: Decimal | null
+    hasFinancing: boolean
+    minDownPayment: number | null
+    maxYears: number | null
+    amenities: string[]
+    descriptionAr: string | null
+    descriptionEn: string | null
+    isActive: boolean
+    publishedAt: Date
+    updatedAt: Date
+    _count: ProjectCountAggregateOutputType | null
+    _avg: ProjectAvgAggregateOutputType | null
+    _sum: ProjectSumAggregateOutputType | null
+    _min: ProjectMinAggregateOutputType | null
+    _max: ProjectMaxAggregateOutputType | null
+  }
+
+  type GetProjectGroupByPayload<T extends ProjectGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    nameAr?: boolean
+    nameEn?: boolean
+    developerNameAr?: boolean
+    developerNameEn?: boolean
+    coverImageUrl?: boolean
+    galleryImages?: boolean
+    videoUrl?: boolean
+    virtualTourUrl?: boolean
+    district?: boolean
+    city?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    deliveryYear?: boolean
+    totalUnits?: boolean
+    availableUnits?: boolean
+    minPrice?: boolean
+    maxPrice?: boolean
+    hasFinancing?: boolean
+    minDownPayment?: boolean
+    maxYears?: boolean
+    amenities?: boolean
+    descriptionAr?: boolean
+    descriptionEn?: boolean
+    isActive?: boolean
+    publishedAt?: boolean
+    updatedAt?: boolean
+    listings?: boolean | Project$listingsArgs<ExtArgs>
+    _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["project"]>
+
+  export type ProjectSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    nameAr?: boolean
+    nameEn?: boolean
+    developerNameAr?: boolean
+    developerNameEn?: boolean
+    coverImageUrl?: boolean
+    galleryImages?: boolean
+    videoUrl?: boolean
+    virtualTourUrl?: boolean
+    district?: boolean
+    city?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    deliveryYear?: boolean
+    totalUnits?: boolean
+    availableUnits?: boolean
+    minPrice?: boolean
+    maxPrice?: boolean
+    hasFinancing?: boolean
+    minDownPayment?: boolean
+    maxYears?: boolean
+    amenities?: boolean
+    descriptionAr?: boolean
+    descriptionEn?: boolean
+    isActive?: boolean
+    publishedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["project"]>
+
+  export type ProjectSelectScalar = {
+    id?: boolean
+    slug?: boolean
+    nameAr?: boolean
+    nameEn?: boolean
+    developerNameAr?: boolean
+    developerNameEn?: boolean
+    coverImageUrl?: boolean
+    galleryImages?: boolean
+    videoUrl?: boolean
+    virtualTourUrl?: boolean
+    district?: boolean
+    city?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    deliveryYear?: boolean
+    totalUnits?: boolean
+    availableUnits?: boolean
+    minPrice?: boolean
+    maxPrice?: boolean
+    hasFinancing?: boolean
+    minDownPayment?: boolean
+    maxYears?: boolean
+    amenities?: boolean
+    descriptionAr?: boolean
+    descriptionEn?: boolean
+    isActive?: boolean
+    publishedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    listings?: boolean | Project$listingsArgs<ExtArgs>
+    _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Project"
+    objects: {
+      listings: Prisma.$ListingPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      slug: string
+      nameAr: string
+      nameEn: string | null
+      developerNameAr: string
+      developerNameEn: string | null
+      coverImageUrl: string | null
+      galleryImages: string[]
+      videoUrl: string | null
+      virtualTourUrl: string | null
+      district: string
+      city: string
+      latitude: Prisma.Decimal | null
+      longitude: Prisma.Decimal | null
+      deliveryYear: number | null
+      totalUnits: number | null
+      availableUnits: number | null
+      minPrice: Prisma.Decimal
+      maxPrice: Prisma.Decimal | null
+      hasFinancing: boolean
+      minDownPayment: number | null
+      maxYears: number | null
+      amenities: string[]
+      descriptionAr: string | null
+      descriptionEn: string | null
+      isActive: boolean
+      publishedAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["project"]>
+    composites: {}
+  }
+
+  type ProjectGetPayload<S extends boolean | null | undefined | ProjectDefaultArgs> = $Result.GetResult<Prisma.$ProjectPayload, S>
+
+  type ProjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ProjectFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ProjectCountAggregateInputType | true
+    }
+
+  export interface ProjectDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Project'], meta: { name: 'Project' } }
+    /**
+     * Find zero or one Project that matches the filter.
+     * @param {ProjectFindUniqueArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProjectFindUniqueArgs>(args: SelectSubset<T, ProjectFindUniqueArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Project that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ProjectFindUniqueOrThrowArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProjectFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Project that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectFindFirstArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProjectFindFirstArgs>(args?: SelectSubset<T, ProjectFindFirstArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Project that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectFindFirstOrThrowArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProjectFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Projects that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Projects
+     * const projects = await prisma.project.findMany()
+     * 
+     * // Get first 10 Projects
+     * const projects = await prisma.project.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectWithIdOnly = await prisma.project.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProjectFindManyArgs>(args?: SelectSubset<T, ProjectFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Project.
+     * @param {ProjectCreateArgs} args - Arguments to create a Project.
+     * @example
+     * // Create one Project
+     * const Project = await prisma.project.create({
+     *   data: {
+     *     // ... data to create a Project
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProjectCreateArgs>(args: SelectSubset<T, ProjectCreateArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Projects.
+     * @param {ProjectCreateManyArgs} args - Arguments to create many Projects.
+     * @example
+     * // Create many Projects
+     * const project = await prisma.project.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProjectCreateManyArgs>(args?: SelectSubset<T, ProjectCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Projects and returns the data saved in the database.
+     * @param {ProjectCreateManyAndReturnArgs} args - Arguments to create many Projects.
+     * @example
+     * // Create many Projects
+     * const project = await prisma.project.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Projects and only return the `id`
+     * const projectWithIdOnly = await prisma.project.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProjectCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Project.
+     * @param {ProjectDeleteArgs} args - Arguments to delete one Project.
+     * @example
+     * // Delete one Project
+     * const Project = await prisma.project.delete({
+     *   where: {
+     *     // ... filter to delete one Project
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProjectDeleteArgs>(args: SelectSubset<T, ProjectDeleteArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Project.
+     * @param {ProjectUpdateArgs} args - Arguments to update one Project.
+     * @example
+     * // Update one Project
+     * const project = await prisma.project.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProjectUpdateArgs>(args: SelectSubset<T, ProjectUpdateArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Projects.
+     * @param {ProjectDeleteManyArgs} args - Arguments to filter Projects to delete.
+     * @example
+     * // Delete a few Projects
+     * const { count } = await prisma.project.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProjectDeleteManyArgs>(args?: SelectSubset<T, ProjectDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Projects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Projects
+     * const project = await prisma.project.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProjectUpdateManyArgs>(args: SelectSubset<T, ProjectUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Project.
+     * @param {ProjectUpsertArgs} args - Arguments to update or create a Project.
+     * @example
+     * // Update or create a Project
+     * const project = await prisma.project.upsert({
+     *   create: {
+     *     // ... data to create a Project
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Project we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProjectUpsertArgs>(args: SelectSubset<T, ProjectUpsertArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Projects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectCountArgs} args - Arguments to filter Projects to count.
+     * @example
+     * // Count the number of Projects
+     * const count = await prisma.project.count({
+     *   where: {
+     *     // ... the filter for the Projects we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectCountArgs>(
+      args?: Subset<T, ProjectCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Project.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectAggregateArgs>(args: Subset<T, ProjectAggregateArgs>): Prisma.PrismaPromise<GetProjectAggregateType<T>>
+
+    /**
+     * Group by Project.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Project model
+   */
+  readonly fields: ProjectFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Project.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    listings<T extends Project$listingsArgs<ExtArgs> = {}>(args?: Subset<T, Project$listingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Project model
+   */ 
+  interface ProjectFieldRefs {
+    readonly id: FieldRef<"Project", 'String'>
+    readonly slug: FieldRef<"Project", 'String'>
+    readonly nameAr: FieldRef<"Project", 'String'>
+    readonly nameEn: FieldRef<"Project", 'String'>
+    readonly developerNameAr: FieldRef<"Project", 'String'>
+    readonly developerNameEn: FieldRef<"Project", 'String'>
+    readonly coverImageUrl: FieldRef<"Project", 'String'>
+    readonly galleryImages: FieldRef<"Project", 'String[]'>
+    readonly videoUrl: FieldRef<"Project", 'String'>
+    readonly virtualTourUrl: FieldRef<"Project", 'String'>
+    readonly district: FieldRef<"Project", 'String'>
+    readonly city: FieldRef<"Project", 'String'>
+    readonly latitude: FieldRef<"Project", 'Decimal'>
+    readonly longitude: FieldRef<"Project", 'Decimal'>
+    readonly deliveryYear: FieldRef<"Project", 'Int'>
+    readonly totalUnits: FieldRef<"Project", 'Int'>
+    readonly availableUnits: FieldRef<"Project", 'Int'>
+    readonly minPrice: FieldRef<"Project", 'Decimal'>
+    readonly maxPrice: FieldRef<"Project", 'Decimal'>
+    readonly hasFinancing: FieldRef<"Project", 'Boolean'>
+    readonly minDownPayment: FieldRef<"Project", 'Int'>
+    readonly maxYears: FieldRef<"Project", 'Int'>
+    readonly amenities: FieldRef<"Project", 'String[]'>
+    readonly descriptionAr: FieldRef<"Project", 'String'>
+    readonly descriptionEn: FieldRef<"Project", 'String'>
+    readonly isActive: FieldRef<"Project", 'Boolean'>
+    readonly publishedAt: FieldRef<"Project", 'DateTime'>
+    readonly updatedAt: FieldRef<"Project", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Project findUnique
+   */
+  export type ProjectFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project findUniqueOrThrow
+   */
+  export type ProjectFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project findFirst
+   */
+  export type ProjectFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Projects.
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Projects.
+     */
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project findFirstOrThrow
+   */
+  export type ProjectFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Projects.
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Projects.
+     */
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project findMany
+   */
+  export type ProjectFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Projects to fetch.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Projects.
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project create
+   */
+  export type ProjectCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Project.
+     */
+    data: XOR<ProjectCreateInput, ProjectUncheckedCreateInput>
+  }
+
+  /**
+   * Project createMany
+   */
+  export type ProjectCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Projects.
+     */
+    data: ProjectCreateManyInput | ProjectCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Project createManyAndReturn
+   */
+  export type ProjectCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Projects.
+     */
+    data: ProjectCreateManyInput | ProjectCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Project update
+   */
+  export type ProjectUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Project.
+     */
+    data: XOR<ProjectUpdateInput, ProjectUncheckedUpdateInput>
+    /**
+     * Choose, which Project to update.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project updateMany
+   */
+  export type ProjectUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Projects.
+     */
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyInput>
+    /**
+     * Filter which Projects to update
+     */
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * Project upsert
+   */
+  export type ProjectUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Project to update in case it exists.
+     */
+    where: ProjectWhereUniqueInput
+    /**
+     * In case the Project found by the `where` argument doesn't exist, create a new Project with this data.
+     */
+    create: XOR<ProjectCreateInput, ProjectUncheckedCreateInput>
+    /**
+     * In case the Project was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectUpdateInput, ProjectUncheckedUpdateInput>
+  }
+
+  /**
+   * Project delete
+   */
+  export type ProjectDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter which Project to delete.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project deleteMany
+   */
+  export type ProjectDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Projects to delete
+     */
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * Project.listings
+   */
+  export type Project$listingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListingInclude<ExtArgs> | null
+    where?: ListingWhereInput
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
+    cursor?: ListingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
+  }
+
+  /**
+   * Project without action
+   */
+  export type ProjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19463,6 +20900,7 @@ export namespace Prisma {
     crmPropertyId: 'crmPropertyId',
     slug: 'slug',
     crmFirmSlug: 'crmFirmSlug',
+    projectId: 'projectId',
     titleAr: 'titleAr',
     titleEn: 'titleEn',
     descriptionAr: 'descriptionAr',
@@ -19754,6 +21192,40 @@ export namespace Prisma {
   export type OtpCodeScalarFieldEnum = (typeof OtpCodeScalarFieldEnum)[keyof typeof OtpCodeScalarFieldEnum]
 
 
+  export const ProjectScalarFieldEnum: {
+    id: 'id',
+    slug: 'slug',
+    nameAr: 'nameAr',
+    nameEn: 'nameEn',
+    developerNameAr: 'developerNameAr',
+    developerNameEn: 'developerNameEn',
+    coverImageUrl: 'coverImageUrl',
+    galleryImages: 'galleryImages',
+    videoUrl: 'videoUrl',
+    virtualTourUrl: 'virtualTourUrl',
+    district: 'district',
+    city: 'city',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    deliveryYear: 'deliveryYear',
+    totalUnits: 'totalUnits',
+    availableUnits: 'availableUnits',
+    minPrice: 'minPrice',
+    maxPrice: 'maxPrice',
+    hasFinancing: 'hasFinancing',
+    minDownPayment: 'minDownPayment',
+    maxYears: 'maxYears',
+    amenities: 'amenities',
+    descriptionAr: 'descriptionAr',
+    descriptionEn: 'descriptionEn',
+    isActive: 'isActive',
+    publishedAt: 'publishedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -19903,6 +21375,7 @@ export namespace Prisma {
     crmPropertyId?: StringFilter<"Listing"> | string
     slug?: StringFilter<"Listing"> | string
     crmFirmSlug?: StringFilter<"Listing"> | string
+    projectId?: StringNullableFilter<"Listing"> | string | null
     titleAr?: StringFilter<"Listing"> | string
     titleEn?: StringNullableFilter<"Listing"> | string | null
     descriptionAr?: StringNullableFilter<"Listing"> | string | null
@@ -19953,6 +21426,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFilter<"Listing"> | Date | string
     createdAt?: DateTimeFilter<"Listing"> | Date | string
     updatedAt?: DateTimeFilter<"Listing"> | Date | string
+    project?: XOR<ProjectNullableRelationFilter, ProjectWhereInput> | null
     financing?: XOR<ListingFinancingNullableRelationFilter, ListingFinancingWhereInput> | null
     priceHistory?: PriceHistoryListRelationFilter
     inquiries?: InquiryListRelationFilter
@@ -19968,6 +21442,7 @@ export namespace Prisma {
     crmPropertyId?: SortOrder
     slug?: SortOrder
     crmFirmSlug?: SortOrder
+    projectId?: SortOrderInput | SortOrder
     titleAr?: SortOrder
     titleEn?: SortOrderInput | SortOrder
     descriptionAr?: SortOrderInput | SortOrder
@@ -20018,6 +21493,7 @@ export namespace Prisma {
     publishedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
     financing?: ListingFinancingOrderByWithRelationInput
     priceHistory?: PriceHistoryOrderByRelationAggregateInput
     inquiries?: InquiryOrderByRelationAggregateInput
@@ -20037,6 +21513,7 @@ export namespace Prisma {
     crmFirmId?: StringFilter<"Listing"> | string
     crmPropertyId?: StringFilter<"Listing"> | string
     crmFirmSlug?: StringFilter<"Listing"> | string
+    projectId?: StringNullableFilter<"Listing"> | string | null
     titleAr?: StringFilter<"Listing"> | string
     titleEn?: StringNullableFilter<"Listing"> | string | null
     descriptionAr?: StringNullableFilter<"Listing"> | string | null
@@ -20087,6 +21564,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFilter<"Listing"> | Date | string
     createdAt?: DateTimeFilter<"Listing"> | Date | string
     updatedAt?: DateTimeFilter<"Listing"> | Date | string
+    project?: XOR<ProjectNullableRelationFilter, ProjectWhereInput> | null
     financing?: XOR<ListingFinancingNullableRelationFilter, ListingFinancingWhereInput> | null
     priceHistory?: PriceHistoryListRelationFilter
     inquiries?: InquiryListRelationFilter
@@ -20102,6 +21580,7 @@ export namespace Prisma {
     crmPropertyId?: SortOrder
     slug?: SortOrder
     crmFirmSlug?: SortOrder
+    projectId?: SortOrderInput | SortOrder
     titleAr?: SortOrder
     titleEn?: SortOrderInput | SortOrder
     descriptionAr?: SortOrderInput | SortOrder
@@ -20168,6 +21647,7 @@ export namespace Prisma {
     crmPropertyId?: StringWithAggregatesFilter<"Listing"> | string
     slug?: StringWithAggregatesFilter<"Listing"> | string
     crmFirmSlug?: StringWithAggregatesFilter<"Listing"> | string
+    projectId?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     titleAr?: StringWithAggregatesFilter<"Listing"> | string
     titleEn?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     descriptionAr?: StringNullableWithAggregatesFilter<"Listing"> | string | null
@@ -21453,6 +22933,178 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"OtpCode"> | Date | string
   }
 
+  export type ProjectWhereInput = {
+    AND?: ProjectWhereInput | ProjectWhereInput[]
+    OR?: ProjectWhereInput[]
+    NOT?: ProjectWhereInput | ProjectWhereInput[]
+    id?: StringFilter<"Project"> | string
+    slug?: StringFilter<"Project"> | string
+    nameAr?: StringFilter<"Project"> | string
+    nameEn?: StringNullableFilter<"Project"> | string | null
+    developerNameAr?: StringFilter<"Project"> | string
+    developerNameEn?: StringNullableFilter<"Project"> | string | null
+    coverImageUrl?: StringNullableFilter<"Project"> | string | null
+    galleryImages?: StringNullableListFilter<"Project">
+    videoUrl?: StringNullableFilter<"Project"> | string | null
+    virtualTourUrl?: StringNullableFilter<"Project"> | string | null
+    district?: StringFilter<"Project"> | string
+    city?: StringFilter<"Project"> | string
+    latitude?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: IntNullableFilter<"Project"> | number | null
+    totalUnits?: IntNullableFilter<"Project"> | number | null
+    availableUnits?: IntNullableFilter<"Project"> | number | null
+    minPrice?: DecimalFilter<"Project"> | Decimal | DecimalJsLike | number | string
+    maxPrice?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFilter<"Project"> | boolean
+    minDownPayment?: IntNullableFilter<"Project"> | number | null
+    maxYears?: IntNullableFilter<"Project"> | number | null
+    amenities?: StringNullableListFilter<"Project">
+    descriptionAr?: StringNullableFilter<"Project"> | string | null
+    descriptionEn?: StringNullableFilter<"Project"> | string | null
+    isActive?: BoolFilter<"Project"> | boolean
+    publishedAt?: DateTimeFilter<"Project"> | Date | string
+    updatedAt?: DateTimeFilter<"Project"> | Date | string
+    listings?: ListingListRelationFilter
+  }
+
+  export type ProjectOrderByWithRelationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    nameAr?: SortOrder
+    nameEn?: SortOrderInput | SortOrder
+    developerNameAr?: SortOrder
+    developerNameEn?: SortOrderInput | SortOrder
+    coverImageUrl?: SortOrderInput | SortOrder
+    galleryImages?: SortOrder
+    videoUrl?: SortOrderInput | SortOrder
+    virtualTourUrl?: SortOrderInput | SortOrder
+    district?: SortOrder
+    city?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    deliveryYear?: SortOrderInput | SortOrder
+    totalUnits?: SortOrderInput | SortOrder
+    availableUnits?: SortOrderInput | SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrderInput | SortOrder
+    hasFinancing?: SortOrder
+    minDownPayment?: SortOrderInput | SortOrder
+    maxYears?: SortOrderInput | SortOrder
+    amenities?: SortOrder
+    descriptionAr?: SortOrderInput | SortOrder
+    descriptionEn?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    publishedAt?: SortOrder
+    updatedAt?: SortOrder
+    listings?: ListingOrderByRelationAggregateInput
+  }
+
+  export type ProjectWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: ProjectWhereInput | ProjectWhereInput[]
+    OR?: ProjectWhereInput[]
+    NOT?: ProjectWhereInput | ProjectWhereInput[]
+    nameAr?: StringFilter<"Project"> | string
+    nameEn?: StringNullableFilter<"Project"> | string | null
+    developerNameAr?: StringFilter<"Project"> | string
+    developerNameEn?: StringNullableFilter<"Project"> | string | null
+    coverImageUrl?: StringNullableFilter<"Project"> | string | null
+    galleryImages?: StringNullableListFilter<"Project">
+    videoUrl?: StringNullableFilter<"Project"> | string | null
+    virtualTourUrl?: StringNullableFilter<"Project"> | string | null
+    district?: StringFilter<"Project"> | string
+    city?: StringFilter<"Project"> | string
+    latitude?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: IntNullableFilter<"Project"> | number | null
+    totalUnits?: IntNullableFilter<"Project"> | number | null
+    availableUnits?: IntNullableFilter<"Project"> | number | null
+    minPrice?: DecimalFilter<"Project"> | Decimal | DecimalJsLike | number | string
+    maxPrice?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFilter<"Project"> | boolean
+    minDownPayment?: IntNullableFilter<"Project"> | number | null
+    maxYears?: IntNullableFilter<"Project"> | number | null
+    amenities?: StringNullableListFilter<"Project">
+    descriptionAr?: StringNullableFilter<"Project"> | string | null
+    descriptionEn?: StringNullableFilter<"Project"> | string | null
+    isActive?: BoolFilter<"Project"> | boolean
+    publishedAt?: DateTimeFilter<"Project"> | Date | string
+    updatedAt?: DateTimeFilter<"Project"> | Date | string
+    listings?: ListingListRelationFilter
+  }, "id" | "slug">
+
+  export type ProjectOrderByWithAggregationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    nameAr?: SortOrder
+    nameEn?: SortOrderInput | SortOrder
+    developerNameAr?: SortOrder
+    developerNameEn?: SortOrderInput | SortOrder
+    coverImageUrl?: SortOrderInput | SortOrder
+    galleryImages?: SortOrder
+    videoUrl?: SortOrderInput | SortOrder
+    virtualTourUrl?: SortOrderInput | SortOrder
+    district?: SortOrder
+    city?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    deliveryYear?: SortOrderInput | SortOrder
+    totalUnits?: SortOrderInput | SortOrder
+    availableUnits?: SortOrderInput | SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrderInput | SortOrder
+    hasFinancing?: SortOrder
+    minDownPayment?: SortOrderInput | SortOrder
+    maxYears?: SortOrderInput | SortOrder
+    amenities?: SortOrder
+    descriptionAr?: SortOrderInput | SortOrder
+    descriptionEn?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    publishedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProjectCountOrderByAggregateInput
+    _avg?: ProjectAvgOrderByAggregateInput
+    _max?: ProjectMaxOrderByAggregateInput
+    _min?: ProjectMinOrderByAggregateInput
+    _sum?: ProjectSumOrderByAggregateInput
+  }
+
+  export type ProjectScalarWhereWithAggregatesInput = {
+    AND?: ProjectScalarWhereWithAggregatesInput | ProjectScalarWhereWithAggregatesInput[]
+    OR?: ProjectScalarWhereWithAggregatesInput[]
+    NOT?: ProjectScalarWhereWithAggregatesInput | ProjectScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Project"> | string
+    slug?: StringWithAggregatesFilter<"Project"> | string
+    nameAr?: StringWithAggregatesFilter<"Project"> | string
+    nameEn?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    developerNameAr?: StringWithAggregatesFilter<"Project"> | string
+    developerNameEn?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    coverImageUrl?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    galleryImages?: StringNullableListFilter<"Project">
+    videoUrl?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    virtualTourUrl?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    district?: StringWithAggregatesFilter<"Project"> | string
+    city?: StringWithAggregatesFilter<"Project"> | string
+    latitude?: DecimalNullableWithAggregatesFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableWithAggregatesFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    totalUnits?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    availableUnits?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    minPrice?: DecimalWithAggregatesFilter<"Project"> | Decimal | DecimalJsLike | number | string
+    maxPrice?: DecimalNullableWithAggregatesFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolWithAggregatesFilter<"Project"> | boolean
+    minDownPayment?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    maxYears?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    amenities?: StringNullableListFilter<"Project">
+    descriptionAr?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    descriptionEn?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Project"> | boolean
+    publishedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
+  }
+
   export type ListingCreateInput = {
     id?: string
     crmFirmId: string
@@ -21509,6 +23161,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
@@ -21524,6 +23177,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -21639,6 +23293,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
@@ -21654,6 +23309,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21719,6 +23375,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -21835,6 +23492,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23244,6 +24902,227 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProjectCreateInput = {
+    id?: string
+    slug: string
+    nameAr: string
+    nameEn?: string | null
+    developerNameAr: string
+    developerNameEn?: string | null
+    coverImageUrl?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    district: string
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: number | null
+    totalUnits?: number | null
+    availableUnits?: number | null
+    minPrice: Decimal | DecimalJsLike | number | string
+    maxPrice?: Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: boolean
+    minDownPayment?: number | null
+    maxYears?: number | null
+    amenities?: ProjectCreateamenitiesInput | string[]
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    isActive?: boolean
+    publishedAt?: Date | string
+    updatedAt?: Date | string
+    listings?: ListingCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateInput = {
+    id?: string
+    slug: string
+    nameAr: string
+    nameEn?: string | null
+    developerNameAr: string
+    developerNameEn?: string | null
+    coverImageUrl?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    district: string
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: number | null
+    totalUnits?: number | null
+    availableUnits?: number | null
+    minPrice: Decimal | DecimalJsLike | number | string
+    maxPrice?: Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: boolean
+    minDownPayment?: number | null
+    maxYears?: number | null
+    amenities?: ProjectCreateamenitiesInput | string[]
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    isActive?: boolean
+    publishedAt?: Date | string
+    updatedAt?: Date | string
+    listings?: ListingUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    nameAr?: StringFieldUpdateOperationsInput | string
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    developerNameAr?: StringFieldUpdateOperationsInput | string
+    developerNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    availableUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    minDownPayment?: NullableIntFieldUpdateOperationsInput | number | null
+    maxYears?: NullableIntFieldUpdateOperationsInput | number | null
+    amenities?: ProjectUpdateamenitiesInput | string[]
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    listings?: ListingUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    nameAr?: StringFieldUpdateOperationsInput | string
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    developerNameAr?: StringFieldUpdateOperationsInput | string
+    developerNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    availableUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    minDownPayment?: NullableIntFieldUpdateOperationsInput | number | null
+    maxYears?: NullableIntFieldUpdateOperationsInput | number | null
+    amenities?: ProjectUpdateamenitiesInput | string[]
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    listings?: ListingUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectCreateManyInput = {
+    id?: string
+    slug: string
+    nameAr: string
+    nameEn?: string | null
+    developerNameAr: string
+    developerNameEn?: string | null
+    coverImageUrl?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    district: string
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: number | null
+    totalUnits?: number | null
+    availableUnits?: number | null
+    minPrice: Decimal | DecimalJsLike | number | string
+    maxPrice?: Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: boolean
+    minDownPayment?: number | null
+    maxYears?: number | null
+    amenities?: ProjectCreateamenitiesInput | string[]
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    isActive?: boolean
+    publishedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    nameAr?: StringFieldUpdateOperationsInput | string
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    developerNameAr?: StringFieldUpdateOperationsInput | string
+    developerNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    availableUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    minDownPayment?: NullableIntFieldUpdateOperationsInput | number | null
+    maxYears?: NullableIntFieldUpdateOperationsInput | number | null
+    amenities?: ProjectUpdateamenitiesInput | string[]
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    nameAr?: StringFieldUpdateOperationsInput | string
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    developerNameAr?: StringFieldUpdateOperationsInput | string
+    developerNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    availableUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    minDownPayment?: NullableIntFieldUpdateOperationsInput | number | null
+    maxYears?: NullableIntFieldUpdateOperationsInput | number | null
+    amenities?: ProjectUpdateamenitiesInput | string[]
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23358,6 +25237,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type ProjectNullableRelationFilter = {
+    is?: ProjectWhereInput | null
+    isNot?: ProjectWhereInput | null
+  }
+
   export type ListingFinancingNullableRelationFilter = {
     is?: ListingFinancingWhereInput | null
     isNot?: ListingFinancingWhereInput | null
@@ -23439,6 +25323,7 @@ export namespace Prisma {
     crmPropertyId?: SortOrder
     slug?: SortOrder
     crmFirmSlug?: SortOrder
+    projectId?: SortOrder
     titleAr?: SortOrder
     titleEn?: SortOrder
     descriptionAr?: SortOrder
@@ -23520,6 +25405,7 @@ export namespace Prisma {
     crmPropertyId?: SortOrder
     slug?: SortOrder
     crmFirmSlug?: SortOrder
+    projectId?: SortOrder
     titleAr?: SortOrder
     titleEn?: SortOrder
     descriptionAr?: SortOrder
@@ -23577,6 +25463,7 @@ export namespace Prisma {
     crmPropertyId?: SortOrder
     slug?: SortOrder
     crmFirmSlug?: SortOrder
+    projectId?: SortOrder
     titleAr?: SortOrder
     titleEn?: SortOrder
     descriptionAr?: SortOrder
@@ -24637,8 +26524,137 @@ export namespace Prisma {
     attempts?: SortOrder
   }
 
+  export type ListingListRelationFilter = {
+    every?: ListingWhereInput
+    some?: ListingWhereInput
+    none?: ListingWhereInput
+  }
+
+  export type ListingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProjectCountOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    nameAr?: SortOrder
+    nameEn?: SortOrder
+    developerNameAr?: SortOrder
+    developerNameEn?: SortOrder
+    coverImageUrl?: SortOrder
+    galleryImages?: SortOrder
+    videoUrl?: SortOrder
+    virtualTourUrl?: SortOrder
+    district?: SortOrder
+    city?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    deliveryYear?: SortOrder
+    totalUnits?: SortOrder
+    availableUnits?: SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrder
+    hasFinancing?: SortOrder
+    minDownPayment?: SortOrder
+    maxYears?: SortOrder
+    amenities?: SortOrder
+    descriptionAr?: SortOrder
+    descriptionEn?: SortOrder
+    isActive?: SortOrder
+    publishedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    deliveryYear?: SortOrder
+    totalUnits?: SortOrder
+    availableUnits?: SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrder
+    minDownPayment?: SortOrder
+    maxYears?: SortOrder
+  }
+
+  export type ProjectMaxOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    nameAr?: SortOrder
+    nameEn?: SortOrder
+    developerNameAr?: SortOrder
+    developerNameEn?: SortOrder
+    coverImageUrl?: SortOrder
+    videoUrl?: SortOrder
+    virtualTourUrl?: SortOrder
+    district?: SortOrder
+    city?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    deliveryYear?: SortOrder
+    totalUnits?: SortOrder
+    availableUnits?: SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrder
+    hasFinancing?: SortOrder
+    minDownPayment?: SortOrder
+    maxYears?: SortOrder
+    descriptionAr?: SortOrder
+    descriptionEn?: SortOrder
+    isActive?: SortOrder
+    publishedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectMinOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    nameAr?: SortOrder
+    nameEn?: SortOrder
+    developerNameAr?: SortOrder
+    developerNameEn?: SortOrder
+    coverImageUrl?: SortOrder
+    videoUrl?: SortOrder
+    virtualTourUrl?: SortOrder
+    district?: SortOrder
+    city?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    deliveryYear?: SortOrder
+    totalUnits?: SortOrder
+    availableUnits?: SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrder
+    hasFinancing?: SortOrder
+    minDownPayment?: SortOrder
+    maxYears?: SortOrder
+    descriptionAr?: SortOrder
+    descriptionEn?: SortOrder
+    isActive?: SortOrder
+    publishedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    deliveryYear?: SortOrder
+    totalUnits?: SortOrder
+    availableUnits?: SortOrder
+    minPrice?: SortOrder
+    maxPrice?: SortOrder
+    minDownPayment?: SortOrder
+    maxYears?: SortOrder
+  }
+
   export type ListingCreateimagesInput = {
     set: string[]
+  }
+
+  export type ProjectCreateNestedOneWithoutListingsInput = {
+    create?: XOR<ProjectCreateWithoutListingsInput, ProjectUncheckedCreateWithoutListingsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutListingsInput
+    connect?: ProjectWhereUniqueInput
   }
 
   export type ListingFinancingCreateNestedOneWithoutListingInput = {
@@ -24796,6 +26812,16 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ProjectUpdateOneWithoutListingsNestedInput = {
+    create?: XOR<ProjectCreateWithoutListingsInput, ProjectUncheckedCreateWithoutListingsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutListingsInput
+    upsert?: ProjectUpsertWithoutListingsInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutListingsInput, ProjectUpdateWithoutListingsInput>, ProjectUncheckedUpdateWithoutListingsInput>
   }
 
   export type ListingFinancingUpdateOneWithoutListingNestedInput = {
@@ -25612,6 +27638,66 @@ export namespace Prisma {
     update?: XOR<XOR<ListingUpdateToOneWithWhereWithoutViewHistoryInput, ListingUpdateWithoutViewHistoryInput>, ListingUncheckedUpdateWithoutViewHistoryInput>
   }
 
+  export type ProjectCreategalleryImagesInput = {
+    set: string[]
+  }
+
+  export type ProjectCreateamenitiesInput = {
+    set: string[]
+  }
+
+  export type ListingCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ListingCreateWithoutProjectInput, ListingUncheckedCreateWithoutProjectInput> | ListingCreateWithoutProjectInput[] | ListingUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ListingCreateOrConnectWithoutProjectInput | ListingCreateOrConnectWithoutProjectInput[]
+    createMany?: ListingCreateManyProjectInputEnvelope
+    connect?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+  }
+
+  export type ListingUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ListingCreateWithoutProjectInput, ListingUncheckedCreateWithoutProjectInput> | ListingCreateWithoutProjectInput[] | ListingUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ListingCreateOrConnectWithoutProjectInput | ListingCreateOrConnectWithoutProjectInput[]
+    createMany?: ListingCreateManyProjectInputEnvelope
+    connect?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+  }
+
+  export type ProjectUpdategalleryImagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ProjectUpdateamenitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ListingUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ListingCreateWithoutProjectInput, ListingUncheckedCreateWithoutProjectInput> | ListingCreateWithoutProjectInput[] | ListingUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ListingCreateOrConnectWithoutProjectInput | ListingCreateOrConnectWithoutProjectInput[]
+    upsert?: ListingUpsertWithWhereUniqueWithoutProjectInput | ListingUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ListingCreateManyProjectInputEnvelope
+    set?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    disconnect?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    delete?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    connect?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    update?: ListingUpdateWithWhereUniqueWithoutProjectInput | ListingUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ListingUpdateManyWithWhereWithoutProjectInput | ListingUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ListingScalarWhereInput | ListingScalarWhereInput[]
+  }
+
+  export type ListingUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ListingCreateWithoutProjectInput, ListingUncheckedCreateWithoutProjectInput> | ListingCreateWithoutProjectInput[] | ListingUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ListingCreateOrConnectWithoutProjectInput | ListingCreateOrConnectWithoutProjectInput[]
+    upsert?: ListingUpsertWithWhereUniqueWithoutProjectInput | ListingUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ListingCreateManyProjectInputEnvelope
+    set?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    disconnect?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    delete?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    connect?: ListingWhereUniqueInput | ListingWhereUniqueInput[]
+    update?: ListingUpdateWithWhereUniqueWithoutProjectInput | ListingUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ListingUpdateManyWithWhereWithoutProjectInput | ListingUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ListingScalarWhereInput | ListingScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25924,6 +28010,73 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type ProjectCreateWithoutListingsInput = {
+    id?: string
+    slug: string
+    nameAr: string
+    nameEn?: string | null
+    developerNameAr: string
+    developerNameEn?: string | null
+    coverImageUrl?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    district: string
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: number | null
+    totalUnits?: number | null
+    availableUnits?: number | null
+    minPrice: Decimal | DecimalJsLike | number | string
+    maxPrice?: Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: boolean
+    minDownPayment?: number | null
+    maxYears?: number | null
+    amenities?: ProjectCreateamenitiesInput | string[]
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    isActive?: boolean
+    publishedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectUncheckedCreateWithoutListingsInput = {
+    id?: string
+    slug: string
+    nameAr: string
+    nameEn?: string | null
+    developerNameAr: string
+    developerNameEn?: string | null
+    coverImageUrl?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    district: string
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: number | null
+    totalUnits?: number | null
+    availableUnits?: number | null
+    minPrice: Decimal | DecimalJsLike | number | string
+    maxPrice?: Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: boolean
+    minDownPayment?: number | null
+    maxYears?: number | null
+    amenities?: ProjectCreateamenitiesInput | string[]
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    isActive?: boolean
+    publishedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectCreateOrConnectWithoutListingsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutListingsInput, ProjectUncheckedCreateWithoutListingsInput>
+  }
+
   export type ListingFinancingCreateWithoutListingInput = {
     id?: string
     downPaymentMin: Decimal | DecimalJsLike | number | string
@@ -26137,6 +28290,79 @@ export namespace Prisma {
   export type ViewHistoryCreateManyListingInputEnvelope = {
     data: ViewHistoryCreateManyListingInput | ViewHistoryCreateManyListingInput[]
     skipDuplicates?: boolean
+  }
+
+  export type ProjectUpsertWithoutListingsInput = {
+    update: XOR<ProjectUpdateWithoutListingsInput, ProjectUncheckedUpdateWithoutListingsInput>
+    create: XOR<ProjectCreateWithoutListingsInput, ProjectUncheckedCreateWithoutListingsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutListingsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutListingsInput, ProjectUncheckedUpdateWithoutListingsInput>
+  }
+
+  export type ProjectUpdateWithoutListingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    nameAr?: StringFieldUpdateOperationsInput | string
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    developerNameAr?: StringFieldUpdateOperationsInput | string
+    developerNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    availableUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    minDownPayment?: NullableIntFieldUpdateOperationsInput | number | null
+    maxYears?: NullableIntFieldUpdateOperationsInput | number | null
+    amenities?: ProjectUpdateamenitiesInput | string[]
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectUncheckedUpdateWithoutListingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    nameAr?: StringFieldUpdateOperationsInput | string
+    nameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    developerNameAr?: StringFieldUpdateOperationsInput | string
+    developerNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    deliveryYear?: NullableIntFieldUpdateOperationsInput | number | null
+    totalUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    availableUnits?: NullableIntFieldUpdateOperationsInput | number | null
+    minPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    maxPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    minDownPayment?: NullableIntFieldUpdateOperationsInput | number | null
+    maxYears?: NullableIntFieldUpdateOperationsInput | number | null
+    amenities?: ProjectUpdateamenitiesInput | string[]
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ListingFinancingUpsertWithoutListingInput = {
@@ -26415,6 +28641,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
     favorites?: FavoriteCreateNestedManyWithoutListingInput
@@ -26429,6 +28656,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -26559,6 +28787,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
     favorites?: FavoriteUpdateManyWithoutListingNestedInput
@@ -26573,6 +28802,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26687,6 +28917,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
     favorites?: FavoriteCreateNestedManyWithoutListingInput
@@ -26701,6 +28932,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -26831,6 +29063,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
     favorites?: FavoriteUpdateManyWithoutListingNestedInput
@@ -26845,6 +29078,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27461,6 +29695,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     favorites?: FavoriteCreateNestedManyWithoutListingInput
@@ -27475,6 +29710,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -27668,6 +29904,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     favorites?: FavoriteUpdateManyWithoutListingNestedInput
@@ -27682,6 +29919,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27928,6 +30166,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
@@ -27942,6 +30181,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -28141,6 +30381,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
@@ -28155,6 +30396,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28332,6 +30574,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
@@ -28346,6 +30589,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -28570,6 +30814,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
@@ -28584,6 +30829,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29106,6 +31352,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
@@ -29120,6 +31367,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -29277,6 +31525,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
@@ -29291,6 +31540,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29468,6 +31718,7 @@ export namespace Prisma {
     publishedAt?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutListingsInput
     financing?: ListingFinancingCreateNestedOneWithoutListingInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
     inquiries?: InquiryCreateNestedManyWithoutListingInput
@@ -29482,6 +31733,7 @@ export namespace Prisma {
     crmPropertyId: string
     slug: string
     crmFirmSlug: string
+    projectId?: string | null
     titleAr: string
     titleEn?: string | null
     descriptionAr?: string | null
@@ -29681,6 +31933,7 @@ export namespace Prisma {
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutListingsNestedInput
     financing?: ListingFinancingUpdateOneWithoutListingNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
     inquiries?: InquiryUpdateManyWithoutListingNestedInput
@@ -29695,6 +31948,7 @@ export namespace Prisma {
     crmPropertyId?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     titleAr?: StringFieldUpdateOperationsInput | string
     titleEn?: NullableStringFieldUpdateOperationsInput | string | null
     descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29751,6 +32005,224 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutListingNestedInput
     alerts?: PriceAlertUncheckedUpdateManyWithoutListingNestedInput
     comparisons?: ComparisonItemUncheckedUpdateManyWithoutListingNestedInput
+  }
+
+  export type ListingCreateWithoutProjectInput = {
+    id?: string
+    crmFirmId: string
+    crmPropertyId: string
+    slug: string
+    crmFirmSlug: string
+    titleAr: string
+    titleEn?: string | null
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    propertyType: string
+    transactionType: string
+    address: string
+    district?: string | null
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: string | null
+    area?: Decimal | DecimalJsLike | number | string | null
+    bedrooms?: number | null
+    bathrooms?: number | null
+    floor?: number | null
+    totalFloors?: number | null
+    parkingSpaces?: number | null
+    isFurnished?: boolean | null
+    askingPrice: Decimal | DecimalJsLike | number | string
+    pricePerSqm?: Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: boolean
+    images?: ListingCreateimagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    floorPlanUrl?: string | null
+    verificationTier?: string
+    isStale?: boolean
+    staleSince?: Date | string | null
+    lastSyncAt?: Date | string
+    aqarScore?: number | null
+    aqarScoreAt?: Date | string | null
+    brokerDisplayName?: string | null
+    brokerResponseTime?: number | null
+    brokerDealCount?: number | null
+    firmNameAr: string
+    firmNameEn?: string | null
+    firmLogoUrl?: string | null
+    hasFinancing?: boolean
+    monthlyFrom?: Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: number | null
+    viewCount?: number
+    inquiryCount?: number
+    favoriteCount?: number
+    shareCount?: number
+    isActive?: boolean
+    publishedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    financing?: ListingFinancingCreateNestedOneWithoutListingInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutListingInput
+    inquiries?: InquiryCreateNestedManyWithoutListingInput
+    favorites?: FavoriteCreateNestedManyWithoutListingInput
+    alerts?: PriceAlertCreateNestedManyWithoutListingInput
+    comparisons?: ComparisonItemCreateNestedManyWithoutListingInput
+    viewHistory?: ViewHistoryCreateNestedManyWithoutListingInput
+  }
+
+  export type ListingUncheckedCreateWithoutProjectInput = {
+    id?: string
+    crmFirmId: string
+    crmPropertyId: string
+    slug: string
+    crmFirmSlug: string
+    titleAr: string
+    titleEn?: string | null
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    propertyType: string
+    transactionType: string
+    address: string
+    district?: string | null
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: string | null
+    area?: Decimal | DecimalJsLike | number | string | null
+    bedrooms?: number | null
+    bathrooms?: number | null
+    floor?: number | null
+    totalFloors?: number | null
+    parkingSpaces?: number | null
+    isFurnished?: boolean | null
+    askingPrice: Decimal | DecimalJsLike | number | string
+    pricePerSqm?: Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: boolean
+    images?: ListingCreateimagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    floorPlanUrl?: string | null
+    verificationTier?: string
+    isStale?: boolean
+    staleSince?: Date | string | null
+    lastSyncAt?: Date | string
+    aqarScore?: number | null
+    aqarScoreAt?: Date | string | null
+    brokerDisplayName?: string | null
+    brokerResponseTime?: number | null
+    brokerDealCount?: number | null
+    firmNameAr: string
+    firmNameEn?: string | null
+    firmLogoUrl?: string | null
+    hasFinancing?: boolean
+    monthlyFrom?: Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: number | null
+    viewCount?: number
+    inquiryCount?: number
+    favoriteCount?: number
+    shareCount?: number
+    isActive?: boolean
+    publishedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    financing?: ListingFinancingUncheckedCreateNestedOneWithoutListingInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutListingInput
+    inquiries?: InquiryUncheckedCreateNestedManyWithoutListingInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutListingInput
+    alerts?: PriceAlertUncheckedCreateNestedManyWithoutListingInput
+    comparisons?: ComparisonItemUncheckedCreateNestedManyWithoutListingInput
+    viewHistory?: ViewHistoryUncheckedCreateNestedManyWithoutListingInput
+  }
+
+  export type ListingCreateOrConnectWithoutProjectInput = {
+    where: ListingWhereUniqueInput
+    create: XOR<ListingCreateWithoutProjectInput, ListingUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ListingCreateManyProjectInputEnvelope = {
+    data: ListingCreateManyProjectInput | ListingCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ListingUpsertWithWhereUniqueWithoutProjectInput = {
+    where: ListingWhereUniqueInput
+    update: XOR<ListingUpdateWithoutProjectInput, ListingUncheckedUpdateWithoutProjectInput>
+    create: XOR<ListingCreateWithoutProjectInput, ListingUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ListingUpdateWithWhereUniqueWithoutProjectInput = {
+    where: ListingWhereUniqueInput
+    data: XOR<ListingUpdateWithoutProjectInput, ListingUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type ListingUpdateManyWithWhereWithoutProjectInput = {
+    where: ListingScalarWhereInput
+    data: XOR<ListingUpdateManyMutationInput, ListingUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type ListingScalarWhereInput = {
+    AND?: ListingScalarWhereInput | ListingScalarWhereInput[]
+    OR?: ListingScalarWhereInput[]
+    NOT?: ListingScalarWhereInput | ListingScalarWhereInput[]
+    id?: StringFilter<"Listing"> | string
+    crmFirmId?: StringFilter<"Listing"> | string
+    crmPropertyId?: StringFilter<"Listing"> | string
+    slug?: StringFilter<"Listing"> | string
+    crmFirmSlug?: StringFilter<"Listing"> | string
+    projectId?: StringNullableFilter<"Listing"> | string | null
+    titleAr?: StringFilter<"Listing"> | string
+    titleEn?: StringNullableFilter<"Listing"> | string | null
+    descriptionAr?: StringNullableFilter<"Listing"> | string | null
+    descriptionEn?: StringNullableFilter<"Listing"> | string | null
+    propertyType?: StringFilter<"Listing"> | string
+    transactionType?: StringFilter<"Listing"> | string
+    address?: StringFilter<"Listing"> | string
+    district?: StringNullableFilter<"Listing"> | string | null
+    city?: StringFilter<"Listing"> | string
+    latitude?: DecimalNullableFilter<"Listing"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Listing"> | Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: StringNullableFilter<"Listing"> | string | null
+    area?: DecimalNullableFilter<"Listing"> | Decimal | DecimalJsLike | number | string | null
+    bedrooms?: IntNullableFilter<"Listing"> | number | null
+    bathrooms?: IntNullableFilter<"Listing"> | number | null
+    floor?: IntNullableFilter<"Listing"> | number | null
+    totalFloors?: IntNullableFilter<"Listing"> | number | null
+    parkingSpaces?: IntNullableFilter<"Listing"> | number | null
+    isFurnished?: BoolNullableFilter<"Listing"> | boolean | null
+    askingPrice?: DecimalFilter<"Listing"> | Decimal | DecimalJsLike | number | string
+    pricePerSqm?: DecimalNullableFilter<"Listing"> | Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: BoolFilter<"Listing"> | boolean
+    images?: StringNullableListFilter<"Listing">
+    videoUrl?: StringNullableFilter<"Listing"> | string | null
+    virtualTourUrl?: StringNullableFilter<"Listing"> | string | null
+    floorPlanUrl?: StringNullableFilter<"Listing"> | string | null
+    verificationTier?: StringFilter<"Listing"> | string
+    isStale?: BoolFilter<"Listing"> | boolean
+    staleSince?: DateTimeNullableFilter<"Listing"> | Date | string | null
+    lastSyncAt?: DateTimeFilter<"Listing"> | Date | string
+    aqarScore?: IntNullableFilter<"Listing"> | number | null
+    aqarScoreAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
+    brokerDisplayName?: StringNullableFilter<"Listing"> | string | null
+    brokerResponseTime?: IntNullableFilter<"Listing"> | number | null
+    brokerDealCount?: IntNullableFilter<"Listing"> | number | null
+    firmNameAr?: StringFilter<"Listing"> | string
+    firmNameEn?: StringNullableFilter<"Listing"> | string | null
+    firmLogoUrl?: StringNullableFilter<"Listing"> | string | null
+    hasFinancing?: BoolFilter<"Listing"> | boolean
+    monthlyFrom?: DecimalNullableFilter<"Listing"> | Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: DecimalNullableFilter<"Listing"> | Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: IntNullableFilter<"Listing"> | number | null
+    viewCount?: IntFilter<"Listing"> | number
+    inquiryCount?: IntFilter<"Listing"> | number
+    favoriteCount?: IntFilter<"Listing"> | number
+    shareCount?: IntFilter<"Listing"> | number
+    isActive?: BoolFilter<"Listing"> | boolean
+    publishedAt?: DateTimeFilter<"Listing"> | Date | string
+    createdAt?: DateTimeFilter<"Listing"> | Date | string
+    updatedAt?: DateTimeFilter<"Listing"> | Date | string
   }
 
   export type PriceHistoryCreateManyListingInput = {
@@ -30373,6 +32845,252 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
   }
 
+  export type ListingCreateManyProjectInput = {
+    id?: string
+    crmFirmId: string
+    crmPropertyId: string
+    slug: string
+    crmFirmSlug: string
+    titleAr: string
+    titleEn?: string | null
+    descriptionAr?: string | null
+    descriptionEn?: string | null
+    propertyType: string
+    transactionType: string
+    address: string
+    district?: string | null
+    city?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: string | null
+    area?: Decimal | DecimalJsLike | number | string | null
+    bedrooms?: number | null
+    bathrooms?: number | null
+    floor?: number | null
+    totalFloors?: number | null
+    parkingSpaces?: number | null
+    isFurnished?: boolean | null
+    askingPrice: Decimal | DecimalJsLike | number | string
+    pricePerSqm?: Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: boolean
+    images?: ListingCreateimagesInput | string[]
+    videoUrl?: string | null
+    virtualTourUrl?: string | null
+    floorPlanUrl?: string | null
+    verificationTier?: string
+    isStale?: boolean
+    staleSince?: Date | string | null
+    lastSyncAt?: Date | string
+    aqarScore?: number | null
+    aqarScoreAt?: Date | string | null
+    brokerDisplayName?: string | null
+    brokerResponseTime?: number | null
+    brokerDealCount?: number | null
+    firmNameAr: string
+    firmNameEn?: string | null
+    firmLogoUrl?: string | null
+    hasFinancing?: boolean
+    monthlyFrom?: Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: number | null
+    viewCount?: number
+    inquiryCount?: number
+    favoriteCount?: number
+    shareCount?: number
+    isActive?: boolean
+    publishedAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListingUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmId?: StringFieldUpdateOperationsInput | string
+    crmPropertyId?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    titleAr?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    area?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    bathrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    floor?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    parkingSpaces?: NullableIntFieldUpdateOperationsInput | number | null
+    isFurnished?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    askingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    pricePerSqm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: BoolFieldUpdateOperationsInput | boolean
+    images?: ListingUpdateimagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    floorPlanUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTier?: StringFieldUpdateOperationsInput | string
+    isStale?: BoolFieldUpdateOperationsInput | boolean
+    staleSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aqarScore?: NullableIntFieldUpdateOperationsInput | number | null
+    aqarScoreAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    firmNameAr?: StringFieldUpdateOperationsInput | string
+    firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    monthlyFrom?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    inquiryCount?: IntFieldUpdateOperationsInput | number
+    favoriteCount?: IntFieldUpdateOperationsInput | number
+    shareCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financing?: ListingFinancingUpdateOneWithoutListingNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutListingNestedInput
+    inquiries?: InquiryUpdateManyWithoutListingNestedInput
+    favorites?: FavoriteUpdateManyWithoutListingNestedInput
+    alerts?: PriceAlertUpdateManyWithoutListingNestedInput
+    comparisons?: ComparisonItemUpdateManyWithoutListingNestedInput
+    viewHistory?: ViewHistoryUpdateManyWithoutListingNestedInput
+  }
+
+  export type ListingUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmId?: StringFieldUpdateOperationsInput | string
+    crmPropertyId?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    titleAr?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    area?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    bathrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    floor?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    parkingSpaces?: NullableIntFieldUpdateOperationsInput | number | null
+    isFurnished?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    askingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    pricePerSqm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: BoolFieldUpdateOperationsInput | boolean
+    images?: ListingUpdateimagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    floorPlanUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTier?: StringFieldUpdateOperationsInput | string
+    isStale?: BoolFieldUpdateOperationsInput | boolean
+    staleSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aqarScore?: NullableIntFieldUpdateOperationsInput | number | null
+    aqarScoreAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    firmNameAr?: StringFieldUpdateOperationsInput | string
+    firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    monthlyFrom?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    inquiryCount?: IntFieldUpdateOperationsInput | number
+    favoriteCount?: IntFieldUpdateOperationsInput | number
+    shareCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financing?: ListingFinancingUncheckedUpdateOneWithoutListingNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutListingNestedInput
+    inquiries?: InquiryUncheckedUpdateManyWithoutListingNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutListingNestedInput
+    alerts?: PriceAlertUncheckedUpdateManyWithoutListingNestedInput
+    comparisons?: ComparisonItemUncheckedUpdateManyWithoutListingNestedInput
+    viewHistory?: ViewHistoryUncheckedUpdateManyWithoutListingNestedInput
+  }
+
+  export type ListingUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmId?: StringFieldUpdateOperationsInput | string
+    crmPropertyId?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    titleAr?: StringFieldUpdateOperationsInput | string
+    titleEn?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAr?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionEn?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    googleMapsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    area?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    bathrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    floor?: NullableIntFieldUpdateOperationsInput | number | null
+    totalFloors?: NullableIntFieldUpdateOperationsInput | number | null
+    parkingSpaces?: NullableIntFieldUpdateOperationsInput | number | null
+    isFurnished?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    askingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    pricePerSqm?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    priceIsHidden?: BoolFieldUpdateOperationsInput | boolean
+    images?: ListingUpdateimagesInput | string[]
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    virtualTourUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    floorPlanUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTier?: StringFieldUpdateOperationsInput | string
+    isStale?: BoolFieldUpdateOperationsInput | boolean
+    staleSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aqarScore?: NullableIntFieldUpdateOperationsInput | number | null
+    aqarScoreAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    firmNameAr?: StringFieldUpdateOperationsInput | string
+    firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
+    firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasFinancing?: BoolFieldUpdateOperationsInput | boolean
+    monthlyFrom?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    downPaymentFrom?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    installmentMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    inquiryCount?: IntFieldUpdateOperationsInput | number
+    favoriteCount?: IntFieldUpdateOperationsInput | number
+    shareCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -30394,6 +33112,10 @@ export namespace Prisma {
      * @deprecated Use ComparisonCountOutputTypeDefaultArgs instead
      */
     export type ComparisonCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ComparisonCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ProjectCountOutputTypeDefaultArgs instead
+     */
+    export type ProjectCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ListingDefaultArgs instead
      */
@@ -30458,6 +33180,10 @@ export namespace Prisma {
      * @deprecated Use OtpCodeDefaultArgs instead
      */
     export type OtpCodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OtpCodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ProjectDefaultArgs instead
+     */
+    export type ProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

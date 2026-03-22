@@ -14,6 +14,8 @@ model Listing {
   crmPropertyId   String
   slug            String   @unique
   crmFirmSlug     String
+  projectId       String?
+  project         Project? @relation(fields: [projectId], references: [id])
   titleAr         String
   titleEn         String?
   descriptionAr   String?
@@ -340,4 +342,37 @@ model OtpCode {
   createdAt   DateTime @default(now())
 
   @@index([phone, createdAt])
+}
+
+model Project {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  nameAr          String
+  nameEn          String?
+  developerNameAr String
+  developerNameEn String?
+  coverImageUrl   String?
+  galleryImages   String[]
+  videoUrl        String?
+  virtualTourUrl  String?
+  district        String
+  city            String    @default("القاهرة")
+  latitude        Decimal?  @db.Decimal(10,7)
+  longitude       Decimal?  @db.Decimal(10,7)
+  deliveryYear    Int?
+  totalUnits      Int?
+  availableUnits  Int?
+  minPrice        Decimal   @db.Decimal(15,2)
+  maxPrice        Decimal?  @db.Decimal(15,2)
+  hasFinancing    Boolean   @default(true)
+  minDownPayment  Int?
+  maxYears        Int?
+  amenities       String[]
+  descriptionAr   String?
+  descriptionEn   String?
+  isActive        Boolean   @default(true)
+  publishedAt     DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  listings        Listing[]
 }

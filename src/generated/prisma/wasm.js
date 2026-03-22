@@ -128,6 +128,7 @@ exports.Prisma.ListingScalarFieldEnum = {
   crmPropertyId: 'crmPropertyId',
   slug: 'slug',
   crmFirmSlug: 'crmFirmSlug',
+  projectId: 'projectId',
   titleAr: 'titleAr',
   titleEn: 'titleEn',
   descriptionAr: 'descriptionAr',
@@ -371,6 +372,37 @@ exports.Prisma.OtpCodeScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  nameAr: 'nameAr',
+  nameEn: 'nameEn',
+  developerNameAr: 'developerNameAr',
+  developerNameEn: 'developerNameEn',
+  coverImageUrl: 'coverImageUrl',
+  galleryImages: 'galleryImages',
+  videoUrl: 'videoUrl',
+  virtualTourUrl: 'virtualTourUrl',
+  district: 'district',
+  city: 'city',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  deliveryYear: 'deliveryYear',
+  totalUnits: 'totalUnits',
+  availableUnits: 'availableUnits',
+  minPrice: 'minPrice',
+  maxPrice: 'maxPrice',
+  hasFinancing: 'hasFinancing',
+  minDownPayment: 'minDownPayment',
+  maxYears: 'maxYears',
+  amenities: 'amenities',
+  descriptionAr: 'descriptionAr',
+  descriptionEn: 'descriptionEn',
+  isActive: 'isActive',
+  publishedAt: 'publishedAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -418,7 +450,8 @@ exports.Prisma.ModelName = {
   DistrictStats: 'DistrictStats',
   MarketReport: 'MarketReport',
   SyncLog: 'SyncLog',
-  OtpCode: 'OtpCode'
+  OtpCode: 'OtpCode',
+  Project: 'Project'
 };
 
 /**

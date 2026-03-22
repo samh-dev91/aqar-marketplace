@@ -68,6 +68,9 @@ export function MarketplaceHeader({ locale = 'ar' }: MarketplaceHeaderProps) {
               <Link href="/search?transactionType=RENT" className="px-3 py-2 text-gray-600 hover:text-primary-700 rounded-md hover:bg-gray-50 transition-colors">
                 للإيجار
               </Link>
+              <Link href="/projects" className="px-3 py-2 text-gray-600 hover:text-primary-700 rounded-md hover:bg-gray-50 transition-colors">
+                المشاريع
+              </Link>
             </nav>
 
             {/* Language switch */}
@@ -126,6 +129,9 @@ export function MarketplaceHeader({ locale = 'ar' }: MarketplaceHeaderProps) {
             </Link>
             <Link href="/search?transactionType=RENT" className="px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setMenuOpen(false)}>
               شقق وعقارات للإيجار
+            </Link>
+            <Link href="/projects" className="px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setMenuOpen(false)}>
+              مشاريع التطوير العقاري
             </Link>
             <Link href="/search" className="px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setMenuOpen(false)}>
               البحث المتقدم
