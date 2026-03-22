@@ -44,6 +44,9 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
     title,
     description: 'ابحث في آلاف العقارات الموثقة في مصر. فلاتر متقدمة، بيانات حقيقية، بدون إعلانات وهمية.',
     robots: { index: false, follow: true },
+    alternates: {
+      canonical: '/search', // strip query params from canonical
+    },
   };
 }
 

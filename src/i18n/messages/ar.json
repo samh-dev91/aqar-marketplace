@@ -337,6 +337,24 @@
     "brokerContact": "سيتواصل معكم الوسيط خلال 24 ساعة",
     "loginToReserve": "سجّل الدخول أولاً للحجز"
   },
+  "guide": {
+    "title": "دليل عقارات",
+    "pageTitle": "أدلة الأحياء العقارية",
+    "breadcrumb": "أدلة الأحياء",
+    "statsAvgPrice": "متوسط السعر/م²",
+    "statsListings": "إجمالي الإعلانات",
+    "statsPriceChange": "التغير خلال 6 أشهر",
+    "statsDaysOnMarket": "متوسط أيام البيع",
+    "topListings": "أفضل العقارات المتاحة",
+    "backToSearch": "العودة لنتائج البحث في",
+    "faqTitle": "أسئلة شائعة",
+    "noData": "لا توجد بيانات كافية لهذه المنطقة"
+  },
+  "blog": {
+    "title": "المدونة العقارية",
+    "readMore": "اقرأ المزيد",
+    "latestListings": "شاهد أحدث الإعلانات"
+  },
   "richMedia": {
     "virtualTour": "جولة ثلاثية الأبعاد",
     "floorPlan": "مسقط الأرض",

@@ -99,9 +99,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = `${listing.titleAr} في ${listing.district ? `${listing.district}، ` : ''}${listing.city}. ${listing.descriptionAr ?? ''}`.slice(0, 200);
   const image = listing.images[0];
 
+  const canonicalSlug = listing.slug;
+
   return {
     title,
     description,
+    alternates: {
+      canonical: `/listings/${canonicalSlug}`,
+    },
     openGraph: {
       title,
       description,
@@ -160,13 +165,38 @@ export default async function ListingDetailPage({ params }: PageProps) {
       addressLocality: listing.city,
       addressCountry: 'EG',
     },
-    ...(listing.priceIsHidden ? {} : {
-      offers: {
-        '@type': 'Offer',
-        price: listing.askingPrice,
-        priceCurrency: 'EGP',
-      },
-    }),
+    ...(listing.latitude && listing.longitude
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: Number(listing.latitude),
+            longitude: Number(listing.longitude),
+          },
+        }
+      : {}),
+    ...(listing.priceIsHidden
+      ? {}
+      : {
+          offers: {
+            '@type': 'Offer',
+            price: listing.askingPrice,
+            priceCurrency: 'EGP',
+            ...(listing.hasFinancing && listing.monthlyFrom
+              ? {
+                  priceSpecification: {
+                    '@type': 'UnitPriceSpecification',
+                    price: listing.monthlyFrom,
+                    priceCurrency: 'EGP',
+                    referenceQuantity: {
+                      '@type': 'QuantitativeValue',
+                      value: 1,
+                      unitCode: 'MON',
+                    },
+                  },
+                }
+              : {}),
+          },
+        }),
     ...(listing.area ? { floorSize: { '@type': 'QuantitativeValue', value: listing.area, unitCode: 'MTK' } } : {}),
     ...(listing.bedrooms ? { numberOfRooms: listing.bedrooms } : {}),
   };

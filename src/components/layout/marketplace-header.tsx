@@ -74,6 +74,9 @@ export function MarketplaceHeader({ locale = 'ar' }: MarketplaceHeaderProps) {
               <Link href="/finance" className="px-3 py-2 text-gray-600 hover:text-primary-700 rounded-md hover:bg-gray-50 transition-colors">
                 التمويل
               </Link>
+              <Link href="/guide" className="px-3 py-2 text-gray-600 hover:text-primary-700 rounded-md hover:bg-gray-50 transition-colors">
+                الأدلة
+              </Link>
             </nav>
 
             {/* Language switch */}
@@ -138,6 +141,9 @@ export function MarketplaceHeader({ locale = 'ar' }: MarketplaceHeaderProps) {
             </Link>
             <Link href="/finance" className="px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setMenuOpen(false)}>
               الحلول التمويلية
+            </Link>
+            <Link href="/guide" className="px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setMenuOpen(false)}>
+              أدلة الأحياء
             </Link>
             <Link href="/search" className="px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md" onClick={() => setMenuOpen(false)}>
               البحث المتقدم
