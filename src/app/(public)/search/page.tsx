@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ListingCard } from '@/components/listing/listing-card';
 import { SearchFiltersPanel } from './search-filters-panel';
+import { SearchModeToggle } from './search-mode-toggle';
 import type { SearchResult, SearchFilters } from '@/types/listing';
 
 interface SearchPageProps {
@@ -158,6 +159,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* ── AI / Traditional search mode toggle ────────────── */}
+      <SearchModeToggle />
+
       {/* Mobile filter button */}
       <div className="flex items-center justify-between mb-4 md:hidden">
         <p className="text-sm text-gray-500 font-medium">{countLabel}</p>

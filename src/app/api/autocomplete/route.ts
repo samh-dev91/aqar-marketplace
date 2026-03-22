@@ -4,6 +4,18 @@ import { redis } from '@/lib/redis';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * Records a search query in the global popular-queries sorted set.
+ * Called from the NL search route after a successful Claude parse.
+ * Fire-and-forget — never throws.
+ */
+export async function recordPopularQuery(queryText: string): Promise<void> {
+  try {
+    await redis.zincrby('autocomplete:queries', 1, queryText);
+    await redis.expire('autocomplete:queries', 30 * 24 * 3600); // 30 days
+  } catch { /* non-fatal */ }
+}
+
 export async function GET(req: NextRequest): Promise<NextResponse> {
   // Sliding window rate limit: 60 req/min per IP
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
@@ -63,5 +75,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     await redis.setex(cacheKey, 300, JSON.stringify(results)); // cache 5min
   } catch { /* Redis unavailable */ }
 
-  return NextResponse.json({ success: true, data: results });
+  // Fetch popular full-query completions from the sorted set
+  let popularQueries: string[] = [];
+  try {
+    const popularRaw = await redis.zrevrangebyscore(
+      'autocomplete:queries', '+inf', '-inf', 'LIMIT', 0, 3,
+    );
+    popularQueries = popularRaw.filter((entry: string) => entry.includes(q)).slice(0, 3);
+  } catch { /* Redis unavailable */ }
+
+  return NextResponse.json({ success: true, data: results, popularQueries });
 }
