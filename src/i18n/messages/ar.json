@@ -322,6 +322,21 @@
     "loginRequired": "يجب تسجيل الدخول أولاً",
     "reviewPlaceholder": "شارك تجربتك مع هذا الوسيط..."
   },
+  "finance": {
+    "pageTitle": "الحلول التمويلية",
+    "preQualify": "التأهل للتمويل",
+    "maxLoan": "يمكنك الحصول على تمويل حتى",
+    "monthlyPayment": "قسط شهري تقديري",
+    "bankSuggestions": "البنوك المقترحة",
+    "applyNow": "تقدم للتمويل",
+    "searchWithBudget": "ابحث عن عقارات ضمن ميزانيتك",
+    "disclaimer": "* هذا تقدير مبدئي. يخضع التمويل الفعلي لشروط كل بنك على حدة.",
+    "reserve": "احجز الآن",
+    "reserveSuccess": "تم الحجز بنجاح",
+    "reservationRef": "رقم الحجز",
+    "brokerContact": "سيتواصل معكم الوسيط خلال 24 ساعة",
+    "loginToReserve": "سجّل الدخول أولاً للحجز"
+  },
   "richMedia": {
     "virtualTour": "جولة ثلاثية الأبعاد",
     "floorPlan": "مسقط الأرض",

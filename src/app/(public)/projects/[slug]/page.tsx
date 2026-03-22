@@ -20,6 +20,14 @@ const ProjectInquiryModal = dynamic(
   { ssr: false },
 );
 
+const ReservationButton = dynamic(
+  () =>
+    import('@/components/listing/reservation-button').then(
+      (m) => m.ReservationButton,
+    ),
+  { ssr: false },
+);
+
 export const revalidate = 3600;
 
 interface ProjectListing {
@@ -378,6 +386,14 @@ export default async function ProjectDetailPage({
               محمي بـ Inquiry Shield — رقمك آمن
             </div>
           </div>
+
+          {/* Reservation button — shown when project has financing */}
+          {project.hasFinancing && (
+            <ReservationButton
+              listingSlug={project.slug}
+              hasFinancing={project.hasFinancing}
+            />
+          )}
 
           {/* Back link */}
           <Link

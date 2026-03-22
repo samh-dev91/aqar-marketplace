@@ -36,13 +36,14 @@
 | C | Lead Intelligence | ✅ Complete | OTP auth, consumer sessions, favorites, price alerts, profile — WhatsApp OTP deferred to Phase D |
 | D | Mobile Native | ✅ Complete | Capacitor config, geolocation nearby search, Web Push service, offline IndexedDB, SW registrar |
 | E (Phase 8) | Market Reports + Compare API | ✅ Complete | market-report service, GET /api/market/report, POST /api/cron/market-report, GET /api/compare |
+| F (Phase 15) | Financial Ecosystem | ✅ Complete | DeveloperPlan model, pre-qualify API, developer-plans API, reservation payment API, listing financing endpoint |
 
-**Current status:** All four original phases complete (A + B + C + D) plus Phase 8 backend (market reports + property comparison).
+**Current status:** All four original phases complete (A + B + C + D) plus Phase 8 backend (market reports + property comparison) plus Phase 15 Financial Ecosystem backend.
 
 ### Completed Work (Phase A — Full)
 
 #### Foundation (A1–A2)
-- `prisma/schema.prisma` — 15 models: Listing, ListingFinancing, PriceHistory, Consumer, ConsumerSession, Inquiry, Favorite, PriceAlert, SavedSearch, Comparison, ComparisonItem, ViewHistory, DistrictStats, MarketReport, SyncLog, OtpCode
+- `prisma/schema.prisma` — 16 models: Listing, ListingFinancing, PriceHistory, Consumer, ConsumerSession, Inquiry, Favorite, PriceAlert, SavedSearch, Comparison, ComparisonItem, ViewHistory, DistrictStats, MarketReport, SyncLog, BrokerReview, OtpCode, Project + **DeveloperPlan** (added Phase 15)
 - `src/lib/db.ts`, `src/lib/redis.ts`, `src/lib/format.ts`, `src/lib/crm-api.ts`, `src/lib/utils.ts`
 - `src/i18n/request.ts`, `src/i18n/messages/ar.json`, `src/i18n/messages/en.json`
 - `src/types/listing.ts`, `src/types/crm-webhook.ts`
@@ -149,6 +150,16 @@ These additions to the CRM (`C:/firm/`) are required for full end-to-end operati
 - `firmId`, `propertyId` as exposed API fields (exist internally for sync only)
 
 **District stats:** Anonymous aggregates only. No individual deal data, no firm names.
+
+---
+
+### Phase 15 — Financial Ecosystem (complete)
+
+- `prisma/schema.prisma` — Added `DeveloperPlan` model (`crmFirmSlug`, `compound`, `unitType`, `downPaymentPct`, `years`, `monthlyFrom`, `bankPartner`, `validUntil`, index on `crmFirmSlug`). `prisma generate` re-run.
+- `src/app/api/finance/pre-qualify/route.ts` — POST. No auth. Rate-limited 20/IP/hr (Redis). Decimal.js max-loan formula: `monthlyIncome × 7 × 12 × ltv`. LTV: employed=0.80, self_employed=0.70, business=0.75 — non-Egyptian multiplier ×0.85. Amortisation estimate at 14%/20yr. Returns maxLoanAmount, monthlyPaymentEstimate, ltv, breakdown, bankSuggestions (4 major Egyptian banks).
+- `src/app/api/developer-plans/route.ts` — GET with `firmSlug` (required), `compound`, `unitType` filters. Redis 1h cache keyed `devplans:{firmSlug}:{compound}:{unitType}`. Filters `validUntil >= now OR null`.
+- `src/app/api/payments/reserve/route.ts` — POST. Requires `x-consumer-id` header. Validates consumer exists, listing isActive. Redis duplicate-reservation guard (`reservation:{slug}` key). Paymob stub (falls back to `SIM-{ts}-{slug}` when no `PAYMOB_API_KEY`). Stores reservation 48h in Redis. WhatsApp confirmation to consumer fire-and-forget.
+- `src/app/api/listings/[slug]/financing/route.ts` — GET. Returns `financing` (ListingFinancing serialized), `listingSummary` (monthlyFrom/downPaymentFrom/installmentMonths), `project` financing flags, `developerPlans[]` from firm slug (Redis 1h cache reuse), `hasAnyFinancing` computed flag. Never exposes crmFirmId/crmPropertyId.
 
 ---
 

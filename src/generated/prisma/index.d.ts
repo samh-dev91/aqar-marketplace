@@ -94,6 +94,11 @@ export type SyncLog = $Result.DefaultSelection<Prisma.$SyncLogPayload>
  */
 export type BrokerReview = $Result.DefaultSelection<Prisma.$BrokerReviewPayload>
 /**
+ * Model DeveloperPlan
+ * 
+ */
+export type DeveloperPlan = $Result.DefaultSelection<Prisma.$DeveloperPlanPayload>
+/**
  * Model OtpCode
  * 
  */
@@ -386,6 +391,16 @@ export class PrismaClient<
     * ```
     */
   get brokerReview(): Prisma.BrokerReviewDelegate<ExtArgs>;
+
+  /**
+   * `prisma.developerPlan`: Exposes CRUD operations for the **DeveloperPlan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeveloperPlans
+    * const developerPlans = await prisma.developerPlan.findMany()
+    * ```
+    */
+  get developerPlan(): Prisma.DeveloperPlanDelegate<ExtArgs>;
 
   /**
    * `prisma.otpCode`: Exposes CRUD operations for the **OtpCode** model.
@@ -863,6 +878,7 @@ export namespace Prisma {
     MarketReport: 'MarketReport',
     SyncLog: 'SyncLog',
     BrokerReview: 'BrokerReview',
+    DeveloperPlan: 'DeveloperPlan',
     OtpCode: 'OtpCode',
     Project: 'Project'
   };
@@ -880,7 +896,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "listing" | "listingFinancing" | "priceHistory" | "consumer" | "consumerSession" | "inquiry" | "favorite" | "priceAlert" | "savedSearch" | "comparison" | "comparisonItem" | "viewHistory" | "districtStats" | "marketReport" | "syncLog" | "brokerReview" | "otpCode" | "project"
+      modelProps: "listing" | "listingFinancing" | "priceHistory" | "consumer" | "consumerSession" | "inquiry" | "favorite" | "priceAlert" | "savedSearch" | "comparison" | "comparisonItem" | "viewHistory" | "districtStats" | "marketReport" | "syncLog" | "brokerReview" | "developerPlan" | "otpCode" | "project"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2001,6 +2017,76 @@ export namespace Prisma {
           count: {
             args: Prisma.BrokerReviewCountArgs<ExtArgs>
             result: $Utils.Optional<BrokerReviewCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeveloperPlan: {
+        payload: Prisma.$DeveloperPlanPayload<ExtArgs>
+        fields: Prisma.DeveloperPlanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeveloperPlanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeveloperPlanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>
+          }
+          findFirst: {
+            args: Prisma.DeveloperPlanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeveloperPlanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>
+          }
+          findMany: {
+            args: Prisma.DeveloperPlanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>[]
+          }
+          create: {
+            args: Prisma.DeveloperPlanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>
+          }
+          createMany: {
+            args: Prisma.DeveloperPlanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeveloperPlanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>[]
+          }
+          delete: {
+            args: Prisma.DeveloperPlanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>
+          }
+          update: {
+            args: Prisma.DeveloperPlanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeveloperPlanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeveloperPlanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DeveloperPlanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeveloperPlanPayload>
+          }
+          aggregate: {
+            args: Prisma.DeveloperPlanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeveloperPlan>
+          }
+          groupBy: {
+            args: Prisma.DeveloperPlanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeveloperPlanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeveloperPlanCountArgs<ExtArgs>
+            result: $Utils.Optional<DeveloperPlanCountAggregateOutputType> | number
           }
         }
       }
@@ -19725,6 +19811,986 @@ export namespace Prisma {
 
 
   /**
+   * Model DeveloperPlan
+   */
+
+  export type AggregateDeveloperPlan = {
+    _count: DeveloperPlanCountAggregateOutputType | null
+    _avg: DeveloperPlanAvgAggregateOutputType | null
+    _sum: DeveloperPlanSumAggregateOutputType | null
+    _min: DeveloperPlanMinAggregateOutputType | null
+    _max: DeveloperPlanMaxAggregateOutputType | null
+  }
+
+  export type DeveloperPlanAvgAggregateOutputType = {
+    downPaymentPct: number | null
+    years: number | null
+    monthlyFrom: Decimal | null
+  }
+
+  export type DeveloperPlanSumAggregateOutputType = {
+    downPaymentPct: number | null
+    years: number | null
+    monthlyFrom: Decimal | null
+  }
+
+  export type DeveloperPlanMinAggregateOutputType = {
+    id: string | null
+    crmFirmSlug: string | null
+    compound: string | null
+    unitType: string | null
+    downPaymentPct: number | null
+    years: number | null
+    monthlyFrom: Decimal | null
+    bankPartner: string | null
+    validUntil: Date | null
+    createdAt: Date | null
+  }
+
+  export type DeveloperPlanMaxAggregateOutputType = {
+    id: string | null
+    crmFirmSlug: string | null
+    compound: string | null
+    unitType: string | null
+    downPaymentPct: number | null
+    years: number | null
+    monthlyFrom: Decimal | null
+    bankPartner: string | null
+    validUntil: Date | null
+    createdAt: Date | null
+  }
+
+  export type DeveloperPlanCountAggregateOutputType = {
+    id: number
+    crmFirmSlug: number
+    compound: number
+    unitType: number
+    downPaymentPct: number
+    years: number
+    monthlyFrom: number
+    bankPartner: number
+    validUntil: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DeveloperPlanAvgAggregateInputType = {
+    downPaymentPct?: true
+    years?: true
+    monthlyFrom?: true
+  }
+
+  export type DeveloperPlanSumAggregateInputType = {
+    downPaymentPct?: true
+    years?: true
+    monthlyFrom?: true
+  }
+
+  export type DeveloperPlanMinAggregateInputType = {
+    id?: true
+    crmFirmSlug?: true
+    compound?: true
+    unitType?: true
+    downPaymentPct?: true
+    years?: true
+    monthlyFrom?: true
+    bankPartner?: true
+    validUntil?: true
+    createdAt?: true
+  }
+
+  export type DeveloperPlanMaxAggregateInputType = {
+    id?: true
+    crmFirmSlug?: true
+    compound?: true
+    unitType?: true
+    downPaymentPct?: true
+    years?: true
+    monthlyFrom?: true
+    bankPartner?: true
+    validUntil?: true
+    createdAt?: true
+  }
+
+  export type DeveloperPlanCountAggregateInputType = {
+    id?: true
+    crmFirmSlug?: true
+    compound?: true
+    unitType?: true
+    downPaymentPct?: true
+    years?: true
+    monthlyFrom?: true
+    bankPartner?: true
+    validUntil?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DeveloperPlanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeveloperPlan to aggregate.
+     */
+    where?: DeveloperPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeveloperPlans to fetch.
+     */
+    orderBy?: DeveloperPlanOrderByWithRelationInput | DeveloperPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeveloperPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeveloperPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeveloperPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeveloperPlans
+    **/
+    _count?: true | DeveloperPlanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DeveloperPlanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DeveloperPlanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeveloperPlanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeveloperPlanMaxAggregateInputType
+  }
+
+  export type GetDeveloperPlanAggregateType<T extends DeveloperPlanAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeveloperPlan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeveloperPlan[P]>
+      : GetScalarType<T[P], AggregateDeveloperPlan[P]>
+  }
+
+
+
+
+  export type DeveloperPlanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeveloperPlanWhereInput
+    orderBy?: DeveloperPlanOrderByWithAggregationInput | DeveloperPlanOrderByWithAggregationInput[]
+    by: DeveloperPlanScalarFieldEnum[] | DeveloperPlanScalarFieldEnum
+    having?: DeveloperPlanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeveloperPlanCountAggregateInputType | true
+    _avg?: DeveloperPlanAvgAggregateInputType
+    _sum?: DeveloperPlanSumAggregateInputType
+    _min?: DeveloperPlanMinAggregateInputType
+    _max?: DeveloperPlanMaxAggregateInputType
+  }
+
+  export type DeveloperPlanGroupByOutputType = {
+    id: string
+    crmFirmSlug: string
+    compound: string | null
+    unitType: string | null
+    downPaymentPct: number
+    years: number
+    monthlyFrom: Decimal
+    bankPartner: string | null
+    validUntil: Date | null
+    createdAt: Date
+    _count: DeveloperPlanCountAggregateOutputType | null
+    _avg: DeveloperPlanAvgAggregateOutputType | null
+    _sum: DeveloperPlanSumAggregateOutputType | null
+    _min: DeveloperPlanMinAggregateOutputType | null
+    _max: DeveloperPlanMaxAggregateOutputType | null
+  }
+
+  type GetDeveloperPlanGroupByPayload<T extends DeveloperPlanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeveloperPlanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeveloperPlanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeveloperPlanGroupByOutputType[P]>
+            : GetScalarType<T[P], DeveloperPlanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeveloperPlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    crmFirmSlug?: boolean
+    compound?: boolean
+    unitType?: boolean
+    downPaymentPct?: boolean
+    years?: boolean
+    monthlyFrom?: boolean
+    bankPartner?: boolean
+    validUntil?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["developerPlan"]>
+
+  export type DeveloperPlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    crmFirmSlug?: boolean
+    compound?: boolean
+    unitType?: boolean
+    downPaymentPct?: boolean
+    years?: boolean
+    monthlyFrom?: boolean
+    bankPartner?: boolean
+    validUntil?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["developerPlan"]>
+
+  export type DeveloperPlanSelectScalar = {
+    id?: boolean
+    crmFirmSlug?: boolean
+    compound?: boolean
+    unitType?: boolean
+    downPaymentPct?: boolean
+    years?: boolean
+    monthlyFrom?: boolean
+    bankPartner?: boolean
+    validUntil?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $DeveloperPlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeveloperPlan"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      crmFirmSlug: string
+      compound: string | null
+      unitType: string | null
+      downPaymentPct: number
+      years: number
+      monthlyFrom: Prisma.Decimal
+      bankPartner: string | null
+      validUntil: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["developerPlan"]>
+    composites: {}
+  }
+
+  type DeveloperPlanGetPayload<S extends boolean | null | undefined | DeveloperPlanDefaultArgs> = $Result.GetResult<Prisma.$DeveloperPlanPayload, S>
+
+  type DeveloperPlanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DeveloperPlanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DeveloperPlanCountAggregateInputType | true
+    }
+
+  export interface DeveloperPlanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeveloperPlan'], meta: { name: 'DeveloperPlan' } }
+    /**
+     * Find zero or one DeveloperPlan that matches the filter.
+     * @param {DeveloperPlanFindUniqueArgs} args - Arguments to find a DeveloperPlan
+     * @example
+     * // Get one DeveloperPlan
+     * const developerPlan = await prisma.developerPlan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeveloperPlanFindUniqueArgs>(args: SelectSubset<T, DeveloperPlanFindUniqueArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DeveloperPlan that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DeveloperPlanFindUniqueOrThrowArgs} args - Arguments to find a DeveloperPlan
+     * @example
+     * // Get one DeveloperPlan
+     * const developerPlan = await prisma.developerPlan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeveloperPlanFindUniqueOrThrowArgs>(args: SelectSubset<T, DeveloperPlanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DeveloperPlan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanFindFirstArgs} args - Arguments to find a DeveloperPlan
+     * @example
+     * // Get one DeveloperPlan
+     * const developerPlan = await prisma.developerPlan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeveloperPlanFindFirstArgs>(args?: SelectSubset<T, DeveloperPlanFindFirstArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DeveloperPlan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanFindFirstOrThrowArgs} args - Arguments to find a DeveloperPlan
+     * @example
+     * // Get one DeveloperPlan
+     * const developerPlan = await prisma.developerPlan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeveloperPlanFindFirstOrThrowArgs>(args?: SelectSubset<T, DeveloperPlanFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DeveloperPlans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeveloperPlans
+     * const developerPlans = await prisma.developerPlan.findMany()
+     * 
+     * // Get first 10 DeveloperPlans
+     * const developerPlans = await prisma.developerPlan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const developerPlanWithIdOnly = await prisma.developerPlan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeveloperPlanFindManyArgs>(args?: SelectSubset<T, DeveloperPlanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DeveloperPlan.
+     * @param {DeveloperPlanCreateArgs} args - Arguments to create a DeveloperPlan.
+     * @example
+     * // Create one DeveloperPlan
+     * const DeveloperPlan = await prisma.developerPlan.create({
+     *   data: {
+     *     // ... data to create a DeveloperPlan
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeveloperPlanCreateArgs>(args: SelectSubset<T, DeveloperPlanCreateArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DeveloperPlans.
+     * @param {DeveloperPlanCreateManyArgs} args - Arguments to create many DeveloperPlans.
+     * @example
+     * // Create many DeveloperPlans
+     * const developerPlan = await prisma.developerPlan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeveloperPlanCreateManyArgs>(args?: SelectSubset<T, DeveloperPlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeveloperPlans and returns the data saved in the database.
+     * @param {DeveloperPlanCreateManyAndReturnArgs} args - Arguments to create many DeveloperPlans.
+     * @example
+     * // Create many DeveloperPlans
+     * const developerPlan = await prisma.developerPlan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeveloperPlans and only return the `id`
+     * const developerPlanWithIdOnly = await prisma.developerPlan.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeveloperPlanCreateManyAndReturnArgs>(args?: SelectSubset<T, DeveloperPlanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DeveloperPlan.
+     * @param {DeveloperPlanDeleteArgs} args - Arguments to delete one DeveloperPlan.
+     * @example
+     * // Delete one DeveloperPlan
+     * const DeveloperPlan = await prisma.developerPlan.delete({
+     *   where: {
+     *     // ... filter to delete one DeveloperPlan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeveloperPlanDeleteArgs>(args: SelectSubset<T, DeveloperPlanDeleteArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DeveloperPlan.
+     * @param {DeveloperPlanUpdateArgs} args - Arguments to update one DeveloperPlan.
+     * @example
+     * // Update one DeveloperPlan
+     * const developerPlan = await prisma.developerPlan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeveloperPlanUpdateArgs>(args: SelectSubset<T, DeveloperPlanUpdateArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DeveloperPlans.
+     * @param {DeveloperPlanDeleteManyArgs} args - Arguments to filter DeveloperPlans to delete.
+     * @example
+     * // Delete a few DeveloperPlans
+     * const { count } = await prisma.developerPlan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeveloperPlanDeleteManyArgs>(args?: SelectSubset<T, DeveloperPlanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeveloperPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeveloperPlans
+     * const developerPlan = await prisma.developerPlan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeveloperPlanUpdateManyArgs>(args: SelectSubset<T, DeveloperPlanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DeveloperPlan.
+     * @param {DeveloperPlanUpsertArgs} args - Arguments to update or create a DeveloperPlan.
+     * @example
+     * // Update or create a DeveloperPlan
+     * const developerPlan = await prisma.developerPlan.upsert({
+     *   create: {
+     *     // ... data to create a DeveloperPlan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeveloperPlan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeveloperPlanUpsertArgs>(args: SelectSubset<T, DeveloperPlanUpsertArgs<ExtArgs>>): Prisma__DeveloperPlanClient<$Result.GetResult<Prisma.$DeveloperPlanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DeveloperPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanCountArgs} args - Arguments to filter DeveloperPlans to count.
+     * @example
+     * // Count the number of DeveloperPlans
+     * const count = await prisma.developerPlan.count({
+     *   where: {
+     *     // ... the filter for the DeveloperPlans we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeveloperPlanCountArgs>(
+      args?: Subset<T, DeveloperPlanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeveloperPlanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeveloperPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeveloperPlanAggregateArgs>(args: Subset<T, DeveloperPlanAggregateArgs>): Prisma.PrismaPromise<GetDeveloperPlanAggregateType<T>>
+
+    /**
+     * Group by DeveloperPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeveloperPlanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeveloperPlanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeveloperPlanGroupByArgs['orderBy'] }
+        : { orderBy?: DeveloperPlanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeveloperPlanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeveloperPlanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeveloperPlan model
+   */
+  readonly fields: DeveloperPlanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeveloperPlan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeveloperPlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeveloperPlan model
+   */ 
+  interface DeveloperPlanFieldRefs {
+    readonly id: FieldRef<"DeveloperPlan", 'String'>
+    readonly crmFirmSlug: FieldRef<"DeveloperPlan", 'String'>
+    readonly compound: FieldRef<"DeveloperPlan", 'String'>
+    readonly unitType: FieldRef<"DeveloperPlan", 'String'>
+    readonly downPaymentPct: FieldRef<"DeveloperPlan", 'Int'>
+    readonly years: FieldRef<"DeveloperPlan", 'Int'>
+    readonly monthlyFrom: FieldRef<"DeveloperPlan", 'Decimal'>
+    readonly bankPartner: FieldRef<"DeveloperPlan", 'String'>
+    readonly validUntil: FieldRef<"DeveloperPlan", 'DateTime'>
+    readonly createdAt: FieldRef<"DeveloperPlan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeveloperPlan findUnique
+   */
+  export type DeveloperPlanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which DeveloperPlan to fetch.
+     */
+    where: DeveloperPlanWhereUniqueInput
+  }
+
+  /**
+   * DeveloperPlan findUniqueOrThrow
+   */
+  export type DeveloperPlanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which DeveloperPlan to fetch.
+     */
+    where: DeveloperPlanWhereUniqueInput
+  }
+
+  /**
+   * DeveloperPlan findFirst
+   */
+  export type DeveloperPlanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which DeveloperPlan to fetch.
+     */
+    where?: DeveloperPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeveloperPlans to fetch.
+     */
+    orderBy?: DeveloperPlanOrderByWithRelationInput | DeveloperPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeveloperPlans.
+     */
+    cursor?: DeveloperPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeveloperPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeveloperPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeveloperPlans.
+     */
+    distinct?: DeveloperPlanScalarFieldEnum | DeveloperPlanScalarFieldEnum[]
+  }
+
+  /**
+   * DeveloperPlan findFirstOrThrow
+   */
+  export type DeveloperPlanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which DeveloperPlan to fetch.
+     */
+    where?: DeveloperPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeveloperPlans to fetch.
+     */
+    orderBy?: DeveloperPlanOrderByWithRelationInput | DeveloperPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeveloperPlans.
+     */
+    cursor?: DeveloperPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeveloperPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeveloperPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeveloperPlans.
+     */
+    distinct?: DeveloperPlanScalarFieldEnum | DeveloperPlanScalarFieldEnum[]
+  }
+
+  /**
+   * DeveloperPlan findMany
+   */
+  export type DeveloperPlanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * Filter, which DeveloperPlans to fetch.
+     */
+    where?: DeveloperPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeveloperPlans to fetch.
+     */
+    orderBy?: DeveloperPlanOrderByWithRelationInput | DeveloperPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeveloperPlans.
+     */
+    cursor?: DeveloperPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeveloperPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeveloperPlans.
+     */
+    skip?: number
+    distinct?: DeveloperPlanScalarFieldEnum | DeveloperPlanScalarFieldEnum[]
+  }
+
+  /**
+   * DeveloperPlan create
+   */
+  export type DeveloperPlanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * The data needed to create a DeveloperPlan.
+     */
+    data: XOR<DeveloperPlanCreateInput, DeveloperPlanUncheckedCreateInput>
+  }
+
+  /**
+   * DeveloperPlan createMany
+   */
+  export type DeveloperPlanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeveloperPlans.
+     */
+    data: DeveloperPlanCreateManyInput | DeveloperPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeveloperPlan createManyAndReturn
+   */
+  export type DeveloperPlanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DeveloperPlans.
+     */
+    data: DeveloperPlanCreateManyInput | DeveloperPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeveloperPlan update
+   */
+  export type DeveloperPlanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * The data needed to update a DeveloperPlan.
+     */
+    data: XOR<DeveloperPlanUpdateInput, DeveloperPlanUncheckedUpdateInput>
+    /**
+     * Choose, which DeveloperPlan to update.
+     */
+    where: DeveloperPlanWhereUniqueInput
+  }
+
+  /**
+   * DeveloperPlan updateMany
+   */
+  export type DeveloperPlanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeveloperPlans.
+     */
+    data: XOR<DeveloperPlanUpdateManyMutationInput, DeveloperPlanUncheckedUpdateManyInput>
+    /**
+     * Filter which DeveloperPlans to update
+     */
+    where?: DeveloperPlanWhereInput
+  }
+
+  /**
+   * DeveloperPlan upsert
+   */
+  export type DeveloperPlanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * The filter to search for the DeveloperPlan to update in case it exists.
+     */
+    where: DeveloperPlanWhereUniqueInput
+    /**
+     * In case the DeveloperPlan found by the `where` argument doesn't exist, create a new DeveloperPlan with this data.
+     */
+    create: XOR<DeveloperPlanCreateInput, DeveloperPlanUncheckedCreateInput>
+    /**
+     * In case the DeveloperPlan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeveloperPlanUpdateInput, DeveloperPlanUncheckedUpdateInput>
+  }
+
+  /**
+   * DeveloperPlan delete
+   */
+  export type DeveloperPlanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+    /**
+     * Filter which DeveloperPlan to delete.
+     */
+    where: DeveloperPlanWhereUniqueInput
+  }
+
+  /**
+   * DeveloperPlan deleteMany
+   */
+  export type DeveloperPlanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeveloperPlans to delete
+     */
+    where?: DeveloperPlanWhereInput
+  }
+
+  /**
+   * DeveloperPlan without action
+   */
+  export type DeveloperPlanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeveloperPlan
+     */
+    select?: DeveloperPlanSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model OtpCode
    */
 
@@ -22257,6 +23323,22 @@ export namespace Prisma {
   export type BrokerReviewScalarFieldEnum = (typeof BrokerReviewScalarFieldEnum)[keyof typeof BrokerReviewScalarFieldEnum]
 
 
+  export const DeveloperPlanScalarFieldEnum: {
+    id: 'id',
+    crmFirmSlug: 'crmFirmSlug',
+    compound: 'compound',
+    unitType: 'unitType',
+    downPaymentPct: 'downPaymentPct',
+    years: 'years',
+    monthlyFrom: 'monthlyFrom',
+    bankPartner: 'bankPartner',
+    validUntil: 'validUntil',
+    createdAt: 'createdAt'
+  };
+
+  export type DeveloperPlanScalarFieldEnum = (typeof DeveloperPlanScalarFieldEnum)[keyof typeof DeveloperPlanScalarFieldEnum]
+
+
   export const OtpCodeScalarFieldEnum: {
     id: 'id',
     phone: 'phone',
@@ -24025,6 +25107,85 @@ export namespace Prisma {
     commentAr?: StringNullableWithAggregatesFilter<"BrokerReview"> | string | null
     isVerified?: BoolWithAggregatesFilter<"BrokerReview"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"BrokerReview"> | Date | string
+  }
+
+  export type DeveloperPlanWhereInput = {
+    AND?: DeveloperPlanWhereInput | DeveloperPlanWhereInput[]
+    OR?: DeveloperPlanWhereInput[]
+    NOT?: DeveloperPlanWhereInput | DeveloperPlanWhereInput[]
+    id?: StringFilter<"DeveloperPlan"> | string
+    crmFirmSlug?: StringFilter<"DeveloperPlan"> | string
+    compound?: StringNullableFilter<"DeveloperPlan"> | string | null
+    unitType?: StringNullableFilter<"DeveloperPlan"> | string | null
+    downPaymentPct?: IntFilter<"DeveloperPlan"> | number
+    years?: IntFilter<"DeveloperPlan"> | number
+    monthlyFrom?: DecimalFilter<"DeveloperPlan"> | Decimal | DecimalJsLike | number | string
+    bankPartner?: StringNullableFilter<"DeveloperPlan"> | string | null
+    validUntil?: DateTimeNullableFilter<"DeveloperPlan"> | Date | string | null
+    createdAt?: DateTimeFilter<"DeveloperPlan"> | Date | string
+  }
+
+  export type DeveloperPlanOrderByWithRelationInput = {
+    id?: SortOrder
+    crmFirmSlug?: SortOrder
+    compound?: SortOrderInput | SortOrder
+    unitType?: SortOrderInput | SortOrder
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
+    bankPartner?: SortOrderInput | SortOrder
+    validUntil?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeveloperPlanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DeveloperPlanWhereInput | DeveloperPlanWhereInput[]
+    OR?: DeveloperPlanWhereInput[]
+    NOT?: DeveloperPlanWhereInput | DeveloperPlanWhereInput[]
+    crmFirmSlug?: StringFilter<"DeveloperPlan"> | string
+    compound?: StringNullableFilter<"DeveloperPlan"> | string | null
+    unitType?: StringNullableFilter<"DeveloperPlan"> | string | null
+    downPaymentPct?: IntFilter<"DeveloperPlan"> | number
+    years?: IntFilter<"DeveloperPlan"> | number
+    monthlyFrom?: DecimalFilter<"DeveloperPlan"> | Decimal | DecimalJsLike | number | string
+    bankPartner?: StringNullableFilter<"DeveloperPlan"> | string | null
+    validUntil?: DateTimeNullableFilter<"DeveloperPlan"> | Date | string | null
+    createdAt?: DateTimeFilter<"DeveloperPlan"> | Date | string
+  }, "id">
+
+  export type DeveloperPlanOrderByWithAggregationInput = {
+    id?: SortOrder
+    crmFirmSlug?: SortOrder
+    compound?: SortOrderInput | SortOrder
+    unitType?: SortOrderInput | SortOrder
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
+    bankPartner?: SortOrderInput | SortOrder
+    validUntil?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DeveloperPlanCountOrderByAggregateInput
+    _avg?: DeveloperPlanAvgOrderByAggregateInput
+    _max?: DeveloperPlanMaxOrderByAggregateInput
+    _min?: DeveloperPlanMinOrderByAggregateInput
+    _sum?: DeveloperPlanSumOrderByAggregateInput
+  }
+
+  export type DeveloperPlanScalarWhereWithAggregatesInput = {
+    AND?: DeveloperPlanScalarWhereWithAggregatesInput | DeveloperPlanScalarWhereWithAggregatesInput[]
+    OR?: DeveloperPlanScalarWhereWithAggregatesInput[]
+    NOT?: DeveloperPlanScalarWhereWithAggregatesInput | DeveloperPlanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeveloperPlan"> | string
+    crmFirmSlug?: StringWithAggregatesFilter<"DeveloperPlan"> | string
+    compound?: StringNullableWithAggregatesFilter<"DeveloperPlan"> | string | null
+    unitType?: StringNullableWithAggregatesFilter<"DeveloperPlan"> | string | null
+    downPaymentPct?: IntWithAggregatesFilter<"DeveloperPlan"> | number
+    years?: IntWithAggregatesFilter<"DeveloperPlan"> | number
+    monthlyFrom?: DecimalWithAggregatesFilter<"DeveloperPlan"> | Decimal | DecimalJsLike | number | string
+    bankPartner?: StringNullableWithAggregatesFilter<"DeveloperPlan"> | string | null
+    validUntil?: DateTimeNullableWithAggregatesFilter<"DeveloperPlan"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DeveloperPlan"> | Date | string
   }
 
   export type OtpCodeWhereInput = {
@@ -26081,6 +27242,97 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DeveloperPlanCreateInput = {
+    id?: string
+    crmFirmSlug: string
+    compound?: string | null
+    unitType?: string | null
+    downPaymentPct: number
+    years: number
+    monthlyFrom: Decimal | DecimalJsLike | number | string
+    bankPartner?: string | null
+    validUntil?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeveloperPlanUncheckedCreateInput = {
+    id?: string
+    crmFirmSlug: string
+    compound?: string | null
+    unitType?: string | null
+    downPaymentPct: number
+    years: number
+    monthlyFrom: Decimal | DecimalJsLike | number | string
+    bankPartner?: string | null
+    validUntil?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeveloperPlanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    compound?: NullableStringFieldUpdateOperationsInput | string | null
+    unitType?: NullableStringFieldUpdateOperationsInput | string | null
+    downPaymentPct?: IntFieldUpdateOperationsInput | number
+    years?: IntFieldUpdateOperationsInput | number
+    monthlyFrom?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankPartner?: NullableStringFieldUpdateOperationsInput | string | null
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeveloperPlanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    compound?: NullableStringFieldUpdateOperationsInput | string | null
+    unitType?: NullableStringFieldUpdateOperationsInput | string | null
+    downPaymentPct?: IntFieldUpdateOperationsInput | number
+    years?: IntFieldUpdateOperationsInput | number
+    monthlyFrom?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankPartner?: NullableStringFieldUpdateOperationsInput | string | null
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeveloperPlanCreateManyInput = {
+    id?: string
+    crmFirmSlug: string
+    compound?: string | null
+    unitType?: string | null
+    downPaymentPct: number
+    years: number
+    monthlyFrom: Decimal | DecimalJsLike | number | string
+    bankPartner?: string | null
+    validUntil?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeveloperPlanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    compound?: NullableStringFieldUpdateOperationsInput | string | null
+    unitType?: NullableStringFieldUpdateOperationsInput | string | null
+    downPaymentPct?: IntFieldUpdateOperationsInput | number
+    years?: IntFieldUpdateOperationsInput | number
+    monthlyFrom?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankPartner?: NullableStringFieldUpdateOperationsInput | string | null
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeveloperPlanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    compound?: NullableStringFieldUpdateOperationsInput | string | null
+    unitType?: NullableStringFieldUpdateOperationsInput | string | null
+    downPaymentPct?: IntFieldUpdateOperationsInput | number
+    years?: IntFieldUpdateOperationsInput | number
+    monthlyFrom?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankPartner?: NullableStringFieldUpdateOperationsInput | string | null
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type OtpCodeCreateInput = {
     id?: string
     phone: string
@@ -27814,6 +29066,57 @@ export namespace Prisma {
 
   export type BrokerReviewSumOrderByAggregateInput = {
     rating?: SortOrder
+  }
+
+  export type DeveloperPlanCountOrderByAggregateInput = {
+    id?: SortOrder
+    crmFirmSlug?: SortOrder
+    compound?: SortOrder
+    unitType?: SortOrder
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
+    bankPartner?: SortOrder
+    validUntil?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeveloperPlanAvgOrderByAggregateInput = {
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
+  }
+
+  export type DeveloperPlanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    crmFirmSlug?: SortOrder
+    compound?: SortOrder
+    unitType?: SortOrder
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
+    bankPartner?: SortOrder
+    validUntil?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeveloperPlanMinOrderByAggregateInput = {
+    id?: SortOrder
+    crmFirmSlug?: SortOrder
+    compound?: SortOrder
+    unitType?: SortOrder
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
+    bankPartner?: SortOrder
+    validUntil?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeveloperPlanSumOrderByAggregateInput = {
+    downPaymentPct?: SortOrder
+    years?: SortOrder
+    monthlyFrom?: SortOrder
   }
 
   export type OtpCodeCountOrderByAggregateInput = {
@@ -34639,6 +35942,10 @@ export namespace Prisma {
      * @deprecated Use BrokerReviewDefaultArgs instead
      */
     export type BrokerReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BrokerReviewDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DeveloperPlanDefaultArgs instead
+     */
+    export type DeveloperPlanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DeveloperPlanDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OtpCodeDefaultArgs instead
      */

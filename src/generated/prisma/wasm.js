@@ -375,6 +375,19 @@ exports.Prisma.BrokerReviewScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.DeveloperPlanScalarFieldEnum = {
+  id: 'id',
+  crmFirmSlug: 'crmFirmSlug',
+  compound: 'compound',
+  unitType: 'unitType',
+  downPaymentPct: 'downPaymentPct',
+  years: 'years',
+  monthlyFrom: 'monthlyFrom',
+  bankPartner: 'bankPartner',
+  validUntil: 'validUntil',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.OtpCodeScalarFieldEnum = {
   id: 'id',
   phone: 'phone',
@@ -464,6 +477,7 @@ exports.Prisma.ModelName = {
   MarketReport: 'MarketReport',
   SyncLog: 'SyncLog',
   BrokerReview: 'BrokerReview',
+  DeveloperPlan: 'DeveloperPlan',
   OtpCode: 'OtpCode',
   Project: 'Project'
 };

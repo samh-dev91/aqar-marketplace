@@ -19,6 +19,7 @@ import { PriceHistoryChart } from '@/components/listing/price-history-chart';
 import { InstallmentCalculator } from '@/components/listing/installment-calculator';
 import { InquiryButton } from './inquiry-button';
 import { ShareButton } from '@/components/listing/share-button';
+import { ReservationButton } from '@/components/listing/reservation-button';
 import { formatPrice, formatArea } from '@/lib/format';
 import type { ListingDetail, ListingCard as ListingCardType } from '@/types/listing';
 
@@ -441,6 +442,13 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 listingSlug={listing.slug}
                 listingTitle={listing.titleAr}
               />
+
+              {listing.hasFinancing && (
+                <ReservationButton
+                  listingSlug={listing.slug}
+                  hasFinancing={listing.hasFinancing}
+                />
+              )}
 
               {/* Installment calculator */}
               {!listing.priceIsHidden && (

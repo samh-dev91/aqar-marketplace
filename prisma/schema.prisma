@@ -348,6 +348,21 @@ model BrokerReview {
   @@index([crmFirmSlug])
 }
 
+model DeveloperPlan {
+  id             String    @id @default(cuid())
+  crmFirmSlug    String
+  compound       String?
+  unitType       String?
+  downPaymentPct Int
+  years          Int
+  monthlyFrom    Decimal   @db.Decimal(15,2)
+  bankPartner    String?
+  validUntil     DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([crmFirmSlug])
+}
+
 model OtpCode {
   id          String   @id @default(cuid())
   phone       String

@@ -878,7 +878,7 @@ interface EstimateResult {
 
 ---
 
-## Phase 14: Rich Media — 3D Tours & Virtual Staging *(Enhancement)* 🔜
+## Phase 14: Rich Media — 3D Tours & Virtual Staging *(Enhancement)* ✅ COMPLETE
 
 **Goal:** Matterport/Kuula 3D tour embed, floor plan viewer, AI virtual staging preview.
 
