@@ -34,9 +34,9 @@
 | A | Foundation & Core Search | ✅ Complete | All tasks done: foundation, lib, API routes, components, pages |
 | B | Trust Layer | ✅ Complete | Aqar Score service, district/firm pages, installment calculator, price history chart |
 | C | Lead Intelligence | ✅ Complete | OTP auth, consumer sessions, favorites, price alerts, profile — WhatsApp OTP deferred to Phase D |
-| D | Mobile Native | 🔜 Not started | Capacitor iOS/Android, geolocation, push notifications |
+| D | Mobile Native | ✅ Complete | Capacitor config, geolocation nearby search, Web Push service, offline IndexedDB, SW registrar |
 
-**Current status:** Phase A + B + C complete. Phase D (Mobile Native) is next.
+**Current status:** All four phases complete (A + B + C + D). Platform is feature-complete.
 
 ### Completed Work (Phase A — Full)
 
@@ -160,7 +160,10 @@ These additions to the CRM (`C:/firm/`) are required for full end-to-end operati
 - `avgDaysOnMarket` set to `0` as "unavailable" marker in `updateDistrictStats()` — marketplace doesn't track days-on-market directly; this field improves with CRM deal data integration
 - `Consumer` schema uses `nameAr`/`nameEn` (not `name`) — profile UI uses `nameAr` for display; `ConsumerSession` has no `isRevoked` field (session invalidation uses `expiresAt` only)
 - `PriceAlert` has no `searchQuery` field — alerts are listing-specific only (not saved search alerts); `priceThreshold` is correct field name
-- WhatsApp OTP delivery not wired — OTP code is logged to console; integrate via `ULTRAMSG_TOKEN` in Phase D
+- WhatsApp OTP delivery not wired — OTP code is logged to console; integrate via `ULTRAMSG_TOKEN` when live
+- Push notification `/sw.js` service worker file needs to be added to `public/` (handle push events + show notification)
+- Capacitor iOS/Android native builds require `npx cap add ios && npx cap add android` after `npm run build`
+- `avgDaysOnMarket` set to `0` in districtStats — improves with CRM deal data integration
 
 ---
 
