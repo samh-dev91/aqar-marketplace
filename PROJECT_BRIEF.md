@@ -17,7 +17,7 @@
 | Spec | `CLAUDE.md` |
 | Phase task list | `IMPLEMENTATION_PLAN.md` |
 | GitHub repo | `https://github.com/samh-dev91/aqar-marketplace` |
-| Last updated | 2026-03-22 |
+| Last updated | 2026-03-22 (Phase 17 complete) |
 | Framework | Next.js 14 App Router |
 | Database | PostgreSQL (separate from CRM) |
 | CRM repo | `https://github.com/samh-dev91/realestate-crm` |
@@ -37,8 +37,9 @@
 | D | Mobile Native | ✅ Complete | Capacitor config, geolocation nearby search, Web Push service, offline IndexedDB, SW registrar |
 | E (Phase 8) | Market Reports + Compare API | ✅ Complete | market-report service, GET /api/market/report, POST /api/cron/market-report, GET /api/compare |
 | F (Phase 15) | Financial Ecosystem | ✅ Complete | DeveloperPlan model, pre-qualify API, developer-plans API, reservation payment API, listing financing endpoint |
+| G (Phase 17) | Consumer Intelligence & Personalization | ✅ Complete | Item-based collaborative filtering, recommendation API, view history API, saved-search WhatsApp alerts, two new cron endpoints |
 
-**Current status:** All four original phases complete (A + B + C + D) plus Phase 8 backend (market reports + property comparison) plus Phase 15 Financial Ecosystem backend.
+**Current status:** All original phases complete (A + B + C + D) plus Phase 8 (market reports + compare) plus Phase 15 (Financial Ecosystem) plus Phase 17 (Consumer Intelligence & Personalization) — FINAL PHASE COMPLETE.
 
 ### Completed Work (Phase A — Full)
 
@@ -160,6 +161,23 @@ These additions to the CRM (`C:/firm/`) are required for full end-to-end operati
 - `src/app/api/developer-plans/route.ts` — GET with `firmSlug` (required), `compound`, `unitType` filters. Redis 1h cache keyed `devplans:{firmSlug}:{compound}:{unitType}`. Filters `validUntil >= now OR null`.
 - `src/app/api/payments/reserve/route.ts` — POST. Requires `x-consumer-id` header. Validates consumer exists, listing isActive. Redis duplicate-reservation guard (`reservation:{slug}` key). Paymob stub (falls back to `SIM-{ts}-{slug}` when no `PAYMOB_API_KEY`). Stores reservation 48h in Redis. WhatsApp confirmation to consumer fire-and-forget.
 - `src/app/api/listings/[slug]/financing/route.ts` — GET. Returns `financing` (ListingFinancing serialized), `listingSummary` (monthlyFrom/downPaymentFrom/installmentMonths), `project` financing flags, `developerPlans[]` from firm slug (Redis 1h cache reuse), `hasAnyFinancing` computed flag. Never exposes crmFirmId/crmPropertyId.
+
+---
+
+### Phase 17 — Consumer Intelligence & Personalization (complete)
+
+- `src/services/recommendation.ts` — NEW. Item-based collaborative filtering from `ViewHistory` (consumerId + listingId + viewedAt fields confirmed in schema). `buildCoViewMatrix()`: queries last-30-days views, builds co-view pair counts across consumers, writes top-5 per listing to Redis `recs:listing:{id}` (24h TTL) via pipeline. `getRecommendationsForListing()`: Redis-first, DB fallback (same propertyType + city by viewCount DESC). `getPersonalizedRecommendations()`: reads Redis sorted set `history:consumer:{id}`, merges recs from top-5 recently viewed, deduplicates and excludes viewed, returns up to 8 IDs.
+- `src/app/api/recommendations/route.ts` — NEW. GET with `?slug=X` for listing-based recs; GET with `?personalized=1` (requires `x-consumer-id`) for personal feed. Both: Redis 10-min cache, popular-listings fallback when no recs, never exposes `crmFirmId`/`crmPropertyId`.
+- `src/app/api/history/route.ts` — NEW. GET: returns last 20 viewed listings (serialized card data) from Redis sorted set. POST `{ listingId }`: ZADD with timestamp score, trims to 50, sets 90-day TTL on key, increments `Listing.viewCount` fire-and-forget.
+- `src/services/cron.ts` — MODIFIED. Added `runSavedSearchAlerts()`: re-runs all `SavedSearch` filters against DB, compares new count to last-known count stored in Redis `search-alert:count:{searchId}` (schema has no `lastCheckedAt` — Redis used instead), sends WhatsApp alert on growth, updates `resultCount` + `lastRunAt` in DB. Added `buildDailyRecommendations()`: lazy-imports and calls `buildCoViewMatrix()`.
+- `src/app/api/cron/recommendations/route.ts` — NEW. POST, `x-cron-secret` protected. Calls `buildDailyRecommendations()`.
+- `src/app/api/cron/saved-search-alerts/route.ts` — NEW. POST, `x-cron-secret` protected. Calls `runSavedSearchAlerts()`, returns `{ success, processed }`.
+
+**Schema adaptations made:**
+- `ViewHistory` has `consumerId` field — full DB-based collaborative filtering used (no Redis-only fallback needed).
+- `SavedSearch` has `resultCount` (Int?) and `lastRunAt` (DateTime?) but no `lastCheckedAt` — Redis key `search-alert:count:{searchId}` tracks the last-alerted count.
+- `SavedSearch` has `nameAr` (not `label`) — WhatsApp alert message uses `nameAr`.
+- `SavedSearch.filters` is `Json` — alert function reconstructs Prisma `where` clause by reading typed filter keys.
 
 ---
 
