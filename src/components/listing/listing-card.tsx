@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { formatPrice, formatArea } from '@/lib/format';
 import { VerificationBadge } from '@/components/trust/verification-badge';
 import { LiveBadge } from '@/components/trust/live-badge';
+import { SuperBrokerBadge } from '@/components/trust/super-broker-badge';
 import type { ListingCard as ListingCardType } from '@/types/listing';
 import { useComparisonStore } from '@/store/comparison.store';
 
@@ -161,6 +162,7 @@ export function ListingCard({
             <Image src={listing.firmLogoUrl} alt={listing.firmNameAr} width={20} height={20} className="rounded-sm object-contain" />
           )}
           <span className="text-xs text-gray-500 line-clamp-1">{listing.firmNameAr}</span>
+          <SuperBrokerBadge tier={listing.brokerTier} />
         </div>
       </Link>
     </div>

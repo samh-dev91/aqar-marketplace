@@ -9,63 +9,66 @@ datasource db {
 }
 
 model Listing {
-  id                 String    @id @default(cuid())
-  crmFirmId          String
-  crmPropertyId      String
-  slug               String    @unique
-  crmFirmSlug        String
-  projectId          String?
-  project            Project?  @relation(fields: [projectId], references: [id])
-  titleAr            String
-  titleEn            String?
-  descriptionAr      String?
-  descriptionEn      String?
-  propertyType       String
-  transactionType    String
-  address            String
-  district           String?
-  city               String    @default("Cairo")
-  latitude           Decimal?  @db.Decimal(10, 7)
-  longitude          Decimal?  @db.Decimal(10, 7)
-  googleMapsUrl      String?
-  area               Decimal?  @db.Decimal(10, 2)
-  bedrooms           Int?
-  bathrooms          Int?
-  floor              Int?
-  totalFloors        Int?
-  parkingSpaces      Int?
-  isFurnished        Boolean?
-  askingPrice        Decimal   @db.Decimal(15, 2)
-  pricePerSqm        Decimal?  @db.Decimal(10, 2)
-  priceIsHidden      Boolean   @default(false)
-  images             String[]
-  videoUrl           String?
-  virtualTourUrl     String?
-  floorPlanUrl       String?
-  verificationTier   String    @default("LISTED")
-  isStale            Boolean   @default(false)
-  staleSince         DateTime?
-  lastSyncAt         DateTime  @default(now())
-  aqarScore          Int?
-  aqarScoreAt        DateTime?
-  brokerDisplayName  String?
-  brokerResponseTime Int?
-  brokerDealCount    Int?
-  firmNameAr         String
-  firmNameEn         String?
-  firmLogoUrl        String?
-  hasFinancing       Boolean   @default(false)
-  monthlyFrom        Decimal?  @db.Decimal(15, 2)
-  downPaymentFrom    Decimal?  @db.Decimal(15, 2)
-  installmentMonths  Int?
-  viewCount          Int       @default(0)
-  inquiryCount       Int       @default(0)
-  favoriteCount      Int       @default(0)
-  shareCount         Int       @default(0)
-  isActive           Boolean   @default(true)
-  publishedAt        DateTime  @default(now())
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id                  String    @id @default(cuid())
+  crmFirmId           String
+  crmPropertyId       String
+  slug                String    @unique
+  crmFirmSlug         String
+  projectId           String?
+  project             Project?  @relation(fields: [projectId], references: [id])
+  titleAr             String
+  titleEn             String?
+  descriptionAr       String?
+  descriptionEn       String?
+  propertyType        String
+  transactionType     String
+  address             String
+  district            String?
+  city                String    @default("Cairo")
+  latitude            Decimal?  @db.Decimal(10, 7)
+  longitude           Decimal?  @db.Decimal(10, 7)
+  googleMapsUrl       String?
+  area                Decimal?  @db.Decimal(10, 2)
+  bedrooms            Int?
+  bathrooms           Int?
+  floor               Int?
+  totalFloors         Int?
+  parkingSpaces       Int?
+  isFurnished         Boolean?
+  askingPrice         Decimal   @db.Decimal(15, 2)
+  pricePerSqm         Decimal?  @db.Decimal(10, 2)
+  priceIsHidden       Boolean   @default(false)
+  images              String[]
+  videoUrl            String?
+  virtualTourUrl      String?
+  floorPlanUrl        String?
+  verificationTier    String    @default("LISTED")
+  isStale             Boolean   @default(false)
+  staleSince          DateTime?
+  lastSyncAt          DateTime  @default(now())
+  aqarScore           Int?
+  aqarScoreAt         DateTime?
+  brokerDisplayName   String?
+  brokerResponseTime  Int?
+  brokerDealCount     Int?
+  brokerSuccessRate   Float?
+  brokerVerifiedSince DateTime?
+  brokerTier          String?
+  firmNameAr          String
+  firmNameEn          String?
+  firmLogoUrl         String?
+  hasFinancing        Boolean   @default(false)
+  monthlyFrom         Decimal?  @db.Decimal(15, 2)
+  downPaymentFrom     Decimal?  @db.Decimal(15, 2)
+  installmentMonths   Int?
+  viewCount           Int       @default(0)
+  inquiryCount        Int       @default(0)
+  favoriteCount       Int       @default(0)
+  shareCount          Int       @default(0)
+  isActive            Boolean   @default(true)
+  publishedAt         DateTime  @default(now())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   financing    ListingFinancing?
   priceHistory PriceHistory[]
@@ -330,6 +333,19 @@ model SyncLog {
 
   @@index([status, createdAt])
   @@index([crmFirmId])
+}
+
+model BrokerReview {
+  id          String   @id @default(cuid())
+  consumerId  String
+  crmFirmSlug String
+  rating      Int
+  commentAr   String?
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@unique([consumerId, crmFirmSlug])
+  @@index([crmFirmSlug])
 }
 
 model OtpCode {

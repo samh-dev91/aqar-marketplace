@@ -164,6 +164,9 @@ exports.Prisma.ListingScalarFieldEnum = {
   brokerDisplayName: 'brokerDisplayName',
   brokerResponseTime: 'brokerResponseTime',
   brokerDealCount: 'brokerDealCount',
+  brokerSuccessRate: 'brokerSuccessRate',
+  brokerVerifiedSince: 'brokerVerifiedSince',
+  brokerTier: 'brokerTier',
   firmNameAr: 'firmNameAr',
   firmNameEn: 'firmNameEn',
   firmLogoUrl: 'firmLogoUrl',
@@ -362,6 +365,16 @@ exports.Prisma.SyncLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BrokerReviewScalarFieldEnum = {
+  id: 'id',
+  consumerId: 'consumerId',
+  crmFirmSlug: 'crmFirmSlug',
+  rating: 'rating',
+  commentAr: 'commentAr',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.OtpCodeScalarFieldEnum = {
   id: 'id',
   phone: 'phone',
@@ -450,6 +463,7 @@ exports.Prisma.ModelName = {
   DistrictStats: 'DistrictStats',
   MarketReport: 'MarketReport',
   SyncLog: 'SyncLog',
+  BrokerReview: 'BrokerReview',
   OtpCode: 'OtpCode',
   Project: 'Project'
 };

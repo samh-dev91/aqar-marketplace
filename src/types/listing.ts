@@ -20,6 +20,7 @@ export interface ListingCard {
   lastSyncAt: string;
   aqarScore?: number;
   brokerDisplayName?: string;
+  brokerTier?: string | null;
   firmNameAr: string;
   firmNameEn?: string;
   firmLogoUrl?: string;

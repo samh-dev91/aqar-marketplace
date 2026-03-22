@@ -89,6 +89,11 @@ export type MarketReport = $Result.DefaultSelection<Prisma.$MarketReportPayload>
  */
 export type SyncLog = $Result.DefaultSelection<Prisma.$SyncLogPayload>
 /**
+ * Model BrokerReview
+ * 
+ */
+export type BrokerReview = $Result.DefaultSelection<Prisma.$BrokerReviewPayload>
+/**
  * Model OtpCode
  * 
  */
@@ -371,6 +376,16 @@ export class PrismaClient<
     * ```
     */
   get syncLog(): Prisma.SyncLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.brokerReview`: Exposes CRUD operations for the **BrokerReview** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BrokerReviews
+    * const brokerReviews = await prisma.brokerReview.findMany()
+    * ```
+    */
+  get brokerReview(): Prisma.BrokerReviewDelegate<ExtArgs>;
 
   /**
    * `prisma.otpCode`: Exposes CRUD operations for the **OtpCode** model.
@@ -847,6 +862,7 @@ export namespace Prisma {
     DistrictStats: 'DistrictStats',
     MarketReport: 'MarketReport',
     SyncLog: 'SyncLog',
+    BrokerReview: 'BrokerReview',
     OtpCode: 'OtpCode',
     Project: 'Project'
   };
@@ -864,7 +880,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "listing" | "listingFinancing" | "priceHistory" | "consumer" | "consumerSession" | "inquiry" | "favorite" | "priceAlert" | "savedSearch" | "comparison" | "comparisonItem" | "viewHistory" | "districtStats" | "marketReport" | "syncLog" | "otpCode" | "project"
+      modelProps: "listing" | "listingFinancing" | "priceHistory" | "consumer" | "consumerSession" | "inquiry" | "favorite" | "priceAlert" | "savedSearch" | "comparison" | "comparisonItem" | "viewHistory" | "districtStats" | "marketReport" | "syncLog" | "brokerReview" | "otpCode" | "project"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1918,6 +1934,76 @@ export namespace Prisma {
           }
         }
       }
+      BrokerReview: {
+        payload: Prisma.$BrokerReviewPayload<ExtArgs>
+        fields: Prisma.BrokerReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BrokerReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BrokerReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.BrokerReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BrokerReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>
+          }
+          findMany: {
+            args: Prisma.BrokerReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>[]
+          }
+          create: {
+            args: Prisma.BrokerReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>
+          }
+          createMany: {
+            args: Prisma.BrokerReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BrokerReviewCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>[]
+          }
+          delete: {
+            args: Prisma.BrokerReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>
+          }
+          update: {
+            args: Prisma.BrokerReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.BrokerReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BrokerReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BrokerReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrokerReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.BrokerReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBrokerReview>
+          }
+          groupBy: {
+            args: Prisma.BrokerReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BrokerReviewGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BrokerReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<BrokerReviewCountAggregateOutputType> | number
+          }
+        }
+      }
       OtpCode: {
         payload: Prisma.$OtpCodePayload<ExtArgs>
         fields: Prisma.OtpCodeFieldRefs
@@ -2498,6 +2584,7 @@ export namespace Prisma {
     aqarScore: number | null
     brokerResponseTime: number | null
     brokerDealCount: number | null
+    brokerSuccessRate: number | null
     monthlyFrom: Decimal | null
     downPaymentFrom: Decimal | null
     installmentMonths: number | null
@@ -2521,6 +2608,7 @@ export namespace Prisma {
     aqarScore: number | null
     brokerResponseTime: number | null
     brokerDealCount: number | null
+    brokerSuccessRate: number | null
     monthlyFrom: Decimal | null
     downPaymentFrom: Decimal | null
     installmentMonths: number | null
@@ -2571,6 +2659,9 @@ export namespace Prisma {
     brokerDisplayName: string | null
     brokerResponseTime: number | null
     brokerDealCount: number | null
+    brokerSuccessRate: number | null
+    brokerVerifiedSince: Date | null
+    brokerTier: string | null
     firmNameAr: string | null
     firmNameEn: string | null
     firmLogoUrl: string | null
@@ -2629,6 +2720,9 @@ export namespace Prisma {
     brokerDisplayName: string | null
     brokerResponseTime: number | null
     brokerDealCount: number | null
+    brokerSuccessRate: number | null
+    brokerVerifiedSince: Date | null
+    brokerTier: string | null
     firmNameAr: string | null
     firmNameEn: string | null
     firmLogoUrl: string | null
@@ -2688,6 +2782,9 @@ export namespace Prisma {
     brokerDisplayName: number
     brokerResponseTime: number
     brokerDealCount: number
+    brokerSuccessRate: number
+    brokerVerifiedSince: number
+    brokerTier: number
     firmNameAr: number
     firmNameEn: number
     firmLogoUrl: number
@@ -2721,6 +2818,7 @@ export namespace Prisma {
     aqarScore?: true
     brokerResponseTime?: true
     brokerDealCount?: true
+    brokerSuccessRate?: true
     monthlyFrom?: true
     downPaymentFrom?: true
     installmentMonths?: true
@@ -2744,6 +2842,7 @@ export namespace Prisma {
     aqarScore?: true
     brokerResponseTime?: true
     brokerDealCount?: true
+    brokerSuccessRate?: true
     monthlyFrom?: true
     downPaymentFrom?: true
     installmentMonths?: true
@@ -2794,6 +2893,9 @@ export namespace Prisma {
     brokerDisplayName?: true
     brokerResponseTime?: true
     brokerDealCount?: true
+    brokerSuccessRate?: true
+    brokerVerifiedSince?: true
+    brokerTier?: true
     firmNameAr?: true
     firmNameEn?: true
     firmLogoUrl?: true
@@ -2852,6 +2954,9 @@ export namespace Prisma {
     brokerDisplayName?: true
     brokerResponseTime?: true
     brokerDealCount?: true
+    brokerSuccessRate?: true
+    brokerVerifiedSince?: true
+    brokerTier?: true
     firmNameAr?: true
     firmNameEn?: true
     firmLogoUrl?: true
@@ -2911,6 +3016,9 @@ export namespace Prisma {
     brokerDisplayName?: true
     brokerResponseTime?: true
     brokerDealCount?: true
+    brokerSuccessRate?: true
+    brokerVerifiedSince?: true
+    brokerTier?: true
     firmNameAr?: true
     firmNameEn?: true
     firmLogoUrl?: true
@@ -3057,6 +3165,9 @@ export namespace Prisma {
     brokerDisplayName: string | null
     brokerResponseTime: number | null
     brokerDealCount: number | null
+    brokerSuccessRate: number | null
+    brokerVerifiedSince: Date | null
+    brokerTier: string | null
     firmNameAr: string
     firmNameEn: string | null
     firmLogoUrl: string | null
@@ -3135,6 +3246,9 @@ export namespace Prisma {
     brokerDisplayName?: boolean
     brokerResponseTime?: boolean
     brokerDealCount?: boolean
+    brokerSuccessRate?: boolean
+    brokerVerifiedSince?: boolean
+    brokerTier?: boolean
     firmNameAr?: boolean
     firmNameEn?: boolean
     firmLogoUrl?: boolean
@@ -3203,6 +3317,9 @@ export namespace Prisma {
     brokerDisplayName?: boolean
     brokerResponseTime?: boolean
     brokerDealCount?: boolean
+    brokerSuccessRate?: boolean
+    brokerVerifiedSince?: boolean
+    brokerTier?: boolean
     firmNameAr?: boolean
     firmNameEn?: boolean
     firmLogoUrl?: boolean
@@ -3263,6 +3380,9 @@ export namespace Prisma {
     brokerDisplayName?: boolean
     brokerResponseTime?: boolean
     brokerDealCount?: boolean
+    brokerSuccessRate?: boolean
+    brokerVerifiedSince?: boolean
+    brokerTier?: boolean
     firmNameAr?: boolean
     firmNameEn?: boolean
     firmLogoUrl?: boolean
@@ -3349,6 +3469,9 @@ export namespace Prisma {
       brokerDisplayName: string | null
       brokerResponseTime: number | null
       brokerDealCount: number | null
+      brokerSuccessRate: number | null
+      brokerVerifiedSince: Date | null
+      brokerTier: string | null
       firmNameAr: string
       firmNameEn: string | null
       firmLogoUrl: string | null
@@ -3806,6 +3929,9 @@ export namespace Prisma {
     readonly brokerDisplayName: FieldRef<"Listing", 'String'>
     readonly brokerResponseTime: FieldRef<"Listing", 'Int'>
     readonly brokerDealCount: FieldRef<"Listing", 'Int'>
+    readonly brokerSuccessRate: FieldRef<"Listing", 'Float'>
+    readonly brokerVerifiedSince: FieldRef<"Listing", 'DateTime'>
+    readonly brokerTier: FieldRef<"Listing", 'String'>
     readonly firmNameAr: FieldRef<"Listing", 'String'>
     readonly firmNameEn: FieldRef<"Listing", 'String'>
     readonly firmLogoUrl: FieldRef<"Listing", 'String'>
@@ -18663,6 +18789,942 @@ export namespace Prisma {
 
 
   /**
+   * Model BrokerReview
+   */
+
+  export type AggregateBrokerReview = {
+    _count: BrokerReviewCountAggregateOutputType | null
+    _avg: BrokerReviewAvgAggregateOutputType | null
+    _sum: BrokerReviewSumAggregateOutputType | null
+    _min: BrokerReviewMinAggregateOutputType | null
+    _max: BrokerReviewMaxAggregateOutputType | null
+  }
+
+  export type BrokerReviewAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type BrokerReviewSumAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type BrokerReviewMinAggregateOutputType = {
+    id: string | null
+    consumerId: string | null
+    crmFirmSlug: string | null
+    rating: number | null
+    commentAr: string | null
+    isVerified: boolean | null
+    createdAt: Date | null
+  }
+
+  export type BrokerReviewMaxAggregateOutputType = {
+    id: string | null
+    consumerId: string | null
+    crmFirmSlug: string | null
+    rating: number | null
+    commentAr: string | null
+    isVerified: boolean | null
+    createdAt: Date | null
+  }
+
+  export type BrokerReviewCountAggregateOutputType = {
+    id: number
+    consumerId: number
+    crmFirmSlug: number
+    rating: number
+    commentAr: number
+    isVerified: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BrokerReviewAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type BrokerReviewSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type BrokerReviewMinAggregateInputType = {
+    id?: true
+    consumerId?: true
+    crmFirmSlug?: true
+    rating?: true
+    commentAr?: true
+    isVerified?: true
+    createdAt?: true
+  }
+
+  export type BrokerReviewMaxAggregateInputType = {
+    id?: true
+    consumerId?: true
+    crmFirmSlug?: true
+    rating?: true
+    commentAr?: true
+    isVerified?: true
+    createdAt?: true
+  }
+
+  export type BrokerReviewCountAggregateInputType = {
+    id?: true
+    consumerId?: true
+    crmFirmSlug?: true
+    rating?: true
+    commentAr?: true
+    isVerified?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BrokerReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BrokerReview to aggregate.
+     */
+    where?: BrokerReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrokerReviews to fetch.
+     */
+    orderBy?: BrokerReviewOrderByWithRelationInput | BrokerReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BrokerReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrokerReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrokerReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BrokerReviews
+    **/
+    _count?: true | BrokerReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BrokerReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BrokerReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BrokerReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BrokerReviewMaxAggregateInputType
+  }
+
+  export type GetBrokerReviewAggregateType<T extends BrokerReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateBrokerReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBrokerReview[P]>
+      : GetScalarType<T[P], AggregateBrokerReview[P]>
+  }
+
+
+
+
+  export type BrokerReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BrokerReviewWhereInput
+    orderBy?: BrokerReviewOrderByWithAggregationInput | BrokerReviewOrderByWithAggregationInput[]
+    by: BrokerReviewScalarFieldEnum[] | BrokerReviewScalarFieldEnum
+    having?: BrokerReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BrokerReviewCountAggregateInputType | true
+    _avg?: BrokerReviewAvgAggregateInputType
+    _sum?: BrokerReviewSumAggregateInputType
+    _min?: BrokerReviewMinAggregateInputType
+    _max?: BrokerReviewMaxAggregateInputType
+  }
+
+  export type BrokerReviewGroupByOutputType = {
+    id: string
+    consumerId: string
+    crmFirmSlug: string
+    rating: number
+    commentAr: string | null
+    isVerified: boolean
+    createdAt: Date
+    _count: BrokerReviewCountAggregateOutputType | null
+    _avg: BrokerReviewAvgAggregateOutputType | null
+    _sum: BrokerReviewSumAggregateOutputType | null
+    _min: BrokerReviewMinAggregateOutputType | null
+    _max: BrokerReviewMaxAggregateOutputType | null
+  }
+
+  type GetBrokerReviewGroupByPayload<T extends BrokerReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BrokerReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BrokerReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BrokerReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], BrokerReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BrokerReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    consumerId?: boolean
+    crmFirmSlug?: boolean
+    rating?: boolean
+    commentAr?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["brokerReview"]>
+
+  export type BrokerReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    consumerId?: boolean
+    crmFirmSlug?: boolean
+    rating?: boolean
+    commentAr?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["brokerReview"]>
+
+  export type BrokerReviewSelectScalar = {
+    id?: boolean
+    consumerId?: boolean
+    crmFirmSlug?: boolean
+    rating?: boolean
+    commentAr?: boolean
+    isVerified?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $BrokerReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BrokerReview"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      consumerId: string
+      crmFirmSlug: string
+      rating: number
+      commentAr: string | null
+      isVerified: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["brokerReview"]>
+    composites: {}
+  }
+
+  type BrokerReviewGetPayload<S extends boolean | null | undefined | BrokerReviewDefaultArgs> = $Result.GetResult<Prisma.$BrokerReviewPayload, S>
+
+  type BrokerReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BrokerReviewFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BrokerReviewCountAggregateInputType | true
+    }
+
+  export interface BrokerReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BrokerReview'], meta: { name: 'BrokerReview' } }
+    /**
+     * Find zero or one BrokerReview that matches the filter.
+     * @param {BrokerReviewFindUniqueArgs} args - Arguments to find a BrokerReview
+     * @example
+     * // Get one BrokerReview
+     * const brokerReview = await prisma.brokerReview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BrokerReviewFindUniqueArgs>(args: SelectSubset<T, BrokerReviewFindUniqueArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BrokerReview that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BrokerReviewFindUniqueOrThrowArgs} args - Arguments to find a BrokerReview
+     * @example
+     * // Get one BrokerReview
+     * const brokerReview = await prisma.brokerReview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BrokerReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, BrokerReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BrokerReview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewFindFirstArgs} args - Arguments to find a BrokerReview
+     * @example
+     * // Get one BrokerReview
+     * const brokerReview = await prisma.brokerReview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BrokerReviewFindFirstArgs>(args?: SelectSubset<T, BrokerReviewFindFirstArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BrokerReview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewFindFirstOrThrowArgs} args - Arguments to find a BrokerReview
+     * @example
+     * // Get one BrokerReview
+     * const brokerReview = await prisma.brokerReview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BrokerReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, BrokerReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BrokerReviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BrokerReviews
+     * const brokerReviews = await prisma.brokerReview.findMany()
+     * 
+     * // Get first 10 BrokerReviews
+     * const brokerReviews = await prisma.brokerReview.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const brokerReviewWithIdOnly = await prisma.brokerReview.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BrokerReviewFindManyArgs>(args?: SelectSubset<T, BrokerReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BrokerReview.
+     * @param {BrokerReviewCreateArgs} args - Arguments to create a BrokerReview.
+     * @example
+     * // Create one BrokerReview
+     * const BrokerReview = await prisma.brokerReview.create({
+     *   data: {
+     *     // ... data to create a BrokerReview
+     *   }
+     * })
+     * 
+     */
+    create<T extends BrokerReviewCreateArgs>(args: SelectSubset<T, BrokerReviewCreateArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BrokerReviews.
+     * @param {BrokerReviewCreateManyArgs} args - Arguments to create many BrokerReviews.
+     * @example
+     * // Create many BrokerReviews
+     * const brokerReview = await prisma.brokerReview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BrokerReviewCreateManyArgs>(args?: SelectSubset<T, BrokerReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BrokerReviews and returns the data saved in the database.
+     * @param {BrokerReviewCreateManyAndReturnArgs} args - Arguments to create many BrokerReviews.
+     * @example
+     * // Create many BrokerReviews
+     * const brokerReview = await prisma.brokerReview.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BrokerReviews and only return the `id`
+     * const brokerReviewWithIdOnly = await prisma.brokerReview.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BrokerReviewCreateManyAndReturnArgs>(args?: SelectSubset<T, BrokerReviewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BrokerReview.
+     * @param {BrokerReviewDeleteArgs} args - Arguments to delete one BrokerReview.
+     * @example
+     * // Delete one BrokerReview
+     * const BrokerReview = await prisma.brokerReview.delete({
+     *   where: {
+     *     // ... filter to delete one BrokerReview
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BrokerReviewDeleteArgs>(args: SelectSubset<T, BrokerReviewDeleteArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BrokerReview.
+     * @param {BrokerReviewUpdateArgs} args - Arguments to update one BrokerReview.
+     * @example
+     * // Update one BrokerReview
+     * const brokerReview = await prisma.brokerReview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BrokerReviewUpdateArgs>(args: SelectSubset<T, BrokerReviewUpdateArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BrokerReviews.
+     * @param {BrokerReviewDeleteManyArgs} args - Arguments to filter BrokerReviews to delete.
+     * @example
+     * // Delete a few BrokerReviews
+     * const { count } = await prisma.brokerReview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BrokerReviewDeleteManyArgs>(args?: SelectSubset<T, BrokerReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BrokerReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BrokerReviews
+     * const brokerReview = await prisma.brokerReview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BrokerReviewUpdateManyArgs>(args: SelectSubset<T, BrokerReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BrokerReview.
+     * @param {BrokerReviewUpsertArgs} args - Arguments to update or create a BrokerReview.
+     * @example
+     * // Update or create a BrokerReview
+     * const brokerReview = await prisma.brokerReview.upsert({
+     *   create: {
+     *     // ... data to create a BrokerReview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BrokerReview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BrokerReviewUpsertArgs>(args: SelectSubset<T, BrokerReviewUpsertArgs<ExtArgs>>): Prisma__BrokerReviewClient<$Result.GetResult<Prisma.$BrokerReviewPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BrokerReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewCountArgs} args - Arguments to filter BrokerReviews to count.
+     * @example
+     * // Count the number of BrokerReviews
+     * const count = await prisma.brokerReview.count({
+     *   where: {
+     *     // ... the filter for the BrokerReviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends BrokerReviewCountArgs>(
+      args?: Subset<T, BrokerReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BrokerReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BrokerReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BrokerReviewAggregateArgs>(args: Subset<T, BrokerReviewAggregateArgs>): Prisma.PrismaPromise<GetBrokerReviewAggregateType<T>>
+
+    /**
+     * Group by BrokerReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrokerReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BrokerReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BrokerReviewGroupByArgs['orderBy'] }
+        : { orderBy?: BrokerReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BrokerReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBrokerReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BrokerReview model
+   */
+  readonly fields: BrokerReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BrokerReview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BrokerReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BrokerReview model
+   */ 
+  interface BrokerReviewFieldRefs {
+    readonly id: FieldRef<"BrokerReview", 'String'>
+    readonly consumerId: FieldRef<"BrokerReview", 'String'>
+    readonly crmFirmSlug: FieldRef<"BrokerReview", 'String'>
+    readonly rating: FieldRef<"BrokerReview", 'Int'>
+    readonly commentAr: FieldRef<"BrokerReview", 'String'>
+    readonly isVerified: FieldRef<"BrokerReview", 'Boolean'>
+    readonly createdAt: FieldRef<"BrokerReview", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BrokerReview findUnique
+   */
+  export type BrokerReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * Filter, which BrokerReview to fetch.
+     */
+    where: BrokerReviewWhereUniqueInput
+  }
+
+  /**
+   * BrokerReview findUniqueOrThrow
+   */
+  export type BrokerReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * Filter, which BrokerReview to fetch.
+     */
+    where: BrokerReviewWhereUniqueInput
+  }
+
+  /**
+   * BrokerReview findFirst
+   */
+  export type BrokerReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * Filter, which BrokerReview to fetch.
+     */
+    where?: BrokerReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrokerReviews to fetch.
+     */
+    orderBy?: BrokerReviewOrderByWithRelationInput | BrokerReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BrokerReviews.
+     */
+    cursor?: BrokerReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrokerReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrokerReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrokerReviews.
+     */
+    distinct?: BrokerReviewScalarFieldEnum | BrokerReviewScalarFieldEnum[]
+  }
+
+  /**
+   * BrokerReview findFirstOrThrow
+   */
+  export type BrokerReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * Filter, which BrokerReview to fetch.
+     */
+    where?: BrokerReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrokerReviews to fetch.
+     */
+    orderBy?: BrokerReviewOrderByWithRelationInput | BrokerReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BrokerReviews.
+     */
+    cursor?: BrokerReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrokerReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrokerReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrokerReviews.
+     */
+    distinct?: BrokerReviewScalarFieldEnum | BrokerReviewScalarFieldEnum[]
+  }
+
+  /**
+   * BrokerReview findMany
+   */
+  export type BrokerReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * Filter, which BrokerReviews to fetch.
+     */
+    where?: BrokerReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrokerReviews to fetch.
+     */
+    orderBy?: BrokerReviewOrderByWithRelationInput | BrokerReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BrokerReviews.
+     */
+    cursor?: BrokerReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrokerReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrokerReviews.
+     */
+    skip?: number
+    distinct?: BrokerReviewScalarFieldEnum | BrokerReviewScalarFieldEnum[]
+  }
+
+  /**
+   * BrokerReview create
+   */
+  export type BrokerReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * The data needed to create a BrokerReview.
+     */
+    data: XOR<BrokerReviewCreateInput, BrokerReviewUncheckedCreateInput>
+  }
+
+  /**
+   * BrokerReview createMany
+   */
+  export type BrokerReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BrokerReviews.
+     */
+    data: BrokerReviewCreateManyInput | BrokerReviewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BrokerReview createManyAndReturn
+   */
+  export type BrokerReviewCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BrokerReviews.
+     */
+    data: BrokerReviewCreateManyInput | BrokerReviewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BrokerReview update
+   */
+  export type BrokerReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * The data needed to update a BrokerReview.
+     */
+    data: XOR<BrokerReviewUpdateInput, BrokerReviewUncheckedUpdateInput>
+    /**
+     * Choose, which BrokerReview to update.
+     */
+    where: BrokerReviewWhereUniqueInput
+  }
+
+  /**
+   * BrokerReview updateMany
+   */
+  export type BrokerReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BrokerReviews.
+     */
+    data: XOR<BrokerReviewUpdateManyMutationInput, BrokerReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which BrokerReviews to update
+     */
+    where?: BrokerReviewWhereInput
+  }
+
+  /**
+   * BrokerReview upsert
+   */
+  export type BrokerReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * The filter to search for the BrokerReview to update in case it exists.
+     */
+    where: BrokerReviewWhereUniqueInput
+    /**
+     * In case the BrokerReview found by the `where` argument doesn't exist, create a new BrokerReview with this data.
+     */
+    create: XOR<BrokerReviewCreateInput, BrokerReviewUncheckedCreateInput>
+    /**
+     * In case the BrokerReview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BrokerReviewUpdateInput, BrokerReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * BrokerReview delete
+   */
+  export type BrokerReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+    /**
+     * Filter which BrokerReview to delete.
+     */
+    where: BrokerReviewWhereUniqueInput
+  }
+
+  /**
+   * BrokerReview deleteMany
+   */
+  export type BrokerReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BrokerReviews to delete
+     */
+    where?: BrokerReviewWhereInput
+  }
+
+  /**
+   * BrokerReview without action
+   */
+  export type BrokerReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrokerReview
+     */
+    select?: BrokerReviewSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model OtpCode
    */
 
@@ -20936,6 +21998,9 @@ export namespace Prisma {
     brokerDisplayName: 'brokerDisplayName',
     brokerResponseTime: 'brokerResponseTime',
     brokerDealCount: 'brokerDealCount',
+    brokerSuccessRate: 'brokerSuccessRate',
+    brokerVerifiedSince: 'brokerVerifiedSince',
+    brokerTier: 'brokerTier',
     firmNameAr: 'firmNameAr',
     firmNameEn: 'firmNameEn',
     firmLogoUrl: 'firmLogoUrl',
@@ -21179,6 +22244,19 @@ export namespace Prisma {
   export type SyncLogScalarFieldEnum = (typeof SyncLogScalarFieldEnum)[keyof typeof SyncLogScalarFieldEnum]
 
 
+  export const BrokerReviewScalarFieldEnum: {
+    id: 'id',
+    consumerId: 'consumerId',
+    crmFirmSlug: 'crmFirmSlug',
+    rating: 'rating',
+    commentAr: 'commentAr',
+    isVerified: 'isVerified',
+    createdAt: 'createdAt'
+  };
+
+  export type BrokerReviewScalarFieldEnum = (typeof BrokerReviewScalarFieldEnum)[keyof typeof BrokerReviewScalarFieldEnum]
+
+
   export const OtpCodeScalarFieldEnum: {
     id: 'id',
     phone: 'phone',
@@ -21343,13 +22421,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -21360,6 +22431,13 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
   /**
    * Deep Input Types
@@ -21411,6 +22489,9 @@ export namespace Prisma {
     brokerDisplayName?: StringNullableFilter<"Listing"> | string | null
     brokerResponseTime?: IntNullableFilter<"Listing"> | number | null
     brokerDealCount?: IntNullableFilter<"Listing"> | number | null
+    brokerSuccessRate?: FloatNullableFilter<"Listing"> | number | null
+    brokerVerifiedSince?: DateTimeNullableFilter<"Listing"> | Date | string | null
+    brokerTier?: StringNullableFilter<"Listing"> | string | null
     firmNameAr?: StringFilter<"Listing"> | string
     firmNameEn?: StringNullableFilter<"Listing"> | string | null
     firmLogoUrl?: StringNullableFilter<"Listing"> | string | null
@@ -21478,6 +22559,9 @@ export namespace Prisma {
     brokerDisplayName?: SortOrderInput | SortOrder
     brokerResponseTime?: SortOrderInput | SortOrder
     brokerDealCount?: SortOrderInput | SortOrder
+    brokerSuccessRate?: SortOrderInput | SortOrder
+    brokerVerifiedSince?: SortOrderInput | SortOrder
+    brokerTier?: SortOrderInput | SortOrder
     firmNameAr?: SortOrder
     firmNameEn?: SortOrderInput | SortOrder
     firmLogoUrl?: SortOrderInput | SortOrder
@@ -21549,6 +22633,9 @@ export namespace Prisma {
     brokerDisplayName?: StringNullableFilter<"Listing"> | string | null
     brokerResponseTime?: IntNullableFilter<"Listing"> | number | null
     brokerDealCount?: IntNullableFilter<"Listing"> | number | null
+    brokerSuccessRate?: FloatNullableFilter<"Listing"> | number | null
+    brokerVerifiedSince?: DateTimeNullableFilter<"Listing"> | Date | string | null
+    brokerTier?: StringNullableFilter<"Listing"> | string | null
     firmNameAr?: StringFilter<"Listing"> | string
     firmNameEn?: StringNullableFilter<"Listing"> | string | null
     firmLogoUrl?: StringNullableFilter<"Listing"> | string | null
@@ -21616,6 +22703,9 @@ export namespace Prisma {
     brokerDisplayName?: SortOrderInput | SortOrder
     brokerResponseTime?: SortOrderInput | SortOrder
     brokerDealCount?: SortOrderInput | SortOrder
+    brokerSuccessRate?: SortOrderInput | SortOrder
+    brokerVerifiedSince?: SortOrderInput | SortOrder
+    brokerTier?: SortOrderInput | SortOrder
     firmNameAr?: SortOrder
     firmNameEn?: SortOrderInput | SortOrder
     firmLogoUrl?: SortOrderInput | SortOrder
@@ -21683,6 +22773,9 @@ export namespace Prisma {
     brokerDisplayName?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     brokerResponseTime?: IntNullableWithAggregatesFilter<"Listing"> | number | null
     brokerDealCount?: IntNullableWithAggregatesFilter<"Listing"> | number | null
+    brokerSuccessRate?: FloatNullableWithAggregatesFilter<"Listing"> | number | null
+    brokerVerifiedSince?: DateTimeNullableWithAggregatesFilter<"Listing"> | Date | string | null
+    brokerTier?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     firmNameAr?: StringWithAggregatesFilter<"Listing"> | string
     firmNameEn?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     firmLogoUrl?: StringNullableWithAggregatesFilter<"Listing"> | string | null
@@ -22869,6 +23962,71 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"SyncLog"> | Date | string
   }
 
+  export type BrokerReviewWhereInput = {
+    AND?: BrokerReviewWhereInput | BrokerReviewWhereInput[]
+    OR?: BrokerReviewWhereInput[]
+    NOT?: BrokerReviewWhereInput | BrokerReviewWhereInput[]
+    id?: StringFilter<"BrokerReview"> | string
+    consumerId?: StringFilter<"BrokerReview"> | string
+    crmFirmSlug?: StringFilter<"BrokerReview"> | string
+    rating?: IntFilter<"BrokerReview"> | number
+    commentAr?: StringNullableFilter<"BrokerReview"> | string | null
+    isVerified?: BoolFilter<"BrokerReview"> | boolean
+    createdAt?: DateTimeFilter<"BrokerReview"> | Date | string
+  }
+
+  export type BrokerReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    consumerId?: SortOrder
+    crmFirmSlug?: SortOrder
+    rating?: SortOrder
+    commentAr?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BrokerReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    consumerId_crmFirmSlug?: BrokerReviewConsumerIdCrmFirmSlugCompoundUniqueInput
+    AND?: BrokerReviewWhereInput | BrokerReviewWhereInput[]
+    OR?: BrokerReviewWhereInput[]
+    NOT?: BrokerReviewWhereInput | BrokerReviewWhereInput[]
+    consumerId?: StringFilter<"BrokerReview"> | string
+    crmFirmSlug?: StringFilter<"BrokerReview"> | string
+    rating?: IntFilter<"BrokerReview"> | number
+    commentAr?: StringNullableFilter<"BrokerReview"> | string | null
+    isVerified?: BoolFilter<"BrokerReview"> | boolean
+    createdAt?: DateTimeFilter<"BrokerReview"> | Date | string
+  }, "id" | "consumerId_crmFirmSlug">
+
+  export type BrokerReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    consumerId?: SortOrder
+    crmFirmSlug?: SortOrder
+    rating?: SortOrder
+    commentAr?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+    _count?: BrokerReviewCountOrderByAggregateInput
+    _avg?: BrokerReviewAvgOrderByAggregateInput
+    _max?: BrokerReviewMaxOrderByAggregateInput
+    _min?: BrokerReviewMinOrderByAggregateInput
+    _sum?: BrokerReviewSumOrderByAggregateInput
+  }
+
+  export type BrokerReviewScalarWhereWithAggregatesInput = {
+    AND?: BrokerReviewScalarWhereWithAggregatesInput | BrokerReviewScalarWhereWithAggregatesInput[]
+    OR?: BrokerReviewScalarWhereWithAggregatesInput[]
+    NOT?: BrokerReviewScalarWhereWithAggregatesInput | BrokerReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BrokerReview"> | string
+    consumerId?: StringWithAggregatesFilter<"BrokerReview"> | string
+    crmFirmSlug?: StringWithAggregatesFilter<"BrokerReview"> | string
+    rating?: IntWithAggregatesFilter<"BrokerReview"> | number
+    commentAr?: StringNullableWithAggregatesFilter<"BrokerReview"> | string | null
+    isVerified?: BoolWithAggregatesFilter<"BrokerReview"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"BrokerReview"> | Date | string
+  }
+
   export type OtpCodeWhereInput = {
     AND?: OtpCodeWhereInput | OtpCodeWhereInput[]
     OR?: OtpCodeWhereInput[]
@@ -23146,6 +24304,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -23213,6 +24374,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -23278,6 +24442,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23345,6 +24512,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23411,6 +24581,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -23469,6 +24642,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23528,6 +24704,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24832,6 +26011,76 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BrokerReviewCreateInput = {
+    id?: string
+    consumerId: string
+    crmFirmSlug: string
+    rating: number
+    commentAr?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BrokerReviewUncheckedCreateInput = {
+    id?: string
+    consumerId: string
+    crmFirmSlug: string
+    rating: number
+    commentAr?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BrokerReviewUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    consumerId?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    commentAr?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrokerReviewUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    consumerId?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    commentAr?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrokerReviewCreateManyInput = {
+    id?: string
+    consumerId: string
+    crmFirmSlug: string
+    rating: number
+    commentAr?: string | null
+    isVerified?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BrokerReviewUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    consumerId?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    commentAr?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrokerReviewUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    consumerId?: StringFieldUpdateOperationsInput | string
+    crmFirmSlug?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    commentAr?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type OtpCodeCreateInput = {
     id?: string
     phone: string
@@ -25226,6 +26475,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -25359,6 +26619,9 @@ export namespace Prisma {
     brokerDisplayName?: SortOrder
     brokerResponseTime?: SortOrder
     brokerDealCount?: SortOrder
+    brokerSuccessRate?: SortOrder
+    brokerVerifiedSince?: SortOrder
+    brokerTier?: SortOrder
     firmNameAr?: SortOrder
     firmNameEn?: SortOrder
     firmLogoUrl?: SortOrder
@@ -25390,6 +26653,7 @@ export namespace Prisma {
     aqarScore?: SortOrder
     brokerResponseTime?: SortOrder
     brokerDealCount?: SortOrder
+    brokerSuccessRate?: SortOrder
     monthlyFrom?: SortOrder
     downPaymentFrom?: SortOrder
     installmentMonths?: SortOrder
@@ -25440,6 +26704,9 @@ export namespace Prisma {
     brokerDisplayName?: SortOrder
     brokerResponseTime?: SortOrder
     brokerDealCount?: SortOrder
+    brokerSuccessRate?: SortOrder
+    brokerVerifiedSince?: SortOrder
+    brokerTier?: SortOrder
     firmNameAr?: SortOrder
     firmNameEn?: SortOrder
     firmLogoUrl?: SortOrder
@@ -25498,6 +26765,9 @@ export namespace Prisma {
     brokerDisplayName?: SortOrder
     brokerResponseTime?: SortOrder
     brokerDealCount?: SortOrder
+    brokerSuccessRate?: SortOrder
+    brokerVerifiedSince?: SortOrder
+    brokerTier?: SortOrder
     firmNameAr?: SortOrder
     firmNameEn?: SortOrder
     firmLogoUrl?: SortOrder
@@ -25529,6 +26799,7 @@ export namespace Prisma {
     aqarScore?: SortOrder
     brokerResponseTime?: SortOrder
     brokerDealCount?: SortOrder
+    brokerSuccessRate?: SortOrder
     monthlyFrom?: SortOrder
     downPaymentFrom?: SortOrder
     installmentMonths?: SortOrder
@@ -25664,6 +26935,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -26486,6 +27773,49 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type BrokerReviewConsumerIdCrmFirmSlugCompoundUniqueInput = {
+    consumerId: string
+    crmFirmSlug: string
+  }
+
+  export type BrokerReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    consumerId?: SortOrder
+    crmFirmSlug?: SortOrder
+    rating?: SortOrder
+    commentAr?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BrokerReviewAvgOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type BrokerReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    consumerId?: SortOrder
+    crmFirmSlug?: SortOrder
+    rating?: SortOrder
+    commentAr?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BrokerReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    consumerId?: SortOrder
+    crmFirmSlug?: SortOrder
+    rating?: SortOrder
+    commentAr?: SortOrder
+    isVerified?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BrokerReviewSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
   export type OtpCodeCountOrderByAggregateInput = {
     id?: SortOrder
     phone?: SortOrder
@@ -26804,6 +28134,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -27791,6 +29129,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -27868,17 +29217,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
@@ -27937,6 +29275,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -28626,6 +29980,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -28692,6 +30049,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -28772,6 +30132,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28838,6 +30201,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28902,6 +30268,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -28968,6 +30337,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -29048,6 +30420,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29114,6 +30489,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29680,6 +31058,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -29746,6 +31127,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -29889,6 +31273,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29955,6 +31342,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30151,6 +31541,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -30217,6 +31610,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -30366,6 +31762,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30432,6 +31831,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30559,6 +31961,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -30625,6 +32030,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -30799,6 +32207,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30865,6 +32276,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31337,6 +32751,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -31403,6 +32820,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -31510,6 +32930,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31576,6 +32999,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31703,6 +33129,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -31769,6 +33198,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -31918,6 +33350,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31984,6 +33419,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32048,6 +33486,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -32113,6 +33554,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -32208,6 +33652,9 @@ export namespace Prisma {
     brokerDisplayName?: StringNullableFilter<"Listing"> | string | null
     brokerResponseTime?: IntNullableFilter<"Listing"> | number | null
     brokerDealCount?: IntNullableFilter<"Listing"> | number | null
+    brokerSuccessRate?: FloatNullableFilter<"Listing"> | number | null
+    brokerVerifiedSince?: DateTimeNullableFilter<"Listing"> | Date | string | null
+    brokerTier?: StringNullableFilter<"Listing"> | string | null
     firmNameAr?: StringFilter<"Listing"> | string
     firmNameEn?: StringNullableFilter<"Listing"> | string | null
     firmLogoUrl?: StringNullableFilter<"Listing"> | string | null
@@ -32886,6 +34333,9 @@ export namespace Prisma {
     brokerDisplayName?: string | null
     brokerResponseTime?: number | null
     brokerDealCount?: number | null
+    brokerSuccessRate?: number | null
+    brokerVerifiedSince?: Date | string | null
+    brokerTier?: string | null
     firmNameAr: string
     firmNameEn?: string | null
     firmLogoUrl?: string | null
@@ -32944,6 +34394,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33009,6 +34462,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33074,6 +34530,9 @@ export namespace Prisma {
     brokerDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     brokerResponseTime?: NullableIntFieldUpdateOperationsInput | number | null
     brokerDealCount?: NullableIntFieldUpdateOperationsInput | number | null
+    brokerSuccessRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    brokerVerifiedSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brokerTier?: NullableStringFieldUpdateOperationsInput | string | null
     firmNameAr?: StringFieldUpdateOperationsInput | string
     firmNameEn?: NullableStringFieldUpdateOperationsInput | string | null
     firmLogoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33176,6 +34635,10 @@ export namespace Prisma {
      * @deprecated Use SyncLogDefaultArgs instead
      */
     export type SyncLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SyncLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BrokerReviewDefaultArgs instead
+     */
+    export type BrokerReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BrokerReviewDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OtpCodeDefaultArgs instead
      */

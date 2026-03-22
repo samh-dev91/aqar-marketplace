@@ -8,11 +8,29 @@ import { db } from '@/lib/db';
 import { ListingCard } from '@/components/listing/listing-card';
 import type { ListingCard as ListingCardType } from '@/types/listing';
 import type Decimal from 'decimal.js';
+import { StarRating } from '@/components/trust/star-rating';
+import { SuperBrokerBadge } from '@/components/trust/super-broker-badge';
+import { ReviewForm } from '@/components/trust/review-form';
 
 export const revalidate = 60;
 
 interface PageProps {
   params: { slug: string };
+}
+
+interface BrokerReview {
+  id: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+}
+
+interface ReviewsResponse {
+  data: {
+    reviews: BrokerReview[];
+    avgRating: number;
+    reviewCount: number;
+  } | null;
 }
 
 interface DbListing {
@@ -37,6 +55,7 @@ interface DbListing {
   lastSyncAt: Date;
   aqarScore: number | null;
   brokerDisplayName: string | null;
+  brokerTier: string | null;
   firmNameAr: string;
   firmNameEn: string | null;
   firmLogoUrl: string | null;
@@ -71,6 +90,7 @@ function toListingCard(l: DbListing): ListingCardType {
     lastSyncAt: l.lastSyncAt.toISOString(),
     aqarScore: l.aqarScore ?? undefined,
     brokerDisplayName: l.brokerDisplayName ?? undefined,
+    brokerTier: l.brokerTier ?? undefined,
     firmNameAr: l.firmNameAr,
     firmNameEn: l.firmNameEn ?? undefined,
     firmLogoUrl: l.firmLogoUrl ?? undefined,
@@ -105,6 +125,7 @@ const LISTING_SELECT = {
   lastSyncAt: true,
   aqarScore: true,
   brokerDisplayName: true,
+  brokerTier: true,
   firmNameAr: true,
   firmNameEn: true,
   firmLogoUrl: true,
@@ -115,6 +136,19 @@ const LISTING_SELECT = {
   isActive: true,
   publishedAt: true,
 } as const;
+
+async function fetchReviews(slug: string): Promise<ReviewsResponse> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/firms/${slug}/reviews?limit=5`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return { data: null };
+    return res.json() as Promise<ReviewsResponse>;
+  } catch {
+    return { data: null };
+  }
+}
 
 async function fetchFirmData(slug: string) {
   const listings = await db.listing.findMany({
@@ -131,6 +165,7 @@ async function fetchFirmData(slug: string) {
     nameAr: first.firmNameAr,
     nameEn: first.firmNameEn,
     logoUrl: first.firmLogoUrl,
+    brokerTier: first.brokerTier,
   };
 
   // Count by propertyType
@@ -185,7 +220,10 @@ const PROPERTY_TYPE_LABELS: Record<string, string> = {
 
 export default async function FirmProfilePage({ params }: PageProps) {
   const slug = decodeURIComponent(params.slug);
-  const data = await fetchFirmData(slug);
+  const [data, reviewsRes] = await Promise.all([
+    fetchFirmData(slug),
+    fetchReviews(slug),
+  ]);
 
   if (!data) {
     notFound();
@@ -194,6 +232,11 @@ export default async function FirmProfilePage({ params }: PageProps) {
   const { firmInfo, listings, typeCounts, totalCount } = data;
   const listingCards = listings.map(toListingCard);
   const uniqueTypeCount = typeCounts.size;
+
+  const reviewsData = reviewsRes.data;
+  const reviews = reviewsData?.reviews ?? [];
+  const avgRating = reviewsData?.avgRating ?? 0;
+  const reviewCount = reviewsData?.reviewCount ?? 0;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -236,10 +279,18 @@ export default async function FirmProfilePage({ params }: PageProps) {
                 موثق على عقار ثرست
               </span>
 
+              {/* Super broker badge */}
+              <SuperBrokerBadge tier={firmInfo.brokerTier} />
+
               {/* Listing count badge */}
               <span className="inline-flex items-center bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium">
                 {totalCount.toLocaleString('ar-EG')} عقار
               </span>
+
+              {/* Star rating */}
+              {reviewCount > 0 && (
+                <StarRating rating={avgRating} reviewCount={reviewCount} size="md" />
+              )}
             </div>
           </div>
         </div>
@@ -288,6 +339,49 @@ export default async function FirmProfilePage({ params }: PageProps) {
             </Link>
           </div>
         )}
+      </section>
+
+      {/* ── Reviews section ──────────────────────────────────── */}
+      <section className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 sm:p-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-bold text-gray-900">التقييمات</h2>
+          {reviewCount > 0 && (
+            <StarRating rating={avgRating} reviewCount={reviewCount} size="md" />
+          )}
+        </div>
+
+        {/* Review list */}
+        {reviews.length > 0 ? (
+          <ul className="space-y-4 mb-8" dir="rtl">
+            {reviews.map((review) => (
+              <li key={review.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <StarRating rating={review.rating} size="sm" />
+                  <span className="text-xs text-gray-400">
+                    {new Date(review.createdAt).toLocaleDateString('ar-EG', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </span>
+                </div>
+                {review.comment && (
+                  <p className="text-sm text-gray-700 leading-relaxed">{review.comment}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-gray-400 mb-8 text-center py-4">
+            لا توجد تقييمات بعد. كن أول من يقيّم.
+          </p>
+        )}
+
+        {/* Review form */}
+        <div className="border-t border-gray-100 pt-6">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">اكتب تقييماً</h3>
+          <ReviewForm firmSlug={slug} onSuccess={() => {}} />
+        </div>
       </section>
     </div>
   );

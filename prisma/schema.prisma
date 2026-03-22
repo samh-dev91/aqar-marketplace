@@ -50,7 +50,10 @@ model Listing {
   aqarScoreAt     DateTime?
   brokerDisplayName  String?
   brokerResponseTime Int?
-  brokerDealCount    Int?
+  brokerDealCount      Int?
+  brokerSuccessRate    Float?
+  brokerVerifiedSince  DateTime?
+  brokerTier           String?
   firmNameAr      String
   firmNameEn      String?
   firmLogoUrl     String?
@@ -330,6 +333,19 @@ model SyncLog {
 
   @@index([status, createdAt])
   @@index([crmFirmId])
+}
+
+model BrokerReview {
+  id          String   @id @default(cuid())
+  consumerId  String
+  crmFirmSlug String
+  rating      Int
+  commentAr   String?
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@unique([consumerId, crmFirmSlug])
+  @@index([crmFirmSlug])
 }
 
 model OtpCode {
