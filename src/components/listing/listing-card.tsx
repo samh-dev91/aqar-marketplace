@@ -99,6 +99,12 @@ export function ListingCard({
             <Scale size={14} />
           </button>
         </div>
+        {/* 3D Tour badge */}
+        {listing.virtualTourUrl && (
+          <div className="absolute bottom-3 start-3 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full leading-none">
+            3D
+          </div>
+        )}
         {/* Aqar Score */}
         {listing.aqarScore != null && (
           <div className="absolute bottom-3 end-3 bg-primary-700 text-white text-xs font-bold rounded-full w-9 h-9 flex items-center justify-center">

@@ -27,6 +27,21 @@ const ListingMap = dynamic(
   { ssr: false }
 );
 
+const VirtualTour = dynamic(
+  () => import('@/components/listing/virtual-tour').then(m => ({ default: m.VirtualTour })),
+  { ssr: false }
+);
+
+const FloorPlanViewer = dynamic(
+  () => import('@/components/listing/floor-plan-viewer').then(m => ({ default: m.FloorPlanViewer })),
+  { ssr: false }
+);
+
+const StagingToggle = dynamic(
+  () => import('@/components/listing/staging-toggle').then(m => ({ default: m.StagingToggle })),
+  { ssr: false }
+);
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -185,13 +200,10 @@ export default async function ListingDetailPage({ params }: PageProps) {
               {/* Primary image */}
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-gray-100">
                 {listing.images[0] ? (
-                  <Image
-                    src={listing.images[0]}
-                    alt={listing.titleAr}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 66vw"
-                    className="object-cover"
-                    priority
+                  <StagingToggle
+                    slug={listing.slug}
+                    imageUrl={listing.images[0]}
+                    imageIndex={0}
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-400 text-sm">
@@ -199,7 +211,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
                   </div>
                 )}
                 {/* Overlay badges */}
-                <div className="absolute top-4 start-4 flex flex-wrap gap-2">
+                <div className="absolute top-4 start-4 flex flex-wrap gap-2 z-10">
                   <VerificationBadge tier={listing.verificationTier} size="md" />
                   {listing.isActive && (
                     <LiveBadge lastSyncAt={listing.lastSyncAt} isStale={listing.isStale} />
@@ -227,6 +239,15 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 </div>
               )}
             </div>
+
+            {/* Virtual Tour */}
+            <VirtualTour
+              virtualTourUrl={listing.virtualTourUrl ?? null}
+              listingTitleAr={listing.titleAr}
+            />
+
+            {/* Floor Plan */}
+            <FloorPlanViewer floorPlanUrl={listing.floorPlanUrl ?? null} />
 
             {/* Title + price section */}
             <div>

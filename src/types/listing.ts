@@ -30,6 +30,7 @@ export interface ListingCard {
   favoriteCount: number;
   isActive: boolean;
   publishedAt: string;
+  virtualTourUrl?: string | null;
 }
 
 export interface ListingDetail extends ListingCard {

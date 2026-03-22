@@ -321,5 +321,19 @@
     "alreadyReviewed": "لقد قيّمت هذه الشركة من قبل",
     "loginRequired": "يجب تسجيل الدخول أولاً",
     "reviewPlaceholder": "شارك تجربتك مع هذا الوسيط..."
+  },
+  "richMedia": {
+    "virtualTour": "جولة ثلاثية الأبعاد",
+    "floorPlan": "مسقط الأرض",
+    "showFurnished": "اعرض مفروشاً",
+    "stagingModern": "عصري",
+    "stagingClassic": "كلاسيكي",
+    "stagingMinimal": "مينيمال",
+    "original": "الأصلي",
+    "furnished": "المؤثث",
+    "stagingRateLimited": "لقد استخدمت الحد الأقصى اليوم",
+    "stagingSimulated": "معاينة تجريبية",
+    "expand": "تكبير",
+    "close": "إغلاق"
   }
 }
