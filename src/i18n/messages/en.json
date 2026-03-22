@@ -246,5 +246,16 @@
     "bestPrice": "Best Price",
     "bestScore": "Best Score",
     "minItems": "Add at least 2 properties to compare"
+  },
+  "projects": {
+    "title": "Real Estate Projects",
+    "directory": "Projects Directory",
+    "availableUnits": "units available",
+    "delivery": "Delivery",
+    "financing": "Financing Available",
+    "downPayment": "Down Payment",
+    "inquire": "Inquire About Project",
+    "unitMatrix": "Unit Availability",
+    "amenities": "Amenities & Services"
   }
 }

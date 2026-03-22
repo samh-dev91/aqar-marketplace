@@ -8,6 +8,7 @@ import {
   Bed, Bath, Maximize2, Car, Layers, Sofa, MapPin,
   Eye, MessageCircle, Share2, AlertCircle,
 } from 'lucide-react';
+import { RentalYieldBadge } from '@/components/listing/rental-yield-badge';
 import { VerificationBadge } from '@/components/trust/verification-badge';
 import { LiveBadge } from '@/components/trust/live-badge';
 import { ListingCard } from '@/components/listing/listing-card';
@@ -313,6 +314,12 @@ export default async function ListingDetailPage({ params }: PageProps) {
                 </div>
               </div>
             )}
+
+            {/* Rental yield badge */}
+            <RentalYieldBadge
+              slug={listing.slug}
+              transactionType={listing.transactionType}
+            />
 
             {/* Description */}
             {listing.descriptionAr && (

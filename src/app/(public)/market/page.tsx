@@ -1,7 +1,39 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { TrendingUp, TrendingDown, Building2, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, Building2, BarChart3, Archive, Calculator } from 'lucide-react';
 import type { MarketReportData } from '@/services/market-report';
+
+// ── Archive helpers ────────────────────────────────────────────────────────
+
+interface ArchiveMonth {
+  year: number;
+  month: number;
+  labelAr: string;
+  href: string;
+}
+
+const ARABIC_MONTHS_SHORT: Record<number, string> = {
+  1: 'يناير', 2: 'فبراير', 3: 'مارس', 4: 'أبريل',
+  5: 'مايو', 6: 'يونيو', 7: 'يوليو', 8: 'أغسطس',
+  9: 'سبتمبر', 10: 'أكتوبر', 11: 'نوفمبر', 12: 'ديسمبر',
+};
+
+function getLast6Months(): ArchiveMonth[] {
+  const now = new Date();
+  const months: ArchiveMonth[] = [];
+  for (let i = 0; i < 6; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    months.push({
+      year,
+      month,
+      labelAr: `${ARABIC_MONTHS_SHORT[month]} ${year}`,
+      href: `/market/index/${year}/${month}`,
+    });
+  }
+  return months;
+}
 
 export const metadata: Metadata = {
   title: 'تقرير سوق العقارات في القاهرة',
@@ -28,6 +60,7 @@ async function getMarketReport(): Promise<MarketReportData | null> {
 
 export default async function MarketPage() {
   const report = await getMarketReport();
+  const archiveMonths = getLast6Months();
 
   const priceChangePositive = (report?.priceChangeCairo6m ?? 0) >= 0;
 
@@ -178,11 +211,82 @@ export default async function MarketPage() {
                 فتح خريطة الأسعار
               </Link>
             </div>
+
+            {/* ── Index archive ──────────────────────────────────── */}
+            <section>
+              <h2 className="text-lg font-bold font-tajawal text-gray-900 mb-4 flex items-center gap-2">
+                <Archive size={20} className="text-primary-600" />
+                أرشيف المؤشرات
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {archiveMonths.map((m) => (
+                  <Link
+                    key={m.href}
+                    href={m.href}
+                    className="bg-white rounded-xl border border-gray-200 p-4 hover:border-primary-300 hover:shadow-sm transition group text-center"
+                  >
+                    <p className="font-semibold font-cairo text-gray-900 group-hover:text-primary-700 text-sm">
+                      {m.labelAr}
+                    </p>
+                    <p className="text-xs text-primary-600 font-cairo mt-1 group-hover:underline">
+                      مؤشر عقار ثرست ←
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            {/* ── Rental yield CTA ───────────────────────────────── */}
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-4">
+              <div className="flex-shrink-0 bg-amber-100 rounded-xl p-3">
+                <Calculator size={28} className="text-amber-700" />
+              </div>
+              <div className="flex-1 text-center sm:text-right">
+                <p className="font-semibold font-tajawal text-amber-900 mb-1">
+                  احسب عائد الإيجار
+                </p>
+                <p className="text-sm text-amber-700 font-cairo">
+                  هل العقار الذي تنظر إليه استثمار جيد؟ احسب العائد الإيجاري التقديري في ثوانٍ
+                </p>
+              </div>
+              <Link
+                href="/estimate"
+                className="flex-shrink-0 bg-amber-600 text-white px-5 py-2.5 rounded-xl font-cairo text-sm hover:bg-amber-700 transition whitespace-nowrap"
+              >
+                احسب الآن
+              </Link>
+            </div>
           </>
         ) : (
           <div className="text-center py-20">
             <p className="text-gray-400 font-cairo">لا توجد بيانات متاحة حالياً</p>
           </div>
+        )}
+
+        {/* Archive always visible even when no report data */}
+        {!report && (
+          <section className="mt-8">
+            <h2 className="text-lg font-bold font-tajawal text-gray-900 mb-4 flex items-center gap-2">
+              <Archive size={20} className="text-primary-600" />
+              أرشيف المؤشرات
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {archiveMonths.map((m) => (
+                <Link
+                  key={m.href}
+                  href={m.href}
+                  className="bg-white rounded-xl border border-gray-200 p-4 hover:border-primary-300 hover:shadow-sm transition group text-center"
+                >
+                  <p className="font-semibold font-cairo text-gray-900 group-hover:text-primary-700 text-sm">
+                    {m.labelAr}
+                  </p>
+                  <p className="text-xs text-primary-600 font-cairo mt-1 group-hover:underline">
+                    مؤشر عقار ثرست ←
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
         )}
       </div>
     </div>
