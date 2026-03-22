@@ -17,7 +17,7 @@
 | Spec | `CLAUDE.md` |
 | Phase task list | `IMPLEMENTATION_PLAN.md` |
 | GitHub repo | `https://github.com/samh-dev91/aqar-marketplace` |
-| Last updated | 2026-03-21 |
+| Last updated | 2026-03-22 |
 | Framework | Next.js 14 App Router |
 | Database | PostgreSQL (separate from CRM) |
 | CRM repo | `https://github.com/samh-dev91/realestate-crm` |
@@ -35,8 +35,9 @@
 | B | Trust Layer | ✅ Complete | Aqar Score service, district/firm pages, installment calculator, price history chart |
 | C | Lead Intelligence | ✅ Complete | OTP auth, consumer sessions, favorites, price alerts, profile — WhatsApp OTP deferred to Phase D |
 | D | Mobile Native | ✅ Complete | Capacitor config, geolocation nearby search, Web Push service, offline IndexedDB, SW registrar |
+| E (Phase 8) | Market Reports + Compare API | ✅ Complete | market-report service, GET /api/market/report, POST /api/cron/market-report, GET /api/compare |
 
-**Current status:** All four phases complete (A + B + C + D). Platform is feature-complete.
+**Current status:** All four original phases complete (A + B + C + D) plus Phase 8 backend (market reports + property comparison).
 
 ### Completed Work (Phase A — Full)
 
@@ -164,6 +165,8 @@ These additions to the CRM (`C:/firm/`) are required for full end-to-end operati
 - Push notification `/sw.js` service worker file needs to be added to `public/` (handle push events + show notification)
 - Capacitor iOS/Android native builds require `npx cap add ios && npx cap add android` after `npm run build`
 - `avgDaysOnMarket` set to `0` in districtStats — improves with CRM deal data integration
+- `MarketReport` DB model is editorial (no `data` Json column) — `saveMarketReport()` inserts a human-readable summary row; full JSON payload lives in Redis only
+- `Listing.images` (not `imageUrls`) — compare route uses correct field name
 
 ---
 

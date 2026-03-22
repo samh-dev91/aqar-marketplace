@@ -228,5 +228,23 @@
     "copied": "Copied",
     "pullToRefresh": "Pull to refresh",
     "refreshing": "Refreshing..."
+  },
+  "market": {
+    "title": "Property Market Report",
+    "totalListings": "Total Listings",
+    "avgPrice": "Average Price",
+    "priceChange": "Price Change",
+    "topGaining": "Top Gaining Districts",
+    "mostActive": "Most Active Districts"
+  },
+  "compare": {
+    "title": "Property Comparison",
+    "add": "Add to Compare",
+    "remove": "Remove from Compare",
+    "compare": "Compare",
+    "clear": "Clear",
+    "bestPrice": "Best Price",
+    "bestScore": "Best Score",
+    "minItems": "Add at least 2 properties to compare"
   }
 }

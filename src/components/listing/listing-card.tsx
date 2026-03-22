@@ -3,12 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Bed, Bath, Maximize2, Heart } from 'lucide-react';
+import { MapPin, Bed, Bath, Maximize2, Heart, Scale } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice, formatArea } from '@/lib/format';
 import { VerificationBadge } from '@/components/trust/verification-badge';
 import { LiveBadge } from '@/components/trust/live-badge';
 import type { ListingCard as ListingCardType } from '@/types/listing';
+import { useComparisonStore } from '@/store/comparison.store';
 
 interface ListingCardProps {
   listing: ListingCardType;
@@ -25,6 +26,9 @@ export function ListingCard({
   className,
   locale = 'ar',
 }: ListingCardProps) {
+  const { addItem, removeItem, isInComparison } = useComparisonStore();
+  const inComparison = isInComparison(listing.slug);
+
   const title = locale === 'ar' ? listing.titleAr : (listing.titleEn ?? listing.titleAr);
   const transactionLabel = listing.transactionType === 'SALE'
     ? (locale === 'ar' ? 'للبيع' : 'For Sale')
@@ -54,19 +58,46 @@ export function ListingCard({
           </span>
           <VerificationBadge tier={listing.verificationTier} size="sm" />
         </div>
-        {/* Favorite button */}
-        {onFavoriteToggle && (
+        {/* Action buttons (favorite + compare) */}
+        <div className="absolute top-3 end-3 flex flex-col gap-1.5">
+          {onFavoriteToggle && (
+            <button
+              onClick={(e) => { e.preventDefault(); onFavoriteToggle(listing.slug); }}
+              className="p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
+              aria-label={isFavorited ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
+            >
+              <Heart
+                size={18}
+                className={cn('transition-colors', isFavorited ? 'fill-danger text-danger' : 'text-gray-500')}
+              />
+            </button>
+          )}
           <button
-            onClick={(e) => { e.preventDefault(); onFavoriteToggle(listing.slug); }}
-            className="absolute top-3 end-3 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
-            aria-label={isFavorited ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
+            onClick={(e) => {
+              e.preventDefault();
+              if (inComparison) {
+                removeItem(listing.slug);
+              } else {
+                addItem({
+                  slug: listing.slug,
+                  titleAr: listing.titleAr,
+                  askingPrice: String(listing.askingPrice),
+                  imageUrl: listing.images[0],
+                });
+              }
+            }}
+            className={cn(
+              'p-1.5 rounded-full transition-colors',
+              inComparison
+                ? 'bg-primary-700 text-white'
+                : 'bg-white/80 backdrop-blur-sm text-gray-600 hover:text-primary-700 hover:bg-white',
+            )}
+            aria-label={inComparison ? 'إزالة من المقارنة' : 'إضافة للمقارنة'}
+            title={inComparison ? 'إزالة من المقارنة' : 'إضافة للمقارنة'}
           >
-            <Heart
-              size={18}
-              className={cn('transition-colors', isFavorited ? 'fill-danger text-danger' : 'text-gray-500')}
-            />
+            <Scale size={14} />
           </button>
-        )}
+        </div>
         {/* Aqar Score */}
         {listing.aqarScore != null && (
           <div className="absolute bottom-3 end-3 bg-primary-700 text-white text-xs font-bold rounded-full w-9 h-9 flex items-center justify-center">
