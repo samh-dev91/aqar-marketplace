@@ -31,15 +31,25 @@
 
 | Phase | Name | Status | Notes |
 |---|---|---|---|
-| A | Foundation & Core Search | ✅ Complete | All tasks done: foundation, lib, API routes, components, pages |
-| B | Trust Layer | ✅ Complete | Aqar Score service, district/firm pages, installment calculator, price history chart |
-| C | Lead Intelligence | ✅ Complete | OTP auth, consumer sessions, favorites, price alerts, profile — WhatsApp OTP deferred to Phase D |
-| D | Mobile Native | ✅ Complete | Capacitor config, geolocation nearby search, Web Push service, offline IndexedDB, SW registrar |
-| E (Phase 8) | Market Reports + Compare API | ✅ Complete | market-report service, GET /api/market/report, POST /api/cron/market-report, GET /api/compare |
-| F (Phase 15) | Financial Ecosystem | ✅ Complete | DeveloperPlan model, pre-qualify API, developer-plans API, reservation payment API, listing financing endpoint |
-| G (Phase 17) | Consumer Intelligence & Personalization | ✅ Complete | Item-based collaborative filtering, recommendation API, view history API, saved-search WhatsApp alerts, two new cron endpoints |
+| A (1) | Foundation & Core Search | ✅ Complete | Foundation, lib, API routes, components, pages |
+| B (2) | Trust Layer | ✅ Complete | Aqar Score, district/firm pages, installment calculator, price history chart |
+| C (3) | Lead Intelligence | ✅ Complete | OTP auth, consumer sessions, favorites, price alerts, profile |
+| D (4) | Mobile Native | ✅ Complete | Capacitor, geolocation, Web Push, offline IndexedDB, SW registrar |
+| 5 | Mapbox Maps | ✅ Complete | ListingMap, SearchMap, DistrictHeatmap, commute-time search |
+| 6 | WhatsApp Intelligence | ✅ Complete | Inquiry Shield, OTP delivery, saved searches, cron jobs |
+| 7 | Performance Hardening | ✅ Complete | Redis search cache, rate limits, health check, PWA, security headers |
+| 8 | Market Reports + Compare API | ✅ Complete | Market report service, comparison tool, comparison store |
+| 9 | Developer & Project Pages | ✅ Complete | Project model, compound pages, unit matrix, project inquiry |
+| 10 | Maps & Market Intelligence | ✅ Complete | Heatmap layers/slider, monthly index, rental yield, CSV export |
+| 11 | AI Valuation — Aqar Estimate | ✅ Complete | Hedonic pricing model, estimate API, EstimateBadge, estimate page |
+| 12 | Broker Trust & Reputation | ✅ Complete | BrokerReview model, reviews API, broker tier cron, star rating |
+| 13 | Arabic NL Search | ✅ Complete | Claude Haiku NL parser, AiSearchBar, smart autocomplete |
+| 14 | 3D Tours & Virtual Staging | ✅ Complete | VirtualTour, FloorPlanViewer, StagingToggle, Replicate API stub |
+| 15 | Financial Ecosystem | ✅ Complete | DeveloperPlan, pre-qualify, developer plans, reservation payment |
+| 16 | SEO & Content Intelligence | ✅ Complete | Neighborhood guides, blog, RSS feed, schema.org enhancements |
+| 17 | Consumer Intelligence | ✅ Complete | Recommendations engine, view history, saved-search alerts, cron |
 
-**Current status:** All original phases complete (A + B + C + D) plus Phase 8 (market reports + compare) plus Phase 15 (Financial Ecosystem) plus Phase 17 (Consumer Intelligence & Personalization) — FINAL PHASE COMPLETE.
+**Current status:** ALL 17 PHASES COMPLETE. Full B2C marketplace built end-to-end.
 
 ### Completed Work (Phase A — Full)
 
