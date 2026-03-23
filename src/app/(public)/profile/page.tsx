@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { MessageCircle, Search, Bell, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getConsumerToken, clearConsumerToken, fetchWithAuth } from '@/lib/consumer-auth';
+import { RecentlyViewedStrip } from '@/components/listing/recently-viewed-strip';
 
 interface ConsumerProfile {
   id: string;
@@ -144,6 +145,8 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-8">
+      {/* Recently viewed — shown above the form for quick access */}
+      <RecentlyViewedStrip />
       <h1 className="text-2xl font-bold text-gray-900 mb-6">حسابي</h1>
 
       {error && (

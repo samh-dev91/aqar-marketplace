@@ -1,9 +1,20 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Search, ShieldCheck, Zap, TrendingUp, Phone } from 'lucide-react';
 import { ListingCard } from '@/components/listing/listing-card';
 import type { ListingCard as ListingCardType, SearchResult } from '@/types/listing';
+
+const RecentlyViewedStrip = dynamic(
+  () => import('@/components/listing/recently-viewed-strip').then(m => ({ default: m.RecentlyViewedStrip })),
+  { ssr: false }
+);
+
+const RecommendationsStrip = dynamic(
+  () => import('@/components/listing/recommendations-strip').then(m => ({ default: m.RecommendationsStrip })),
+  { ssr: false }
+);
 
 export const revalidate = 60;
 
@@ -242,6 +253,10 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── Personalized Recommendations (client-only) ───────── */}
+      <RecentlyViewedStrip />
+      <RecommendationsStrip mode="personalized" />
 
       {/* ── District Showcase ────────────────────────────────── */}
       <section className="py-14 bg-white">

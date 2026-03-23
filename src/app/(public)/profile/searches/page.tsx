@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Search, Trash2 } from 'lucide-react';
+import { Search, Trash2, Play } from 'lucide-react';
 import { getConsumerToken, clearConsumerToken, fetchWithAuth } from '@/lib/consumer-auth';
 
 interface SavedSearch {
@@ -11,7 +11,9 @@ interface SavedSearch {
   nameAr: string | null;
   filters: Record<string, string | number | boolean>;
   resultCount: number | null;
+  newResultCount?: number | null;
   createdAt: string;
+  lastCheckedAt?: string | null;
 }
 
 interface SearchesResponse {
@@ -179,6 +181,7 @@ export default function SavedSearchesPage() {
             const label = buildSearchLabel(s.nameAr, s.filters);
             const url = buildSearchUrl(s.filters);
             const isDeleting = deletingId === s.id;
+            const hasNewResults = s.newResultCount != null && s.newResultCount > 0;
             return (
               <div
                 key={s.id}
@@ -186,12 +189,19 @@ export default function SavedSearchesPage() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <Link
-                      href={url}
-                      className="font-semibold text-primary-800 hover:underline text-sm truncate block"
-                    >
-                      {label}
-                    </Link>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Link
+                        href={url}
+                        className="font-semibold text-primary-800 hover:underline text-sm truncate"
+                      >
+                        {label}
+                      </Link>
+                      {hasNewResults && (
+                        <span className="inline-flex items-center bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full shrink-0">
+                          {s.newResultCount} نتيجة جديدة
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-gray-400 mt-1">
                       {new Date(s.createdAt).toLocaleDateString('ar-EG', {
                         year: 'numeric',
@@ -209,13 +219,21 @@ export default function SavedSearchesPage() {
                     <Trash2 size={16} />
                   </button>
                 </div>
-                <div className="mt-3">
+                <div className="mt-3 flex gap-2">
                   <Link
                     href={url}
-                    className="block w-full text-center bg-primary-700 text-white py-2 rounded-lg text-xs font-medium"
+                    className="flex-1 text-center bg-primary-700 text-white py-2 rounded-lg text-xs font-medium"
                   >
                     عرض النتائج
                     {s.resultCount != null && s.resultCount > 0 && ` (${s.resultCount})`}
+                  </Link>
+                  <Link
+                    href={url}
+                    className="flex items-center gap-1 px-3 py-2 rounded-lg border border-primary-700 text-primary-700 text-xs font-medium hover:bg-primary-50 transition-colors"
+                    aria-label="تشغيل البحث"
+                  >
+                    <Play size={12} />
+                    تشغيل البحث
                   </Link>
                 </div>
               </div>

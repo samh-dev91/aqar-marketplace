@@ -355,6 +355,14 @@
     "readMore": "اقرأ المزيد",
     "latestListings": "شاهد أحدث الإعلانات"
   },
+  "recommendations": {
+    "similarViewed": "مشابه لما شاهدته مؤخراً",
+    "forYou": "عقارات قد تعجبك",
+    "popular": "الأكثر مشاهدة",
+    "recentlyViewed": "شاهدت مؤخراً",
+    "newResults": "نتيجة جديدة",
+    "runSearch": "تشغيل البحث"
+  },
   "richMedia": {
     "virtualTour": "جولة ثلاثية الأبعاد",
     "floorPlan": "مسقط الأرض",

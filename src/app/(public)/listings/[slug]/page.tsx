@@ -43,6 +43,11 @@ const StagingToggle = dynamic(
   { ssr: false }
 );
 
+const RecommendationsStrip = dynamic(
+  () => import('@/components/listing/recommendations-strip').then(m => ({ default: m.RecommendationsStrip })),
+  { ssr: false }
+);
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -512,6 +517,9 @@ export default async function ListingDetailPage({ params }: PageProps) {
             </div>
           </section>
         )}
+
+        {/* ── Recommendations strip (client-only, based on this listing) ── */}
+        <RecommendationsStrip mode="listing" listingSlug={listing.slug} />
       </div>
     </>
   );
